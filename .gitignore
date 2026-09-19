@@ -1,0 +1,14 @@
+# Python virtual environments & caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Local binary/large source materials
+*.docx
+*.pdf
+extracted_media/
+
+# Generator scripts & raw dev files (keep repo minimal for GitHub Pages)
+generator/
+scratch/
