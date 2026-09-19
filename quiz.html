@@ -394,16 +394,26 @@
     // State Management
     let currentQuestions = [];
     let currentIndex = 0;
-    let userAnswers = {}; // questionId -> { selectedKey: 'A', isCorrect: true }
+    let isHardMode = false;
+    let userAnswers = {
+      standard: {},
+      hard: {}
+    };
     let isShuffled = false;
     let selectedChapter = 'all';
     let selectedSection = 'all';
+
+    function getActiveAnswers() {
+      return isHardMode ? userAnswers.hard : userAnswers.standard;
+    }
 
     // DOM Elements
     const chapterBtnContainer = document.getElementById('chapterBtnContainer');
     const sectionBtnContainer = document.getElementById('sectionBtnContainer');
     const modeOrder = document.getElementById('modeOrder');
     const modeShuffle = document.getElementById('modeShuffle');
+    const btnDiffStandard = document.getElementById('btnDiffStandard');
+    const btnDiffHard = document.getElementById('btnDiffHard');
     const statCorrect = document.getElementById('statCorrect');
     const statWrong = document.getElementById('statWrong');
     const statAccuracy = document.getElementById('statAccuracy');
@@ -411,6 +421,7 @@
 
     const qChapterBadge = document.getElementById('qChapterBadge');
     const qSectionBadge = document.getElementById('qSectionBadge');
+    const qHardBadge = document.getElementById('qHardBadge');
     const qCurrentNum = document.getElementById('qCurrentNum');
     const qTotalNum = document.getElementById('qTotalNum');
     const qPrompt = document.getElementById('qPrompt');
@@ -459,41 +470,38 @@
       CHAPTER_DEFS.forEach(ch => {
         const btn = document.createElement('button');
         const isActive = (selectedChapter === ch.id);
-        btn.className = `px-2.5 py-1 rounded-lg text-xs font-heading font-medium transition whitespace-nowrap flex items-center gap-1.5 border ${
+        btn.className = `px-3 py-1.5 rounded-lg text-xs font-heading font-semibold transition whitespace-nowrap flex items-center gap-1.5 border ${
           isActive 
             ? 'bg-blue-600 text-white border-blue-400 shadow-md shadow-blue-600/30' 
-            : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
+            : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
         }`;
         btn.innerHTML = `${ch.short} <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isActive ? 'bg-blue-800 text-blue-100' : 'bg-slate-800 text-slate-400'}">${ch.count}</span>`;
-        btn.onclick = () => {
-          selectChapter(ch.id);
-        };
+        btn.onclick = () => selectChapter(ch.id);
         chapterBtnContainer.appendChild(btn);
       });
     }
 
-    // 2. Render Section Buttons (Dynamic based on selected chapter)
+    // 2. Render Section Buttons Dynamically
     function renderSectionButtons() {
       sectionBtnContainer.innerHTML = "";
-
-      // Determine available sections for this chapter
+      
       let questionsInChapter = [];
       if (selectedChapter === 'all') {
         questionsInChapter = RAW_DATA.filter(q => q.chapter_id <= 8);
       } else if (selectedChapter === 'everything') {
-        questionsInChapter = RAW_DATA;
+        questionsInChapter = [...RAW_DATA];
       } else {
         const chId = parseInt(selectedChapter);
         questionsInChapter = RAW_DATA.filter(q => q.chapter_id === chId);
       }
 
-      // Tally sections
+      // Group section counts
       const secCounts = {};
       questionsInChapter.forEach(q => {
         secCounts[q.section_name] = (secCounts[q.section_name] || 0) + 1;
       });
 
-      // "All Sections in this chapter" button
+      // Button: "All Sections"
       const allSecBtn = document.createElement('button');
       const isAllSec = (selectedSection === 'all');
       allSecBtn.className = `px-2.5 py-1 rounded-lg text-xs font-medium transition whitespace-nowrap flex items-center gap-1.5 border ${
@@ -514,7 +522,6 @@
             ? 'bg-indigo-600 text-white border-indigo-400 shadow-md shadow-indigo-600/30'
             : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
         }`;
-        // clean short name for section
         let displaySec = secName.replace('Section A: ', 'Sec A: ').replace('Section B: ', 'Sec B: ');
         secBtn.innerHTML = `${displaySec} <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isActive ? 'bg-indigo-800 text-indigo-100' : 'bg-slate-800 text-slate-400'}">${secCounts[secName]}</span>`;
         secBtn.onclick = () => selectSection(secName);
@@ -524,7 +531,7 @@
 
     function selectChapter(chId) {
       selectedChapter = chId;
-      selectedSection = 'all'; // reset section to all when chapter changes
+      selectedSection = 'all';
       renderChapterButtons();
       renderSectionButtons();
       filterQuestions();
@@ -548,7 +555,6 @@
         list = RAW_DATA.filter(q => q.chapter_id === chId);
       }
 
-      // Filter by section if not 'all'
       if (selectedSection !== 'all') {
         list = list.filter(q => q.section_name === selectedSection);
       }
@@ -570,6 +576,25 @@
       }
       return arr;
     }
+
+    // Switch Difficulty (Standard vs Hard Mode)
+    function setDifficulty(hard) {
+      isHardMode = hard;
+      if (isHardMode) {
+        btnDiffHard.className = "px-2.5 py-1 rounded-md text-xs font-bold transition bg-gradient-to-r from-amber-600 to-rose-600 text-white shadow-lg shadow-rose-950/40 flex items-center gap-1 ring-1 ring-amber-400";
+        btnDiffStandard.className = "px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 transition";
+        if (qHardBadge) qHardBadge.classList.remove('hidden');
+      } else {
+        btnDiffStandard.className = "px-2.5 py-1 rounded-md text-xs font-medium transition bg-blue-600 text-white shadow";
+        btnDiffHard.className = "px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-amber-300 transition flex items-center gap-1";
+        if (qHardBadge) qHardBadge.classList.add('hidden');
+      }
+      updateStats();
+      renderCurrentQuestion();
+    }
+
+    if (btnDiffStandard) btnDiffStandard.onclick = () => setDifficulty(false);
+    if (btnDiffHard) btnDiffHard.onclick = () => setDifficulty(true);
 
     // Render Current Question
     function renderCurrentQuestion() {
@@ -595,7 +620,8 @@
       progressBar.style.width = `${progressPercent}%`;
 
       // Question text
-      qPrompt.textContent = `${q.orig_num} ${q.question}`;
+      const promptText = (isHardMode && q.hard_question) ? q.hard_question : q.question;
+      qPrompt.textContent = `${q.orig_num} ${promptText}`;
 
       // Code snippet
       if (q.code) {
@@ -608,13 +634,17 @@
 
       // Choices Render
       choicesContainer.innerHTML = "";
-      const existingAnswer = userAnswers[q.id];
+      const activeAnswers = getActiveAnswers();
+      const existingAnswer = activeAnswers[q.id];
       const isAnswered = !!existingAnswer;
+
+      const activeChoices = (isHardMode && q.hard_choices) ? q.hard_choices : q.choices;
+      const activeCorrectKey = (isHardMode && q.hard_correct_key) ? q.hard_correct_key : q.correct_key;
 
       const keys = ['A', 'B', 'C', 'D'];
       keys.forEach(key => {
-        if (!q.choices[key]) return;
-        const text = q.choices[key];
+        if (!activeChoices[key]) return;
+        const text = activeChoices[key];
 
         const btn = document.createElement('button');
         btn.className = "w-full text-left p-3.5 md:p-4 rounded-xl border transition-all duration-200 flex items-start gap-3.5 group ";
@@ -626,14 +656,11 @@
           btn.disabled = true;
           btn.className += "cursor-default ";
 
-          if (key === q.correct_key) {
-            // Correct answer styling (Emerald)
+          if (key === activeCorrectKey) {
             btn.className += "bg-emerald-950/40 border-emerald-500 text-emerald-300 font-medium shadow-md shadow-emerald-950/30";
           } else if (existingAnswer.selectedKey === key && !existingAnswer.isCorrect) {
-            // Wrong selected answer (Rose)
             btn.className += "bg-rose-950/40 border-rose-500 text-rose-300 font-medium shadow-md shadow-rose-950/30";
           } else {
-            // Unselected neutral
             btn.className += "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60";
           }
         }
@@ -644,7 +671,7 @@
         
         if (!isAnswered) {
           badge.className += "bg-slate-800 text-slate-300 group-hover:bg-blue-600 group-hover:text-white";
-        } else if (key === q.correct_key) {
+        } else if (key === activeCorrectKey) {
           badge.className += "bg-emerald-500 text-white";
         } else if (existingAnswer.selectedKey === key && !existingAnswer.isCorrect) {
           badge.className += "bg-rose-500 text-white";
@@ -662,7 +689,7 @@
         btn.appendChild(textSpan);
 
         if (isAnswered) {
-          if (key === q.correct_key) {
+          if (key === activeCorrectKey) {
             const check = document.createElement('span');
             check.className = "text-emerald-400 font-bold text-sm shrink-0";
             check.innerHTML = "✓ ถูกต้อง";
@@ -697,10 +724,12 @@
     // Handle Choice Selection
     function selectChoice(key) {
       const q = currentQuestions[currentIndex];
-      if (userAnswers[q.id]) return; // Already answered
+      const activeAnswers = getActiveAnswers();
+      if (activeAnswers[q.id]) return; // Already answered
 
-      const isCorrect = (key === q.correct_key);
-      userAnswers[q.id] = {
+      const activeCorrectKey = (isHardMode && q.hard_correct_key) ? q.hard_correct_key : q.correct_key;
+      const isCorrect = (key === activeCorrectKey);
+      activeAnswers[q.id] = {
         selectedKey: key,
         isCorrect: isCorrect
       };
@@ -718,31 +747,40 @@
     function renderExplanation(q, isCorrect, selectedKey) {
       explanationBox.classList.remove('hidden', 'bg-emerald-950/30', 'border-emerald-700/60', 'bg-rose-950/30', 'border-rose-700/60');
       
+      const activeCorrectKey = (isHardMode && q.hard_correct_key) ? q.hard_correct_key : q.correct_key;
+      const activeChoices = (isHardMode && q.hard_choices) ? q.hard_choices : q.choices;
+      const activeExplanation = (isHardMode && q.hard_explanation) ? q.hard_explanation : q.explanation;
+
       if (isCorrect) {
         explanationBox.classList.add('bg-emerald-950/30', 'border-emerald-700/60');
         expIcon.className = "w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
         expIcon.textContent = "🎉";
         expStatusTitle.className = "font-heading font-bold text-sm md:text-base text-emerald-300";
-        expStatusTitle.textContent = `ยอดเยี่ยมมาก! คำตอบถูกต้อง (ข้อ ${q.correct_key})`;
+        expStatusTitle.textContent = `ยอดเยี่ยมมาก! คำตอบถูกต้อง (ข้อ ${activeCorrectKey})`;
       } else {
         explanationBox.classList.add('bg-rose-950/30', 'border-rose-700/60');
         expIcon.className = "w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-lg bg-rose-500/20 text-rose-400 border border-rose-500/30";
         expIcon.textContent = "❌";
         expStatusTitle.className = "font-heading font-bold text-sm md:text-base text-rose-300";
-        expStatusTitle.textContent = `ยังไม่ถูกต้อง (คุณตอบ ${selectedKey} • คำตอบที่ถูกคือ ${q.correct_key})`;
+        expStatusTitle.textContent = `ยังไม่ถูกต้อง (คุณตอบ ${selectedKey} • คำตอบที่ถูกคือ ${activeCorrectKey})`;
       }
 
       expContent.innerHTML = `
-        <div class="text-xs font-semibold text-slate-400 mb-1">📖 คำอธิบาย & หลักการตาม Textbook:</div>
-        <p class="text-slate-200 leading-relaxed">${q.explanation || 'ไม่มีคำอธิบายเพิ่มเติม'}</p>
+        <div class="font-semibold text-slate-300 mb-1.5 flex items-center gap-1.5">
+          <span>คำตอบที่ถูกต้อง:</span>
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-emerald-500 text-white font-bold text-xs">${activeCorrectKey}</span>
+          <span class="text-emerald-300 font-normal">${activeChoices[activeCorrectKey]}</span>
+        </div>
+        <div class="text-xs md:text-sm text-slate-300 leading-relaxed whitespace-pre-line">${activeExplanation || 'ไม่มีคำอธิบายเพิ่มเติม'}</div>
       `;
     }
 
     // Update Scores
     function updateStats() {
-      const answeredList = Object.values(userAnswers);
-      const totalAnswered = answeredList.length;
-      const correctCount = answeredList.filter(a => a.isCorrect).length;
+      const activeAnswers = getActiveAnswers();
+      const answeredInView = currentQuestions.filter(q => activeAnswers[q.id]);
+      const totalAnswered = answeredInView.length;
+      const correctCount = answeredInView.filter(q => activeAnswers[q.id].isCorrect).length;
       const wrongCount = totalAnswered - correctCount;
       const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
 
@@ -755,7 +793,6 @@
     function renderExplorerModal() {
       explorerCardsContainer.innerHTML = "";
 
-      // Group questions by chapter and section
       const chMap = {};
       RAW_DATA.forEach(q => {
         if (!chMap[q.chapter_id]) {
@@ -814,11 +851,12 @@
       modalGridTotal.textContent = currentQuestions.length;
       gridNumbersContainer.innerHTML = "";
 
+      const activeAnswers = getActiveAnswers();
       currentQuestions.forEach((q, idx) => {
         const btn = document.createElement('button');
         btn.className = "h-9 rounded-lg font-heading text-xs font-bold transition flex items-center justify-center border ";
 
-        const ans = userAnswers[q.id];
+        const ans = activeAnswers[q.id];
         if (idx === currentIndex) {
           btn.className += "bg-blue-600 text-white border-blue-400 ring-2 ring-blue-400/50 shadow-md";
         } else if (ans) {
@@ -910,11 +948,12 @@
 
     btnReset.onclick = () => {
       const modeName = isHardMode ? "โหมดอาจารย์ออก (Hard Mode)" : "โหมดปกติ (Standard)";
-      if (confirm(`ต้องการรีเซ็ตคำตอบใน ${modeName} สำหรับหมวดนี้ใช่หรือไม่?`)) {
+      if (confirm(`ต้องการรีเซ็ตคำตอบใน ${modeName} และเริ่มทำใหม่ใช่หรือไม่?`)) {
         const activeAnswers = getActiveAnswers();
         currentQuestions.forEach(q => {
           delete activeAnswers[q.id];
         });
+        currentIndex = 0;
         updateStats();
         renderCurrentQuestion();
       }
@@ -932,14 +971,6 @@
       modeShuffle.className = "px-2.5 py-1 rounded-md text-xs font-medium transition bg-blue-600 text-white shadow";
       modeOrder.className = "px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 transition";
       filterQuestions();
-    };
-
-    btnCopyCode.onclick = () => {
-      const text = qCodeText.textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        btnCopyCode.textContent = "Copied!";
-        setTimeout(() => btnCopyCode.textContent = "Copy", 1500);
-      });
     };
 
     btnReviewWrong.onclick = () => {
