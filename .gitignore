@@ -12,3 +12,4 @@ extracted_media/
 # Generator scripts & raw dev files (keep repo minimal for GitHub Pages)
 generator/
 scratch/
+

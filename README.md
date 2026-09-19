@@ -40,3 +40,4 @@ Simply clone this repository and double-click `index.html` or open it with any w
 ```bash
 open index.html
 ```
+
