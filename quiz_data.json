@@ -7390,5 +7390,2245 @@
     },
     "hard_correct_key": "C",
     "hard_explanation": "🎯 'cal' (or 'ncal') formats and displays a clean monthly calendar layout.\n⚠️ Traps: 'calendar' checks user reminder diary files (~/.calendar); date formats timestamp; year is not a standard utility."
+  },
+  {
+    "id": 265,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.1.",
+    "question": "Which command displays the Linux distribution name, release number, and codename?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "uname -r",
+      "B": "lsb_release -a",
+      "C": "cat /proc/version",
+      "D": "hostnamectl"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง lsb_release -a (Linux Standard Base) แสดงรายละเอียดข้อมูลการแจกจ่าย (Distribution) ครบถ้วน ได้แก่ Distributor ID (ชื่อ Distro), Description, Release number และ Codename (สามารถดูได้จากไฟล์ /etc/os-release เช่นกัน)",
+    "hard_question": "Which command or system file query specifically prints the Linux distribution name, release number, and codename conforming to the Linux Standard Base specification?",
+    "hard_choices": {
+      "A": "uname -v",
+      "B": "lsb_release -a",
+      "C": "cat /proc/version",
+      "D": "sysctl kernel.osrelease"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'lsb_release -a' displays Distributor ID, Description, Release, and Codename under the LSB specification.\n⚠️ Traps: 'uname -v' shows kernel build version and compilation timestamp; '/proc/version' shows kernel and GCC compiler version; 'sysctl kernel.osrelease' displays kernel release string."
+  },
+  {
+    "id": 266,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.2.",
+    "question": "Which command is used to run a command with the lowest scheduling priority (least favorable)?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "nice -n -20 <cmd>",
+      "B": "nice -n 19 <cmd>",
+      "C": "renice -p 0 <cmd>",
+      "D": "chrt -f 99 <cmd>"
+    },
+    "correct_key": "B",
+    "explanation": "ค่า Nice Value ใน Linux มีช่วงระหว่าง -20 (สูงสุด / favorable) ถึง +19 (ต่ำสุด / least favorable / เป็นมิตรกับโปรเซสอื่นมากที่สุด) ดังนั้น nice -n 19 <cmd> จะสั่งรันคำสั่งด้วยความสำคัญต่ำสุด",
+    "hard_question": "Under Linux CPU scheduling, which invocation starts a new process with the least favorable (lowest) dynamic priority?",
+    "hard_choices": {
+      "A": "nice -n -20 <cmd>",
+      "B": "nice -n 19 <cmd>",
+      "C": "renice +19 <cmd>",
+      "D": "chrt -o 0 <cmd>"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Nice values range from -20 (highest priority) to +19 (lowest priority / least favorable).\n⚠️ Traps: -20 confers highest scheduling priority and requires superuser privileges; 'renice' adjusts existing PIDs rather than launching new commands; chrt configures real-time scheduling policies."
+  },
+  {
+    "id": 267,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.3.",
+    "question": "While running a foreground program, which keyboard shortcut sends a signal to pause (suspend) the process?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Ctrl + C",
+      "B": "Ctrl + D",
+      "C": "Ctrl + Z",
+      "D": "Ctrl + \\"
+    },
+    "correct_key": "C",
+    "explanation": "การกดปุ่ม Ctrl + Z ส่งสัญญาณ SIGTSTP (Terminal Stop) ไปยัง foreground process เพื่อสั่งหยุดทำงานชั่วคราว (pause / suspend) และส่งกระบวนการเข้าสู่ background jobs",
+    "hard_question": "Which terminal control keystroke generates the SIGTSTP signal to suspend an active foreground job without terminating it?",
+    "hard_choices": {
+      "A": "Ctrl + C",
+      "B": "Ctrl + D",
+      "C": "Ctrl + Z",
+      "D": "Ctrl + \\"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'Ctrl + Z' sends SIGTSTP, suspending the process in background job state (can be resumed via 'bg' or 'fg').\n⚠️ Traps: 'Ctrl + C' sends SIGINT (terminate); 'Ctrl + \\' sends SIGQUIT (terminate with core dump); 'Ctrl + D' sends EOF (end of file) to stdin."
+  },
+  {
+    "id": 268,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.4.",
+    "question": "If there are multiple background jobs, which command brings job number 2 back to the foreground?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "bg %2",
+      "B": "fg %2",
+      "C": "resume 2",
+      "D": "jobs -fg 2"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง fg %2 (foreground) ดึง job หมายเลข 2 จาก background กลับขึ้นมาทำงานต่อที่หน้าจอเทอร์มินัล (foreground)",
+    "hard_question": "When multiple jobs are suspended or running in the shell background, which command switches job ID 2 to the active interactive foreground?",
+    "hard_choices": {
+      "A": "bg %2",
+      "B": "fg %2",
+      "C": "jobs -f 2",
+      "D": "kill -CONT 2"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'fg %2' brings job 2 into the foreground terminal.\n⚠️ Traps: 'bg %2' resumes execution in the background; 'jobs -f' is invalid syntax; 'kill -CONT 2' sends SIGCONT to PID 2, not shell job %2."
+  },
+  {
+    "id": 269,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.5.",
+    "question": "Which command displays elapsed time since booting along with current load averages?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "date",
+      "B": "cal",
+      "C": "uptime",
+      "D": "vmstat"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง uptime แสดงเวลาปัจจุบัน, ระยะเวลาที่เปิดเครื่องมาแล้ว (up time), จำนวนผู้ใช้งานที่ล็อกอินอยู่ และค่าเฉลี่ยการใช้งานของระบบ (load averages) ย้อนหลัง 1, 5 และ 15 นาที",
+    "hard_question": "Which command reports how long the system has been continuously running since the last boot along with 1, 5, and 15-minute system load averages?",
+    "hard_choices": {
+      "A": "date",
+      "B": "cal",
+      "C": "uptime",
+      "D": "w -s"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'uptime' outputs current time, uptime duration, user count, and 1, 5, 15-minute CPU load averages.\n⚠️ Traps: 'date' only shows current date/time; 'cal' displays calendar grids; 'vmstat' focuses on virtual memory statistics, paging, and block I/O."
+  },
+  {
+    "id": 270,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.6.",
+    "question": "Which command displays the amount of free and used memory (RAM and Swap) in human-readable units (e.g., GB, MB)?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "df -h",
+      "B": "free -h",
+      "C": "du -sh",
+      "D": "meminfo -m"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง free -h แสดงปริมาณหน่วยความจำหลัก (RAM) และ Swap ทั้งหมดที่ถูกใช้และที่เหลืออยู่ โดยออปชัน -h (human-readable) แสดงหน่วยเป็น MB, GB ที่อ่านเข้าใจง่าย",
+    "hard_question": "Which Linux utility displays total, used, free, and available physical RAM and swap space formatted in convenient powers of 1024 (e.g., GiB, MiB)?",
+    "hard_choices": {
+      "A": "df -h",
+      "B": "free -h",
+      "C": "du -sh",
+      "D": "cat /proc/swaps -h"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'free -h' formats RAM and Swap utilization in human-readable units (GiB, MiB).\n⚠️ Traps: 'df -h' displays filesystem disk space; 'du -sh' estimates directory file usage; '/proc/swaps' does not accept the -h flag."
+  },
+  {
+    "id": 271,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.7.",
+    "question": "Which command sets the file permission of data.txt so that ONLY the owner can read it, with no other permissions granted to anyone?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "chmod 700 data.txt",
+      "B": "chmod 600 data.txt",
+      "C": "chmod 400 data.txt",
+      "D": "chmod 004 data.txt"
+    },
+    "correct_key": "C",
+    "explanation": "สิทธิ์การเข้าถึงใน Linux มีค่า: r=4, w=2, x=1 ต้องการให้เฉพาะ Owner อ่านได้อย่างเดียว (r--) = 4, Group (---) = 0, Others (---) = 0 รวมเป็น 400 จึงใช้คำสั่ง chmod 400 data.txt",
+    "hard_question": "Which octal permission mode ensures that the file owner has read-only access (no write, no execute) and all group members and other users have zero permissions?",
+    "hard_choices": {
+      "A": "chmod 700 data.txt",
+      "B": "chmod 600 data.txt",
+      "C": "chmod 400 data.txt",
+      "D": "chmod 004 data.txt"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Read permission is octal 4. Setting owner=4, group=0, others=0 results in mode 400 (r--------).\n⚠️ Traps: 700 grants read, write, execute (rwx------); 600 grants read and write (rw-------); 004 grants read only to others (-------r-)."
+  },
+  {
+    "id": 272,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.8.",
+    "question": "Which command changes both the owner and group of project to root?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "chown root:root project",
+      "B": "chmod root:root project",
+      "C": "chgrp root project",
+      "D": "usermod -g root project"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง chown (change owner) สามารถเปลี่ยนทั้ง Owner และ Group ได้พร้อมกันโดยใช้รูปแบบ chown user:group filename ดังนั้น chown root:root project จึงเปลี่ยนทั้งเจ้าของและกลุ่มเป็น root",
+    "hard_question": "Which coreutils command simultaneously modifies both the user ownership and group ownership of a directory or file named 'project' to user 'root' and group 'root'?",
+    "hard_choices": {
+      "A": "chown root:root project",
+      "B": "chmod root:root project",
+      "C": "chgrp root:root project",
+      "D": "setfacl -m u:root:rwx,g:root:rwx project"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'chown user:group target' atomically sets both the owner and group ownership.\n⚠️ Traps: 'chmod' changes permission bits (rwx), not ownership; 'chgrp' only alters group ownership and accepts a single group name; 'setfacl' sets access control lists rather than POSIX base ownership."
+  },
+  {
+    "id": 273,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.9.",
+    "question": "Which command creates a symbolic link named link_dir pointing to an existing directory target_dir?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ln target_dir link_dir",
+      "B": "ln -s target_dir link_dir",
+      "C": "link -d target_dir link_dir",
+      "D": "mklink target_dir link_dir"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่งสร้าง Symbolic Link (Soft Link) คือ ln -s <target> <link_name> ในที่นี้คือ ln -s target_dir link_dir (หากไม่ระบุ -s จะเป็น hard link ซึ่ง Linux ไม่อนุญาตให้สร้างไปยัง directory)",
+    "hard_question": "Which command creates a symbolic (soft) link named 'link_dir' referencing the directory 'target_dir'?",
+    "hard_choices": {
+      "A": "ln target_dir link_dir",
+      "B": "ln -s target_dir link_dir",
+      "C": "ln -s link_dir target_dir",
+      "D": "symlink target_dir link_dir"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'ln -s <target> <link_name>' creates a soft symbolic link pointing to the target.\n⚠️ Traps: Without '-s', 'ln' attempts to create a hard link (forbidden on directories in Linux); swapping the arguments creates a link pointing in the reverse direction; 'symlink' is a C system call, not a shell utility."
+  },
+  {
+    "id": 274,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.10.",
+    "question": "Which command checks and repairs consistency errors on a Linux file system?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "fdisk",
+      "B": "fsck",
+      "C": "mkfs",
+      "D": "format"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง fsck (File System Consistency Check) ใช้สำหรับตรวจสอบและซ่อมแซมความผิดพลาดของระบบไฟล์ (Filesystem)",
+    "hard_question": "Which standard Linux maintenance utility scans unmounted storage partitions to verify and repair filesystem structural integrity and metadata inconsistencies?",
+    "hard_choices": {
+      "A": "fdisk",
+      "B": "fsck",
+      "C": "mkfs",
+      "D": "badblocks"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'fsck' (File System Consistency Check) inspects superblocks, inodes, and directory hierarchies to repair errors.\n⚠️ Traps: 'fdisk' is a partition table manipulator; 'mkfs' formats and builds a new filesystem (erasing data); 'badblocks' tests storage devices for damaged physical sectors."
+  },
+  {
+    "id": 275,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.11.",
+    "question": "Which command shows current logged-in users and what process they are currently running?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "who",
+      "B": "users",
+      "C": "w",
+      "D": "id"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง w แสดงรายละเอียดผู้ใช้งานที่ล็อกอินอยู่ในระบบ รวมถึงคอลัมน์ WHAT ซึ่งแสดงชื่อกระบวนการ (process/command) ที่กำลังรันอยู่",
+    "hard_question": "Which utility displays a header with system uptime and load averages, followed by a list of logged-in users and the foreground process each user is currently executing?",
+    "hard_choices": {
+      "A": "who",
+      "B": "users",
+      "C": "w",
+      "D": "id"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'w' prints logged-in sessions and the 'WHAT' column displaying the command/process currently being executed.\n⚠️ Traps: 'who' lists logged-in users, terminals, and login times, but not running processes; 'users' prints only logged-in usernames; 'id' prints UID/GID of the current user."
+  },
+  {
+    "id": 276,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.12.",
+    "question": "Which command displays only the first 10 lines of /etc/passwd?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "tail -n 10 /etc/passwd",
+      "B": "head -n 10 /etc/passwd",
+      "C": "cat -n 10 /etc/passwd",
+      "D": "more -10 /etc/passwd"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง head -n 10 /etc/passwd ใช้แสดง 10 บรรทัดแรกของไฟล์ (คำสั่ง head มีค่าเริ่มต้นแสดง 10 บรรทัดแรกอยู่แล้ว)",
+    "hard_question": "Which command reads /etc/passwd and outputs exactly the beginning 10 lines to standard output?",
+    "hard_choices": {
+      "A": "tail -n 10 /etc/passwd",
+      "B": "head -n 10 /etc/passwd",
+      "C": "cat -n 10 /etc/passwd",
+      "D": "sed -n '10p' /etc/passwd"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'head -n 10' outputs the first 10 lines of the specified file.\n⚠️ Traps: 'tail -n 10' outputs the last 10 lines; 'cat -n' numbers all output lines (and doesn't accept a count); 'sed -n 10p' prints only line 10, not lines 1 to 10."
+  },
+  {
+    "id": 277,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.13.",
+    "question": "Which regular expression with grep matches lines that END with the word \"land\"?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "grep \"^land\" filename",
+      "B": "grep \"land$\" filename",
+      "C": "grep \"*land\" filename",
+      "D": "grep \"\\<land\\>\" filename"
+    },
+    "correct_key": "B",
+    "explanation": "ใน Regular Expression สัญลักษณ์ $ คือ Anchor ท้ายบรรทัด (End of line) ดังนั้น grep \"land$\" filename จะค้นหาเฉพาะบรรทัดที่ลงท้ายด้วยคำว่า land",
+    "hard_question": "Which POSIX regular expression anchor matches lines that terminate with the exact string 'land' immediately before the newline character?",
+    "hard_choices": {
+      "A": "grep '^land' filename",
+      "B": "grep 'land$' filename",
+      "C": "grep '\\bland\\b' filename",
+      "D": "grep '.*land' filename"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 '$' is the line-end anchor in regex, asserting that the preceding pattern occurs immediately before the end of the line.\n⚠️ Traps: '^' anchors to the beginning of the line; '\\b' asserts a word boundary anywhere on the line; '.*land' matches lines containing 'land' anywhere after any characters."
+  },
+  {
+    "id": 278,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.14.",
+    "question": "Which command prints the content of a file sequentially as hexadecimal bytes?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "od -c or hexdump -C",
+      "B": "cat -x",
+      "C": "binview",
+      "D": "hexread"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง hexdump -C หรือ od (Octal / Hex Dump) ใช้สำหรับแปลงและแสดงผลข้อมูลไบนารีในไฟล์ออกมาเป็นเลขฐานสิบหก (Hexadecimal) และอักขระ ASCII",
+    "hard_question": "Which standard UNIX/Linux command suite provides tools to dump file contents sequentially in hexadecimal and ASCII representations?",
+    "hard_choices": {
+      "A": "hexdump -C or od -tx1",
+      "B": "cat -x or dump -h",
+      "C": "binview or readelf -x",
+      "D": "hexread or strings -x"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'hexdump -C' (canonical hex+ASCII) and 'od' (octal/hex dump) are standard utilities for examining binary/hex data.\n⚠️ Traps: 'cat' has no -x flag; 'dump' is a filesystem backup tool; 'binview' and 'hexread' do not exist in standard POSIX/GNU distributions."
+  },
+  {
+    "id": 279,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.15.",
+    "question": "Which command runs a program in the background and allows it to continue executing even after the terminal session closes or the user logs out?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "bg <cmd>",
+      "B": "nohup <cmd> &",
+      "C": "sleep 100 &",
+      "D": "nice <cmd>"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง nohup (No Hang Up) เพิกเฉยต่อสัญญาณ SIGHUP เมื่อปิดเทอร์มินัลหรือออกจากระบบ (logout) และใส่ & เพื่อสั่งให้รันใน background ทำให้โปรแกรมยังคงทำงานต่อไปได้",
+    "hard_question": "Which invocation executes a process with immunity from SIGHUP signals so that it remains alive in the background after the controlling terminal disconnects?",
+    "hard_choices": {
+      "A": "bg <cmd>",
+      "B": "nohup <cmd> &",
+      "C": "disown <cmd>",
+      "D": "nice -n 0 <cmd> &"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'nohup <cmd> &' runs the command in the background while ignoring SIGHUP (hangup signal) emitted when the pseudo-terminal closes.\n⚠️ Traps: 'bg' only resumes an already-stopped job in background (still bound to terminal session); 'disown' is a bash built-in run after job creation, not as a prefix launcher; 'nice' modifies scheduling priority."
+  },
+  {
+    "id": 280,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.16.",
+    "question": "Which command cancels a pending system shutdown previously scheduled via shutdown +10?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "shutdown -a",
+      "B": "shutdown -c",
+      "C": "shutdown -r",
+      "D": "shutdown --stop"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง shutdown -c (Cancel) ใช้สำหรับยกเลิกคำสั่งปิดเครื่องที่เคยตั้งเวลาไว้ล่วงหน้า",
+    "hard_question": "If an administrator previously broadcasted a delayed system shutdown using 'shutdown +15', which command aborts this pending shutdown action?",
+    "hard_choices": {
+      "A": "shutdown -a",
+      "B": "shutdown -c",
+      "C": "shutdown -k",
+      "D": "systemctl abort-shutdown"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'shutdown -c' cancels an active, scheduled system shutdown or reboot.\n⚠️ Traps: -k sends warning wall messages without actually shutting down; -a is not a standard shutdown cancellation flag in systemd/SysV; systemctl abort-shutdown is invalid."
+  },
+  {
+    "id": 281,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.17.",
+    "question": "Which command compresses a directory into an archive file named backup.tar.gz?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "tar -czvf backup.tar.gz directory/",
+      "B": "tar -xzvf backup.tar.gz directory/",
+      "C": "zip -tar backup.tar.gz directory/",
+      "D": "gzip -c directory/ > backup.tar.gz"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง tar -czvf backup.tar.gz directory/ ใช้ -c (Create archive), -z (บีบอัดด้วย gzip), -v (Verbose แสดงความคืบหน้า), -f (ระบุชื่อไฟล์ปลายทาง backup.tar.gz)",
+    "hard_question": "Which GNU tar command creates a new gzip-compressed tape archive named 'backup.tar.gz' from the contents of 'directory/'?",
+    "hard_choices": {
+      "A": "tar -czvf backup.tar.gz directory/",
+      "B": "tar -xzvf backup.tar.gz directory/",
+      "C": "tar -cjvf backup.tar.gz directory/",
+      "D": "tar -cf backup.tar.gz --zip directory/"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 '-c' creates an archive, '-z' filters through gzip (.gz), and '-f' specifies the archive target file.\n⚠️ Traps: '-x' extracts archives rather than creating them; '-j' filters through bzip2 (.bz2), not gzip; '--zip' is invalid syntax for tar."
+  },
+  {
+    "id": 282,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 1: Linux Commands Review",
+    "orig_num": "Lab2.18.",
+    "question": "Which command extracts only the first field (column) from /etc/passwd using the colon : as a delimiter?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "split -d: -f1 /etc/passwd",
+      "B": "cut -d: -f1 /etc/passwd",
+      "C": "grep -c1 /etc/passwd",
+      "D": "head -f1 /etc/passwd"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง cut -d: -f1 /etc/passwd ใช้แฟล็ก -d: กำหนดตัวคั่นเป็น : (โคลอน) และ -f1 เพื่อเลือกแสดงผลเฉพาะฟิลด์ที่ 1 (Username)",
+    "hard_question": "Which coreutils command parses /etc/passwd, treats the colon (':') character as a field delimiter, and prints only field 1 (usernames)?",
+    "hard_choices": {
+      "A": "split -d: -f1 /etc/passwd",
+      "B": "cut -d: -f1 /etc/passwd",
+      "C": "awk '{print $1}' /etc/passwd",
+      "D": "paste -d: -f1 /etc/passwd"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'cut -d: -f1' sets the delimiter to ':' and extracts the first column.\n⚠️ Traps: 'split' breaks files into pieces; default 'awk' splits on whitespace, so '{print $1}' would print the entire line since /etc/passwd contains no spaces; 'paste' merges files line-by-line."
+  },
+  {
+    "id": 283,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.19.",
+    "question": "In the memory representation of a process, which region grows dynamically to handle nested and recursive function calls?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Text segment (Code)",
+      "B": "Data segment",
+      "C": "Heap",
+      "D": "Stack"
+    },
+    "correct_key": "D",
+    "explanation": "ส่วน Stack ของ Process จะขยายตัวแบบไดนามิกเพื่อจัดสรร Activation Records (Stack Frames) เก็บตัวแปร Local, พารามิเตอร์ และ Return Address เมื่อมีการเรียกฟังก์ชันซ้อนกันหรือเรียกแบบ Recursive (ตรงข้ามกับ Heap ที่ใช้สำหรับหน่วยความจำที่จัดสรรแบบไดนามิก เช่น malloc/new)",
+    "hard_question": "According to Silberschatz Chapter 3, which process memory segment dynamically allocates stack frames (local variables, function parameters, and return addresses) during subroutine invocation?",
+    "hard_choices": {
+      "A": "Data segment (BSS)",
+      "B": "Heap segment",
+      "C": "Stack segment",
+      "D": "Text segment"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 The Stack segment contains temporary data such as function parameters, return addresses, and local variables, growing dynamically per nested/recursive call.\n⚠️ Traps: The Heap dynamically allocates memory requested by programmers at runtime (e.g. malloc/new); Data segment stores global and static variables; Text segment contains executable instructions."
+  },
+  {
+    "id": 284,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.20.",
+    "question": "In the 5-state process model, which transition occurs when the CPU scheduler selects a process from the Ready queue to execute on the CPU?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Admitted",
+      "B": "Scheduler dispatch",
+      "C": "Interrupt",
+      "D": "I/O or event wait"
+    },
+    "correct_key": "B",
+    "explanation": "ในโมเดล 5 สถานะของโปรเซส (New, Ready, Running, Waiting, Terminated) การที่ตัวจัดตาราง (CPU Scheduler / Dispatcher) เลือกโปรเซสจาก Ready Queue เข้าไปรันบน CPU (Ready -> Running) เรียกว่า 'Scheduler dispatch'",
+    "hard_question": "In the classic 5-state process lifecycle (Silberschatz Chapter 3), which exact state transition moves a process from the Ready state to the Running state?",
+    "hard_choices": {
+      "A": "Admitted",
+      "B": "Scheduler dispatch",
+      "C": "Timer interrupt",
+      "D": "I/O completion"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 When the CPU scheduler selects a process from the ready queue, the dispatcher assigns the CPU core to that process ('Scheduler dispatch: Ready -> Running').\n⚠️ Traps: 'Admitted' transitions New -> Ready; 'Timer interrupt' forces Running -> Ready; 'I/O completion' transitions Waiting -> Ready."
+  },
+  {
+    "id": 285,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.21.",
+    "question": "Which data structure does the operating system use to store per-process information such as the program counter, registers, and open file lists?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Translation Lookaside Buffer (TLB)",
+      "B": "Process Control Block (PCB)",
+      "C": "Ready Queue Header",
+      "D": "Interrupt Vector Table"
+    },
+    "correct_key": "B",
+    "explanation": "ระบบปฏิบัติการใช้โครงสร้างข้อมูล Process Control Block (PCB หรือในเคอร์เนล Linux คือ struct task_struct) เพื่อจัดเก็บข้อมูลทั้งหมดที่เกี่ยวข้องกับโปรเซส เช่น สถานะ, Program Counter, รีจิสเตอร์, ข้อมูลหน่วยความจำ และรายการไฟล์ที่เปิดอยู่",
+    "hard_question": "Which fundamental kernel data repository maintains all architectural and administrative metadata for an active process, including its program counter, register saves, and file descriptor table?",
+    "hard_choices": {
+      "A": "Interrupt Vector Table (IVT)",
+      "B": "Translation Lookaside Buffer (TLB)",
+      "C": "Process Control Block (PCB)",
+      "D": "Page Global Directory (PGD)"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 The Process Control Block (PCB, or task_struct in Linux) serves as the primary repository for all per-process context and bookkeeping information.\n⚠️ Traps: TLB is a hardware memory-cache for page-table lookups; IVT maps interrupt signals to handler functions; PGD is the top-level page table directory."
+  },
+  {
+    "id": 286,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.22.",
+    "question": "In the classic Bounded-Buffer Problem using semaphores, if the buffer size is $n$, what is the initial value of the semaphore empty?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "$0$",
+      "B": "$1$",
+      "C": "$n$ (buffer / queue size)",
+      "D": "$-1$"
+    },
+    "correct_key": "C",
+    "explanation": "ในปัญหา Bounded-Buffer Semaphore 'empty' นับจำนวนช่องว่างในบัฟเฟอร์ เริ่มแรกบัฟเฟอร์ว่างทั้งหมด จึงมีค่าเริ่มต้นเท่ากับขนาดบัฟเฟอร์คือ n (ส่วน Semaphore 'full' เริ่มต้นที่ 0 และ 'mutex' เริ่มต้นที่ 1)",
+    "hard_question": "In the classic Dijkstra semaphore solution for the Bounded-Buffer Producer-Consumer problem with buffer capacity $n$, what are the correct initialization values for counting semaphore 'empty', counting semaphore 'full', and binary semaphore 'mutex'?",
+    "hard_choices": {
+      "A": "empty = 0, full = n, mutex = 1",
+      "B": "empty = n, full = 0, mutex = 1",
+      "C": "empty = 1, full = 0, mutex = n",
+      "D": "empty = n, full = n, mutex = 0"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'empty' starts at $n$ (all buffer slots empty), 'full' starts at 0 (no items produced yet), and 'mutex' starts at 1 for binary mutual exclusion.\n⚠️ Traps: Initializing empty to 0 would cause the producer to immediately block on its first wait(empty); mutex must be 1 to allow the first process entering the critical section."
+  },
+  {
+    "id": 287,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.23.",
+    "question": "Which of the following is NOT one of the four necessary conditions for a deadlock to occur?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Mutual exclusion",
+      "B": "Hold and wait",
+      "C": "Preemptive resource allocation",
+      "D": "Circular wait"
+    },
+    "correct_key": "C",
+    "explanation": "เงื่อนไขจำเป็น 4 ประการของการเกิด Deadlock (Coffman conditions) ได้แก่: 1. Mutual exclusion 2. Hold and wait 3. No preemption 4. Circular wait\nดังนั้น 'Preemptive resource allocation' (การแย่งชิงทรัพยากรได้) จึงไม่ใช่เงื่อนไขของ Deadlock แต่เป็นวิธีป้องกัน Deadlock",
+    "hard_question": "According to the Coffman conditions (Silberschatz Chapter 8), which condition is required for a deadlock, and which of the following is contrary to those necessary conditions?",
+    "hard_choices": {
+      "A": "Mutual exclusion is necessary; Preemptive resource allocation is contrary (No preemption is required)",
+      "B": "Hold and wait is contrary; Resource preemption is necessary",
+      "C": "Circular wait is contrary; Mutual exclusion is optional",
+      "D": "Non-sharing of resources is optional; Hold and wait is prohibited"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 The four necessary conditions are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. 'Preemption' actively prevents deadlocks by revoking resources from holding processes.\n⚠️ Traps: Deadlock requires NO preemption; allowing preemption eliminates one of the four necessary conditions."
+  },
+  {
+    "id": 288,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.24.",
+    "question": "In a Resource-Allocation Graph, if the graph contains a directed cycle and each resource type has MULTIPLE instances, what can be concluded?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "A deadlock definitely exists.",
+      "B": "A deadlock may or may not exist (necessary but not sufficient).",
+      "C": "No deadlock can ever occur.",
+      "D": "The system is provably in a safe state."
+    },
+    "correct_key": "B",
+    "explanation": "ใน Resource-Allocation Graph (RAG) หากทรัพยากรมี Multiple Instances การมี Cycle เป็นเพียงเงื่อนไขจำเป็น (Necessary) แต่ไม่เพียงพอ (Not sufficient) ดังนั้น Deadlock อาจจะเกิดขึ้นหรืออาจไม่เกิดขึ้นก็ได้ (อาจมีกระบวนการอื่นคืนทรัพยากรทำให้ทำงานต่อไปได้)",
+    "hard_question": "In a Resource-Allocation Graph (RAG) where resource types have MULTIPLE instances available, what is the exact theoretical implication of discovering a directed cycle?",
+    "hard_choices": {
+      "A": "A cycle is necessary and sufficient: a deadlock definitely exists.",
+      "B": "A cycle is necessary but not sufficient: a deadlock may or may not exist.",
+      "C": "A cycle guarantees that the system is currently in an unsafe state but cannot deadlock.",
+      "D": "A cycle proves that all processes in the cycle are deadlocked while processes outside are safe."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In a multi-instance RAG, a cycle is a necessary condition for deadlock, but not a sufficient condition. Processes outside the cycle may release instances, allowing cyclic processes to acquire them and finish.\n⚠️ Traps: In single-instance graphs, a cycle is both necessary and sufficient; in multi-instance graphs, it does not guarantee deadlock."
+  },
+  {
+    "id": 289,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 2: OS Concepts Review",
+    "orig_num": "Lab2.25.",
+    "question": "In a paging memory management system, what type of fragmentation can still occur?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "External fragmentation",
+      "B": "Internal fragmentation",
+      "C": "Segmentation fault fragmentation",
+      "D": "Dynamic relocation fragmentation"
+    },
+    "correct_key": "B",
+    "explanation": "ระบบ Paging แก้ไขปัญหา External Fragmentation ได้ทั้งหมดเนื่องจากเฟรมไม่จำเป็นต้องอยู่ติดกัน แต่ยังคงเกิด Internal Fragmentation ภายใน Page หรือ Frame สุดท้ายของโปรเซสได้ หากข้อมูลไม่เต็มขนาดของ Page นั้น",
+    "hard_question": "Why does a standard pure paging architecture eliminate external fragmentation entirely, and what memory inefficiency persists instead?",
+    "hard_choices": {
+      "A": "It eliminates external fragmentation by using variable-sized pages; internal fragmentation occurs in segment tables.",
+      "B": "It eliminates external fragmentation because any free frame can be allocated to any process; internal fragmentation persists within the final page of a process.",
+      "C": "It eliminates internal fragmentation because frames fit allocations exactly; external fragmentation persists across contiguous virtual memory pages.",
+      "D": "It eliminates both internal and external fragmentation via dynamic hardware relocation in the TLB."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Paging allocates memory in fixed-size blocks (frames), allowing any physical frame to satisfy any logical page request (eliminating external fragmentation). However, if an allocation is not an exact multiple of the page size, the remaining portion of the last frame is wasted as internal fragmentation.\n⚠️ Traps: Variable-sized blocks cause external fragmentation (like pure segmentation); paging completely avoids external fragmentation, not internal."
+  },
+  {
+    "id": 290,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.26.",
+    "question": "Which command is used to display the absolute path of the current working directory?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cd",
+      "B": "dir",
+      "C": "pwd",
+      "D": "ls"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง pwd (Print Working Directory) ใช้สำหรับแสดง Path แบบเต็ม (Absolute Path) ของไดเรกทอรีปัจจุบันที่กำลังทำงานอยู่",
+    "hard_question": "Which shell built-in / POSIX utility outputs the current working directory path to standard output?",
+    "hard_choices": {
+      "A": "cd -P",
+      "B": "pwd",
+      "C": "whereis .",
+      "D": "readlink -f ."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'pwd' prints the name of the current working directory.\n⚠️ Traps: 'cd -P' changes directory resolving symlinks; 'whereis' searches for binaries, source files, and man pages; 'readlink' canonicalizes symlinks."
+  },
+  {
+    "id": 291,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.27.",
+    "question": "Which command lists all files in a directory, including hidden files (files beginning with a dot '.')?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ls -l",
+      "B": "ls -a",
+      "C": "ls -h",
+      "D": "ls -d"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง ls -a (-a ย่อมาจาก all) ใช้แสดงรายชื่อไฟล์และโฟลเดอร์ทั้งหมด รวมถึงไฟล์ซ่อน (Hidden files) ซึ่งมีชื่อขึ้นต้นด้วยจุด (.)",
+    "hard_question": "Which flag passed to the GNU coreutils 'ls' binary instructs it not to ignore entries starting with '.'?",
+    "hard_choices": {
+      "A": "ls -l",
+      "B": "ls -a",
+      "C": "ls -h",
+      "D": "ls -A"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'ls -a' (--all) shows all entries including '.' and '..'.\n⚠️ Traps: '-l' uses the long listing format; '-h' displays human-readable file sizes; '-A' (--almost-all) shows hidden files but omits '.' and '..'."
+  },
+  {
+    "id": 292,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.28.",
+    "question": "Which command moves the shell navigation up one directory level to the parent directory?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cd .",
+      "B": "cd ..",
+      "C": "cd ~",
+      "D": "cd /"
+    },
+    "correct_key": "B",
+    "explanation": "สัญลักษณ์ '..' หมายถึงไดเรกทอรีระดับก่อนหน้า (Parent Directory) ดังนั้นคำสั่ง cd .. จึงเป็นการถอยกลับขึ้นไป 1 ระดับชั้น",
+    "hard_question": "In Unix-like filesystems, which relative path notation specifies the immediate parent directory of the current working location?",
+    "hard_choices": {
+      "A": ".",
+      "B": "..",
+      "C": "~",
+      "D": "/"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 '..' represents the parent directory.\n⚠️ Traps: '.' represents the current directory; '~' represents the user's home directory; '/' represents the filesystem root."
+  },
+  {
+    "id": 293,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.29.",
+    "question": "Which command is used to create a new folder or directory in Linux?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "touch",
+      "B": "mkfile",
+      "C": "mkdir",
+      "D": "create"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง mkdir (Make Directory) ใช้สำหรับสร้างโฟลเดอร์หรือไดเรกทอรีใหม่ในระบบ",
+    "hard_question": "Which command creates one or more new directories at the specified path, and supports the '-p' flag to create intermediate parent directories as needed?",
+    "hard_choices": {
+      "A": "touch -d",
+      "B": "mkfile",
+      "C": "mkdir",
+      "D": "mknod"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'mkdir' creates directories (and 'mkdir -p' creates missing parent directories recursively).\n⚠️ Traps: 'touch' creates regular empty files or updates timestamps; 'mkfile' is a legacy SunOS command; 'mknod' creates block/character device special files."
+  },
+  {
+    "id": 294,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.30.",
+    "question": "What happens when executing 'touch report.txt' if the file 'report.txt' does not yet exist?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The command deletes existing temporary files.",
+      "B": "An empty file named 'report.txt' is created.",
+      "C": "It launches a text editor to edit the file.",
+      "D": "It returns an error because the file was not found."
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง touch หากไฟล์เป้าหมายยังไม่มีอยู่ในระบบ จะทำการสร้างไฟล์เปล่าขนาด 0 byte ขึ้นมาใหม่ แต่ถ้ามีอยู่แล้วจะอัปเดตเวลาการเข้าถึงและแก้ไขล่าสุด (Timestamp)",
+    "hard_question": "When the target filename does not exist in the current directory and no error occurs, what is the default behavior of the POSIX 'touch' command?",
+    "hard_choices": {
+      "A": "It prints a warning 'file not found' to stderr.",
+      "B": "It creates a new empty regular file with the current timestamp.",
+      "C": "It creates an empty socket file descriptor.",
+      "D": "It allocates an inode but writes an EOF marker block to disk."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'touch' creates a 0-byte regular file if it does not already exist, initialized with the current system time.\n⚠️ Traps: 'touch' does not error on nonexistent files unless the '-c' (--no-create) flag is passed."
+  },
+  {
+    "id": 295,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.31.",
+    "question": "Which option must be supplied to the 'cp' command to copy a directory and all of its subdirectories and files recursively?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cp -f",
+      "B": "cp -r",
+      "C": "cp -p",
+      "D": "cp -d"
+    },
+    "correct_key": "B",
+    "explanation": "ออปชัน -r หรือ -R (Recursive) ใช้กับคำสั่ง cp เพื่อสั่งให้คัดลอกทั้งโฟลเดอร์พร้อมไฟล์และโฟลเดอร์ย่อยทั้งหมดที่อยู่ภายใน",
+    "hard_question": "Which invocation copies an entire directory tree 'src_dir' to 'dst_dir', traversing and duplicating all subdirectories and files recursively?",
+    "hard_choices": {
+      "A": "cp -f src_dir dst_dir",
+      "B": "cp -r src_dir dst_dir",
+      "C": "cp -u src_dir dst_dir",
+      "D": "cp -l src_dir dst_dir"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'cp -r' (or -R, --recursive) copies directories recursively.\n⚠️ Traps: '-f' forces overwrite without confirmation; '-u' copies only when source is newer; '-l' creates hard links instead of copying."
+  },
+  {
+    "id": 296,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.32.",
+    "question": "What is the primary function of the 'mv' command in Linux?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Moving files to a new location and renaming files",
+      "B": "Permanently deleting files and directories",
+      "C": "Monitoring system activity and process movement",
+      "D": "Creating compressed file backups"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง mv (Move) ทำหน้าที่ได้ทั้งย้ายไฟล์/โฟลเดอร์ไปยังปลายทางใหม่ และใช้สำหรับเปลี่ยนชื่อไฟล์/โฟลเดอร์",
+    "hard_question": "In UNIX filesystems, renaming a file within the same filesystem is performed by which command, effectively updating its directory entry without moving physical data blocks?",
+    "hard_choices": {
+      "A": "mv",
+      "B": "rename -f",
+      "C": "link -r",
+      "D": "cp -m"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'mv' renames files and moves them between directory locations.\n⚠️ Traps: 'rename' is a Perl utility for batch regex renaming; 'link' creates hard links; 'cp -m' is invalid syntax."
+  },
+  {
+    "id": 297,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.33.",
+    "question": "Which command deletes an entire directory and all of its contents forcefully without prompting for confirmation?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "rmdir -f",
+      "B": "del -all",
+      "C": "rm -rf",
+      "D": "rm -clean"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง rm -rf รวมออปชัน -r (Recursive ลบไฟล์ย่อยทั้งหมด) และ -f (Force บังคับลบโดยไม่ถามเตือนยืนยัน)",
+    "hard_question": "Which command sequence invokes the unlink system call recursively across an entire directory tree while ignoring nonexistent files and suppressing interactive confirmation prompts?",
+    "hard_choices": {
+      "A": "rmdir -f dirname",
+      "B": "del /s /q dirname",
+      "C": "rm -rf dirname",
+      "D": "unlink -r dirname"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'rm -rf' removes directories and contents recursively (-r) while ignoring prompts and nonexistent files (-f).\n⚠️ Traps: 'rmdir' only removes empty directories; 'del' is a Windows cmd command; 'unlink' cannot delete directories."
+  },
+  {
+    "id": 298,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.34.",
+    "question": "Which command is used to display the entire contents of a file sequentially on the terminal screen at once?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cat",
+      "B": "wc",
+      "C": "echo",
+      "D": "grep"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง cat (Concatenate) ใช้สำหรับพิมพ์เนื้อหาทั้งหมดของไฟล์ออกมาแสดงบนหน้าจอ Terminal ทันทีในครั้งเดียว",
+    "hard_question": "Which standard coreutils utility concatenates files and prints their entire unbuffered text content sequentially to standard output?",
+    "hard_choices": {
+      "A": "cat",
+      "B": "echo",
+      "C": "tee",
+      "D": "fold"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'cat' concatenates and outputs full file streams to stdout.\n⚠️ Traps: 'echo' prints its arguments; 'tee' reads from stdin and writes to files and stdout simultaneously; 'fold' wraps lines to fit a specified width."
+  },
+  {
+    "id": 299,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.35.",
+    "question": "Which command allows you to view a large file page-by-page with backward and forward scroll navigation?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "head",
+      "B": "tail",
+      "C": "less",
+      "D": "cat"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง less เป็น Terminal Pager ที่ให้ผู้ใช้เปิดอ่านไฟล์ขนาดใหญ่โดยแบ่งแสดงทีละหน้า และสามารถเลื่อนขึ้น-เลื่อนลง (Scroll) ได้อย่างอิสระโดยไม่ต้องโหลดไฟล์ทั้งก้อนเข้าสู่หน่วยความจำ",
+    "hard_question": "Which terminal pager utility provides bidirectional line/screen scrolling and pattern searching without requiring the entire input file to be read into memory upfront?",
+    "hard_choices": {
+      "A": "more",
+      "B": "cat",
+      "C": "less",
+      "D": "pr"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'less' is a powerful pager allowing bidirectional navigation and efficient memory-buffered viewing.\n⚠️ Traps: 'more' only allows forward paging in classic UNIX; 'cat' prints everything without pagination; 'pr' paginates text for printing."
+  },
+  {
+    "id": 300,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.36.",
+    "question": "Which command is used to display the first 10 lines of a file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "head -n 10",
+      "B": "tail -n 10",
+      "C": "top -n 10",
+      "D": "cat -n 10"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง head -n 10 ใช้ดึง 10 บรรทัดแรกจากส่วนต้นของไฟล์ (ค่าเริ่มต้นของคำสั่ง head คือ 10 บรรทัดอยู่แล้ว)",
+    "hard_question": "Which command outputs the starting portion of a specified file up to the 10th newline character?",
+    "hard_choices": {
+      "A": "head -n 10 filename",
+      "B": "tail -n +10 filename",
+      "C": "sed -n '10' filename",
+      "D": "awk 'NR>10' filename"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'head -n 10' prints lines 1 through 10.\n⚠️ Traps: 'tail -n +10' prints starting from line 10 to the end; 'sed -n 10p' prints only line 10; 'awk NR>10' prints from line 11 onwards."
+  },
+  {
+    "id": 301,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.37.",
+    "question": "Which command and option is used to monitor a log file in real-time as new lines are appended?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "tail -f",
+      "B": "head -f",
+      "C": "watch -c",
+      "D": "cat -live"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง tail -f (Follow) จะเปิดติดตามไฟล์และแสดงผลบรรทัดใหม่ที่ถูกเขียนเพิ่มเข้ามาใน Log แบบ Real-time ทันที",
+    "hard_question": "Which command continuously monitors an active server log file on disk and automatically outputs newly appended lines to standard output?",
+    "hard_choices": {
+      "A": "tail -f /var/log/syslog",
+      "B": "head -f /var/log/syslog",
+      "C": "watch -n 1 cat /var/log/syslog",
+      "D": "cat --tail /var/log/syslog"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'tail -f' (--follow) appends data as the file grows.\n⚠️ Traps: 'head' has no '-f' follow option; 'watch cat' repeatedly re-reads and clears the screen instead of streaming log events; 'cat --tail' does not exist."
+  },
+  {
+    "id": 302,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.38.",
+    "question": "Which command searches for lines containing the string \"error\" inside the file 'app.log'?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "find \"error\" app.log",
+      "B": "grep \"error\" app.log",
+      "C": "locate \"error\" app.log",
+      "D": "wc -w \"error\" app.log"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง grep (Global Regular Expression Print) ใช้สำหรับค้นหาข้อความหรือ Pattern ภายในเนื้อหาของไฟล์",
+    "hard_question": "Which POSIX pattern-matching utility reads 'app.log' line-by-line and emits matching lines containing the token 'error' to standard output?",
+    "hard_choices": {
+      "A": "find -name error app.log",
+      "B": "grep \"error\" app.log",
+      "C": "locate -s error app.log",
+      "D": "look error app.log"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'grep' scans file contents for text matching regex or substring patterns.\n⚠️ Traps: 'find' searches filesystem hierarchies for file paths, not file contents; 'locate' searches pre-indexed databases for filenames; 'look' searches sorted dictionary word lists."
+  },
+  {
+    "id": 303,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.39.",
+    "question": "What metric does the command 'wc -l filename' report for the specified file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Total number of characters",
+      "B": "Total number of words",
+      "C": "Total number of lines (newline characters)",
+      "D": "Total size in bytes"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง wc -l (Word Count, lines) ใช้นับจำนวนบรรทัด (Lines หรือจำนวนตัวอักษร newline '\\n') ภายในไฟล์",
+    "hard_question": "When invoking GNU 'wc -l <file>', what exact metric is calculated and printed to standard output?",
+    "hard_choices": {
+      "A": "The count of alphanumeric words separated by whitespace.",
+      "B": "The count of newline characters ('\\n') in the file.",
+      "C": "The total byte length of the file stream.",
+      "D": "The maximum line length among all rows in the file."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'wc -l' counts newline ('\\n') delimiters.\n⚠️ Traps: Word count is '-w'; byte count is '-c'; character count is '-m'; maximum display line length is '-L'."
+  },
+  {
+    "id": 304,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.40.",
+    "question": "Which command searches the entire filesystem hierarchy from the root directory for a file named 'config.php'?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "grep -f config.php",
+      "B": "find / -name config.php",
+      "C": "search config.php",
+      "D": "cat --find config.php"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง find / -name config.php ค้นหาไฟล์ชื่อ config.php แบบ Recursive เริ่มต้นตั้งแต่ Root Directory ('/') ของระบบ",
+    "hard_question": "Which invocation traverses the filesystem beginning at root '/' and matches inodes with the exact basename 'config.php'?",
+    "hard_choices": {
+      "A": "whereis / config.php",
+      "B": "find / -name config.php",
+      "C": "which -a config.php",
+      "D": "grep -rn / -e config.php"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'find <starting-point> -name <pattern>' recursively traverses the directory tree looking for matching names.\n⚠️ Traps: 'whereis' looks only in standard binary/man locations; 'which' searches executable files in $PATH; 'grep' searches text within file contents, not filenames."
+  },
+  {
+    "id": 305,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.41.",
+    "question": "In Linux numeric (octal) file permissions, what are the numeric values for Read (r), Write (w), and Execute (x) respectively?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "r = 1, w = 2, x = 4",
+      "B": "r = 4, w = 2, x = 1",
+      "C": "r = 2, w = 4, x = 1",
+      "D": "r = 4, w = 1, x = 2"
+    },
+    "correct_key": "B",
+    "explanation": "ระบบสิทธิ์ตัวเลขฐานแปด (Octal Permission) ของ Linux กำหนดให้: Read (r) = 4, Write (w) = 2, และ Execute (x) = 1",
+    "hard_question": "Which binary bit representation corresponds to POSIX permission mode flags for Read (r), Write (w), and Execute (x)?",
+    "hard_choices": {
+      "A": "r = 001 (1), w = 010 (2), x = 100 (4)",
+      "B": "r = 100 (4), w = 010 (2), x = 001 (1)",
+      "C": "r = 010 (2), w = 100 (4), x = 001 (1)",
+      "D": "r = 110 (6), w = 101 (5), x = 011 (3)"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Bit 2 (value 4) is Read, Bit 1 (value 2) is Write, Bit 0 (value 1) is Execute.\n⚠️ Traps: Inverting Read and Execute leads to security vulnerabilities or non-functional binaries."
+  },
+  {
+    "id": 306,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.42.",
+    "question": "In the command 'chmod 755 file', to which user classes do the three digits apply in order?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Others - Group - Owner",
+      "B": "Owner - Others - Group",
+      "C": "Group - Owner - Others",
+      "D": "Owner - Group - Others"
+    },
+    "correct_key": "D",
+    "explanation": "ตัวเลข 3 หลักในคำสั่ง chmod เรียงลำดับจากซ้ายไปขวาคือ: หลักที่ 1 = Owner (เจ้าของ), หลักที่ 2 = Group (กลุ่ม), และหลักที่ 3 = Others (บุคคลอื่น)",
+    "hard_question": "In POSIX file mode triads (such as 755 or 644), what is the exact canonical ordering of security principals represented by the digits?",
+    "hard_choices": {
+      "A": "User (Owner) -> Group -> Others",
+      "B": "Group -> User (Owner) -> Others",
+      "C": "Superuser -> Group -> Others",
+      "D": "User (Owner) -> Others -> Group"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Permissions are ordered: Owner (u), Group (g), Others (o).\n⚠️ Traps: In chmod 755, Owner has 7 (rwx), Group has 5 (r-x), Others have 5 (r-x)."
+  },
+  {
+    "id": 307,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.43.",
+    "question": "Which command grants Execute permission to the file 'script.sh'?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "chmod +x script.sh",
+      "B": "chown +x script.sh",
+      "C": "chmod +r script.sh",
+      "D": "touch +x script.sh"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง chmod +x script.sh เป็นการเพิ่มสิทธิ์การรันโปรแกรม (Execute) ให้กับไฟล์สคริปต์",
+    "hard_question": "Which command modifies the inode mode bits of 'script.sh' to allow the file to be passed directly to the kernel execve system call as an executable program?",
+    "hard_choices": {
+      "A": "chmod +x script.sh",
+      "B": "chown root:exec script.sh",
+      "C": "setcap cap_exec=ep script.sh",
+      "D": "chmod +s script.sh"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'chmod +x' adds the execute bit required for kernel execve execution.\n⚠️ Traps: 'chown' modifies owner/group, not permissions; '+s' sets the setuid/setgid bit without necessarily adding standard execute permissions."
+  },
+  {
+    "id": 308,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.44.",
+    "question": "Which command is used to change the user owner and group owner of a file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "chmod",
+      "B": "chown",
+      "C": "usermod",
+      "D": "groupadd"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง chown (Change Owner) ใช้สำหรับเปลี่ยนเจ้าของไฟล์ (User) และกลุ่มของไฟล์ (Group)",
+    "hard_question": "Which core utility is invoked to modify the UID and GID associated with an existing filesystem inode?",
+    "hard_choices": {
+      "A": "chmod",
+      "B": "chown",
+      "C": "chgrp",
+      "D": "setuid"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'chown' can change both user UID and group GID ownership simultaneously.\n⚠️ Traps: 'chmod' changes permission mode bits; 'chgrp' can only change group ownership; 'setuid' is a permission bit/system call."
+  },
+  {
+    "id": 309,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.45.",
+    "question": "What is the primary purpose of the 'sudo' command?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Rebooting the operating system immediately",
+      "B": "Executing a command with the security privileges of the superuser (root)",
+      "C": "Switching to a different shell programming language",
+      "D": "Establishing an encrypted remote SSH terminal session"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง sudo (SuperUser DO) อนุญาตให้ผู้ใช้ทั่วไปรันคำสั่งด้วยสิทธิ์ของผู้ดูแลระบบ (root / Superuser)",
+    "hard_question": "Which system utility temporarily grants an authorized unprivileged user elevated administrative privileges to execute commands as UID 0 (root) subject to security audit policies?",
+    "hard_choices": {
+      "A": "su -c",
+      "B": "sudo",
+      "C": "chroot",
+      "D": "polkit-agent"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'sudo' allows authorized users to execute specific commands as root with audit logging and password validation.\n⚠️ Traps: 'su' switches the entire user session shell; 'chroot' changes the apparent root directory for a process; polkit handles desktop D-Bus authorization."
+  },
+  {
+    "id": 310,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.46.",
+    "question": "Which command is commonly used to inspect a static snapshot of all active processes currently running on the system?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ps aux or ps -ef",
+      "B": "top -static",
+      "C": "tasklist /all",
+      "D": "jobs -l"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง ps (Process Status เช่น ps aux หรือ ps -ef) ใช้สำหรับดูรายงานสรุปสถานะของโพรเซสทั้งหมดในระบบแบบภาพนิ่ง (Snapshot) ณ ขณะนั้น",
+    "hard_question": "Which command reads the '/proc' filesystem and prints a point-in-time snapshot listing all system-wide processes along with PID, terminal, CPU time, and full command arguments?",
+    "hard_choices": {
+      "A": "ps aux or ps -ef",
+      "B": "pstree -q",
+      "C": "top -b -n 1",
+      "D": "pgrep -l ."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'ps aux' (BSD syntax) and 'ps -ef' (System V syntax) produce standard complete process snapshot tables.\n⚠️ Traps: 'top -static' is an invalid option; 'tasklist' is a Windows utility; 'jobs -l' only displays shell background jobs in the current shell session."
+  },
+  {
+    "id": 311,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.47.",
+    "question": "Which interactive system tool provides a continuous, real-time updated display of CPU usage, RAM utilization, and running processes?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ps",
+      "B": "top / htop",
+      "C": "df",
+      "D": "free"
+    },
+    "correct_key": "B",
+    "explanation": "เครื่องมือ top และ htop ใช้แสดงผลและตรวจสอบการใช้ CPU, RAM และ Process ของระบบแบบอินเทอร์แอคทีฟที่มีการรีเฟรชข้อมูลต่อเนื่องแบบ Real-time",
+    "hard_question": "Which terminal monitoring utility provides an interactive, real-time dynamic view of a running system, dynamically ordering processes by resource consumption (CPU/Memory)?",
+    "hard_choices": {
+      "A": "vmstat -w",
+      "B": "top or htop",
+      "C": "iostat -x",
+      "D": "sar -u"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'top' and 'htop' provide dynamic, interactive full-screen real-time system monitoring.\n⚠️ Traps: 'ps' produces a static point-in-time snapshot; 'vmstat' and 'iostat' print periodic text lines rather than full interactive process tables."
+  },
+  {
+    "id": 312,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.48.",
+    "question": "If a process freezes and you must forcefully terminate it immediately using its PID 1234, which command sends the unconditional SIGKILL signal?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "kill -0 1234",
+      "B": "kill -1 1234",
+      "C": "kill -9 1234",
+      "D": "stop 1234"
+    },
+    "correct_key": "C",
+    "explanation": "สัญญาณหมายเลข 9 คือ SIGKILL ซึ่งเป็นคำสั่งบังคับปิดโพรเซสทันทีโดยที่โพรเซสไม่สามารถดักจับหรือปฏิเสธได้ (Uncatchable signal)",
+    "hard_question": "Which signal number or symbolic constant transmitted by the 'kill' command cannot be caught, handled, or ignored by user-space processes, forcing immediate process termination by the kernel?",
+    "hard_choices": {
+      "A": "kill -1 (SIGHUP)",
+      "B": "kill -2 (SIGINT)",
+      "C": "kill -9 (SIGKILL)",
+      "D": "kill -15 (SIGTERM)"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 SIGKILL (signal 9) bypasses the process signal handler and causes immediate kernel-level termination.\n⚠️ Traps: SIGTERM (15) is the default polite termination request which can be caught or ignored; SIGINT (2) is Ctrl+C; SIGHUP (1) reloads configuration or terminates on hangup."
+  },
+  {
+    "id": 313,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.49.",
+    "question": "Which command inspects total, used, and available disk space across all mounted filesystems in human-readable units (e.g., GB, MB)?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "du -sh",
+      "B": "df -h",
+      "C": "free -h",
+      "D": "ls -lh"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง df -h (Disk Free, human-readable) ใช้ตรวจสอบพื้นที่ว่างและพื้นที่ที่ถูกใช้งานบนดิสก์และพาร์ติชันทั้งหมดในหน่วย MB หรือ GB",
+    "hard_question": "Which utility queries the superblock of all mounted storage filesystems to report total, used, and free capacity formatted with power-of-two suffixes (K, M, G)?",
+    "hard_choices": {
+      "A": "du -sh /",
+      "B": "df -h",
+      "C": "lsblk -f",
+      "D": "fdisk -l"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'df -h' displays total/used/free space for all mounted filesystems in human-readable notation.\n⚠️ Traps: 'du -sh' calculates directory file size; 'free -h' checks RAM and Swap memory; 'fdisk -l' inspects partition tables on storage drives."
+  },
+  {
+    "id": 314,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.50.",
+    "question": "Which command checks the actual disk space consumed by a specific directory and its contents?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "du -sh [dir]",
+      "B": "df -h [dir]",
+      "C": "free [dir]",
+      "D": "ps [dir]"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง du -sh [dir] (Disk Usage, summarize, human-readable) ใช้สำหรับคำนวณและตรวจสอบขนาดพื้นที่ที่โฟลเดอร์นั้นถูกใช้งานจริงบนฮาร์ดดิสก์",
+    "hard_question": "Which command recursively computes the total disk space utilized by all files within a specified directory tree and outputs a single summary number in human-readable units?",
+    "hard_choices": {
+      "A": "du -sh [dir]",
+      "B": "df -h [dir]",
+      "C": "stat -f [dir]",
+      "D": "ls -ldh [dir]"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'du -sh' (-s summary, -h human-readable) aggregates total disk space used by a directory.\n⚠️ Traps: 'df -h [dir]' reports free space on the underlying filesystem partition containing [dir]; 'ls -ldh' only reports the 4096-byte metadata entry size of the directory inode."
+  },
+  {
+    "id": 315,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.51.",
+    "question": "Which command displays the amount of total, used, and available physical RAM and Swap memory in the system?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "df -h",
+      "B": "free -h",
+      "C": "du -sh",
+      "D": "meminfo"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง free -h ใช้ตรวจดูขนาดหน่วยความจำหลัก (RAM) และหน่วยความจำเสมือน (Swap) ทั้งหมด ที่ถูกใช้ และที่ยังว่างอยู่ในรูปแบบที่อ่านเข้าใจง่าย",
+    "hard_question": "Which Linux core utility parses '/proc/meminfo' to report active, inactive, buffered, and cached memory alongside physical RAM and swap partition metrics?",
+    "hard_choices": {
+      "A": "df -h",
+      "B": "free -h",
+      "C": "swapon -s",
+      "D": "sysctl vm.status"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'free -h' formats RAM and swap space information read from /proc/meminfo.\n⚠️ Traps: 'df -h' reports disk filesystem usage; 'swapon -s' lists only swap device partitions; 'sysctl' configures kernel parameters."
+  },
+  {
+    "id": 316,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.52.",
+    "question": "Which command pair is used to display the current system date/time and render a monthly calendar grid respectively?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "time and calendar",
+      "B": "date and cal",
+      "C": "clock and calendar",
+      "D": "now and cal"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง date ใช้สำหรับแสดงวันและเวลาปัจจุบันของระบบ ส่วนคำสั่ง cal (หรือ ncal) ใช้สำหรับแสดงปฏิทินของเดือนปัจจุบัน",
+    "hard_question": "Which standard command pair correctly pairs the utility for displaying/setting system date and time with the utility that prints a standard monthly calendar layout?",
+    "hard_choices": {
+      "A": "time and ncal",
+      "B": "date and cal",
+      "C": "clock and calendar",
+      "D": "uptime and month"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'date' displays system date and time; 'cal' (or 'ncal') renders calendar grids.\n⚠️ Traps: 'time' measures the execution duration of a command; 'calendar' is an appointment reminder system."
+  },
+  {
+    "id": 317,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.53.",
+    "question": "What key system metrics are reported by the 'uptime' command?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Elapsed time since last system boot, number of logged-in users, and 1-, 5-, 15-minute load averages",
+      "B": "CPU cooling fan RPM and thermal sensor readings",
+      "C": "Internet download and upload network throughput",
+      "D": "System shutdown and reboot history log"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง uptime แสดงเวลาปัจจุบัน, ระยะเวลาที่เปิดเครื่องมาแล้ว (Elapsed time), จำนวนผู้ใช้งานที่ล็อกอินอยู่ และค่าเฉลี่ยโหลดงานของระบบ (Load Averages)",
+    "hard_question": "When the 'uptime' command outputs 'load average: 0.15, 0.45, 0.85', what do these three numeric values represent?",
+    "hard_choices": {
+      "A": "CPU temperature in Celsius across core 0, core 1, and core 2.",
+      "B": "The exponential moving average number of runnable and uninterruptible processes over 1, 5, and 15 minutes.",
+      "C": "RAM, Swap, and Disk I/O percentage bottlenecks over the past hour.",
+      "D": "Network packet drops per millisecond during recent TCP handshakes."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Load average indicates the average number of processes in the run queue (state R) or waiting for disk I/O (state D) over 1, 5, and 15 minutes.\n⚠️ Traps: Load averages are not percentages; on a single-core machine, 1.0 means 100% capacity, but on an 8-core machine, 8.0 indicates full utilization."
+  },
+  {
+    "id": 318,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.54.",
+    "question": "What is the difference between '>' and '>>' in Linux shell I/O redirection?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "'>' appends to the file, while '>>' overwrites the file.",
+      "B": "'>' overwrites the file (truncates), while '>>' appends to the file.",
+      "C": "'>' redirects standard input, while '>>' redirects standard output.",
+      "D": "'>' redirects to the terminal, while '>>' redirects to a file."
+    },
+    "correct_key": "B",
+    "explanation": "เครื่องหมาย > ใช้สำหรับเขียนทับเนื้อหาเดิมหรือสร้างไฟล์ใหม่ (Overwrite / Truncate) ส่วนเครื่องหมาย >> ใช้สำหรับเขียนข้อมูลต่อท้ายไฟล์เดิม (Append)",
+    "hard_question": "In POSIX shell stream redirection, what specific file open flags (O_FLAGS) are associated with the redirection operators '>' versus '>>'?",
+    "hard_choices": {
+      "A": "'>' uses O_APPEND; '>>' uses O_TRUNC.",
+      "B": "'>' uses O_WRONLY|O_CREAT|O_TRUNC; '>>' uses O_WRONLY|O_CREAT|O_APPEND.",
+      "C": "'>' uses O_RDONLY; '>>' uses O_RDWR.",
+      "D": "'>' uses O_DIRECT; '>>' uses O_SYNC."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 '>' truncates the file to 0 length before writing (O_TRUNC), whereas '>>' appends writes to the end of the file (O_APPEND).\n⚠️ Traps: Reversing them would cause data loss when attempting to append."
+  },
+  {
+    "id": 319,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 3: Essential Linux Commands",
+    "orig_num": "Lab2.55.",
+    "question": "In the pipeline command 'cat app.log | grep \"ERROR\" | wc -l', what is the role of the pipe operator '|'?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "It merges the files on both sides into a single unified archive.",
+      "B": "It connects the Standard Output (stdout) of the preceding command to the Standard Input (stdin) of the succeeding command.",
+      "C": "It runs all commands concurrently in the background as detached daemon jobs.",
+      "D": "It acts as a boolean OR condition, running the second command only if the first fails."
+    },
+    "correct_key": "B",
+    "explanation": "เครื่องหมาย Pipe (|) ทำหน้าที่ส่ง Standard Output (stdout) ของคำสั่งด้านหน้า ไปเป็น Standard Input (stdin) ของคำสั่งถัดไปโดยตรงผ่าน Buffer ในหน่วยความจำของเคอร์เนล",
+    "hard_question": "At the operating system level, how does the shell execute a command pipeline such as 'cmd1 | cmd2'?",
+    "hard_choices": {
+      "A": "It writes cmd1's output to a temporary file in /tmp, then launches cmd2 reading from that file.",
+      "B": "It creates a unidirectional kernel pipe buffer via the pipe() system call, clones processes via fork(), and redirects stdout of cmd1 and stdin of cmd2 via dup2().",
+      "C": "It executes cmd1 sequentially to completion in user space, then copies its memory heap to cmd2's address space.",
+      "D": "It runs cmd1 and cmd2 inside an isolated cgroup network socket tunnel."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The shell creates an in-memory kernel pipe buffer using pipe(), forks child processes, and binds file descriptors using dup2() (STDOUT_FILENO -> write end, STDIN_FILENO -> read end).\n⚠️ Traps: Pipes do not use intermediate temporary files on disk; commands in a pipeline run concurrently, streaming data as it is produced."
+  },
+  {
+    "id": 320,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.56.",
+    "question": "Which command is used to record a user login session in a file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "macro",
+      "B": "read",
+      "C": "script",
+      "D": "none of the mentioned"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง script ใช้สำหรับบันทึกทุกสิ่งที่พิมพ์และแสดงผลบนหน้าจอ Terminal ตลอดเซสชันลงในไฟล์ (ค่าเริ่มต้นคือไฟล์ typescript)",
+    "hard_question": "Which UNIX utility makes a typescript of everything displayed on your terminal session, logging all interactive input and output into a designated log file?",
+    "hard_choices": {
+      "A": "tee -a",
+      "B": "logger",
+      "C": "script",
+      "D": "history -w"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'script' records interactive terminal sessions into a typescript file.\n⚠️ Traps: 'tee' splits standard input to files and stdout; 'logger' sends messages to syslog; 'history -w' writes the shell command history list to disk without capturing command output."
+  },
+  {
+    "id": 321,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.57.",
+    "question": "Which command is used to display the operating system / kernel name?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "os",
+      "B": "unix",
+      "C": "kernel",
+      "D": "uname"
+    },
+    "correct_key": "D",
+    "explanation": "คำสั่ง uname (ย่อมาจาก Unix Name) เมื่อรันเดี่ยวๆ หรือใส่ -s จะแสดงชื่อของระบบปฏิบัติการหรือเคอร์เนล (เช่น Linux, Darwin)",
+    "hard_question": "Which POSIX command prints system information, returning the kernel/operating system name (e.g., 'Linux') by default when invoked without flags?",
+    "hard_choices": {
+      "A": "hostname",
+      "B": "sysctl",
+      "C": "oslevel",
+      "D": "uname"
+    },
+    "hard_correct_key": "D",
+    "hard_explanation": "🎯 'uname' (Unix Name) without arguments prints the kernel/OS name (identical to 'uname -s').\n⚠️ Traps: 'hostname' prints the node name; 'sysctl' queries kernel parameters; 'oslevel' is specific to IBM AIX."
+  },
+  {
+    "id": 322,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.58.",
+    "question": "Which command is used to display the kernel / OS release version?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "uname -r",
+      "B": "uname -n",
+      "C": "uname -t",
+      "D": "kernel"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง uname -r (-r ย่อมาจาก kernel release) ใช้แสดงหมายเลขเวอร์ชันของ Kernel ปัจจุบันที่กำลังทำงานอยู่ (เช่น 5.15.0-88-generic)",
+    "hard_question": "Which uname flag outputs the kernel release version string currently loaded into system memory?",
+    "hard_choices": {
+      "A": "uname -r",
+      "B": "uname -v",
+      "C": "uname -m",
+      "D": "uname -p"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'uname -r' prints the kernel release.\n⚠️ Traps: 'uname -v' prints the kernel compilation version and build timestamp; 'uname -m' prints machine hardware architecture; 'uname -p' prints processor architecture."
+  },
+  {
+    "id": 323,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.59.",
+    "question": "Which command is used to print a file to a line printer queue in Unix/Linux?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "print",
+      "B": "ptr",
+      "C": "lpr",
+      "D": "none of the mentioned"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง lpr (Line Printer) ใช้สำหรับส่งงานพิมพ์ (Print job) ไปยังคิวเครื่องพิมพ์ในระบบ UNIX/Linux",
+    "hard_question": "Which standard command submits print jobs to the CUPS / LPD spooling daemon for printing on a target printer?",
+    "hard_choices": {
+      "A": "lpq",
+      "B": "lprm",
+      "C": "lpr",
+      "D": "pr"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'lpr' (Line Printer Remote) enqueues print jobs to the printer daemon.\n⚠️ Traps: 'lpq' inspects the print queue; 'lprm' removes queued jobs; 'pr' formats and paginates text for printing."
+  },
+  {
+    "id": 324,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.60.",
+    "question": "Using which command can you view or configure user process resource limits for the shell session?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "rlimit",
+      "B": "ulimit",
+      "C": "setrlimit",
+      "D": "getrlimit"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง ulimit (User Limits) เป็น Shell built-in command ที่ใช้สำหรับตรวจสอบและกำหนดข้อจำกัดทรัพยากรของระบบสำหรับโปรเซส (เช่น จำนวนไฟล์ที่เปิดได้สูงสุด -n, ขนาด memory -m, ขนาด coredump -c)",
+    "hard_question": "Which shell built-in command manages per-process resource limits (such as max open file descriptors, max user processes, and max stack size) defined by setrlimit/getrlimit system calls?",
+    "hard_choices": {
+      "A": "cgroups",
+      "B": "sysctl",
+      "C": "ulimit",
+      "D": "nice"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'ulimit' controls resource limitations available to the shell and child processes.\n⚠️ Traps: 'setrlimit' and 'getrlimit' are C library system calls, not shell commands; 'sysctl' configures system-wide kernel parameters; 'cgroups' isolates resource usage at the kernel level."
+  },
+  {
+    "id": 325,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.61.",
+    "question": "Which option of the 'ls' command is used to view the inode number of files?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ls -l",
+      "B": "ls -o",
+      "C": "ls -a",
+      "D": "ls -i"
+    },
+    "correct_key": "D",
+    "explanation": "คำสั่ง ls -i (-i ย่อมาจาก Inode) จะแสดงหมายเลข Inode (Index Node number) ของไฟล์แต่ละไฟล์ในตารางระบบไฟล์",
+    "hard_question": "Which flag instructs GNU 'ls' to print the index number (inode) of each file alongside its name?",
+    "hard_choices": {
+      "A": "ls -s",
+      "B": "ls -i",
+      "C": "ls -n",
+      "D": "ls -g"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'ls -i' (--inode) displays the filesystem inode number of each file.\n⚠️ Traps: '-s' prints allocated block sizes; '-n' lists numeric UIDs and GIDs instead of names; '-g' lists like -l but omits owner."
+  },
+  {
+    "id": 326,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.62.",
+    "question": "What does the command 'find / -name \"*\"' perform?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Lists all files and directories recursively starting from the root directory (/)",
+      "B": "Lists a file named exactly '*' located in /",
+      "C": "Lists only files directly inside the / directory without subdirectories",
+      "D": "Lists only directories inside the / directory"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง find / -name '*' จะค้นหาและแสดงรายชื่อไฟล์ ไดเรกทอรี และอ็อบเจ็กต์ทั้งหมดที่มีชื่อตรงกับ wildcard '*' (ทุกชื่อ) โดยเริ่มค้นหาแบบ Recursive จาก Root (/)",
+    "hard_question": "When executing 'find / -name \"*\"' with the pattern quoted, what is the behavior of the search traversal?",
+    "hard_choices": {
+      "A": "It matches all file and directory inodes recursively from root because '*' matches any character sequence.",
+      "B": "It searches only for files named with a literal asterisk character in root.",
+      "C": "It ignores hidden dotfiles while searching root.",
+      "D": "It fails with an invalid argument syntax error."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Quoting '*' prevents shell globbing and passes '*' to find, matching every file and folder recursively starting from '/'.\n⚠️ Traps: To match a literal asterisk, one would use '\\*' or '[*]'."
+  },
+  {
+    "id": 327,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.63.",
+    "question": "Which command is used to display file contents sequentially as octal (or hexadecimal) bytes?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "octal",
+      "B": "text_oct",
+      "C": "oct",
+      "D": "od"
+    },
+    "correct_key": "D",
+    "explanation": "คำสั่ง od (Octal Dump) ใช้สำหรับแปลงและแสดงผลข้อมูลไบนารีในไฟล์ในรูปแบบฐานแปด (Octal), ฐานสิบหก (Hex), หรือตัวอักษร ASCII",
+    "hard_question": "Which core utility is historically named for dumping files in octal format, but also supports hex (-x) and character (-c) format representations?",
+    "hard_choices": {
+      "A": "xxd",
+      "B": "strings",
+      "C": "od",
+      "D": "dump"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'od' (Octal Dump) is the traditional POSIX command for dumping binary/text files in octal, hex, or decimal formats.\n⚠️ Traps: 'strings' extracts printable text strings; 'xxd' creates hex dumps or reversions (often bundled with vim); 'dump' is a filesystem backup utility."
+  },
+  {
+    "id": 328,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.64.",
+    "question": "Which command is used to view the uncompressed contents of a gzip-compressed text file directly in the terminal?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cat",
+      "B": "type",
+      "C": "zcat",
+      "D": "print"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง zcat (หรือ gzip -dc) ใช้สำหรับอ่านและแสดงผลเนื้อหาของไฟล์ที่ถูกบีบอัดด้วย gzip (.gz) ออกมาทางหน้าจอ Terminal โดยไม่ต้องแตกไฟล์ออกมาก่อน",
+    "hard_question": "Which utility decompresses and concatenates gzip-compressed files (.gz) directly to standard output without writing an uncompressed file to disk?",
+    "hard_choices": {
+      "A": "gzread",
+      "B": "gunzip -c",
+      "C": "zcat",
+      "D": "Both B and C are correct"
+    },
+    "hard_correct_key": "D",
+    "hard_explanation": "🎯 'zcat' is equivalent to 'gzip -dc' / 'gunzip -c', decompressing files to stdout without modifying disk files.\n⚠️ Traps: Regular 'cat' displays raw binary gzip data (corrupting terminal characters); 'gzread' is a zlib C API function."
+  },
+  {
+    "id": 329,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.65.",
+    "question": "Which command is used to change only a file's group ownership?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cgrp",
+      "B": "chgrp",
+      "C": "change",
+      "D": "group"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง chgrp (Change Group) ใช้สำหรับเปลี่ยนกลุ่มเจ้าของ (Group ownership) ของไฟล์หรือไดเรกทอรี",
+    "hard_question": "Which command exclusively updates the group association (GID) of a file without accepting or altering the user owner?",
+    "hard_choices": {
+      "A": "chown :group file",
+      "B": "chgrp group file",
+      "C": "setfacl -g group file",
+      "D": "usermod -g group file"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'chgrp' is dedicated specifically to changing group ownership (syntax: 'chgrp group file').\n⚠️ Traps: While 'chown :group file' also alters the group, 'chown' is primarily the owner modifier; 'usermod' modifies user account settings."
+  },
+  {
+    "id": 330,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.66.",
+    "question": "Which command is used to extract specific columns or fields from a delimited text file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "paste",
+      "B": "get",
+      "C": "cut",
+      "D": "tar"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง cut ใช้สำหรับตัดเลือกคอลัมน์ (Fields) หรือตำแหน่งตัวอักษร (Characters) ออกมาจากไฟล์ข้อความ โดยใช้แฟล็ก -d กำหนดตัวคั่น และ -f เลือกคอลัมน์",
+    "hard_question": "Which core utility extracts sections from each line of input based on byte positions (-b), character positions (-c), or delimiter-separated fields (-d and -f)?",
+    "hard_choices": {
+      "A": "paste",
+      "B": "cut",
+      "C": "split",
+      "D": "colrm"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'cut' extracts delimited fields (-d, -f) or byte/character columns (-b, -c).\n⚠️ Traps: 'paste' merges lines of files horizontally; 'split' divides files into fixed-size chunks; 'colrm' removes columns from stdin."
+  },
+  {
+    "id": 331,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.67.",
+    "question": "Which command is used to display the disk space consumption of a specific directory and its subtrees?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "du",
+      "B": "ds",
+      "C": "dd",
+      "D": "dds"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง du (Disk Usage) ใช้สำหรับตรวจสอบและรายงานปริมาณพื้นที่ดิสก์ที่ถูกใช้โดยไดเรกทอรีและไฟล์ย่อยภายใน",
+    "hard_question": "Which utility estimates and summarizes file space usage by traversing directory hierarchies and calculating block allocation for each file?",
+    "hard_choices": {
+      "A": "du",
+      "B": "df",
+      "C": "fstat",
+      "D": "lsblk"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'du' (Disk Usage) measures actual storage blocks occupied by directory contents.\n⚠️ Traps: 'df' reports available and used space of whole filesystems; 'dd' converts and copies files byte-by-byte; 'lsblk' lists block device topology."
+  },
+  {
+    "id": 332,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.68.",
+    "question": "Which command creates an empty regular file if the file does not already exist?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "cat",
+      "B": "touch",
+      "C": "ed",
+      "D": "read"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง touch หากไฟล์เป้าหมายยังไม่มีอยู่ จะสร้างไฟล์เปล่าขนาด 0 byte ให้ทันที",
+    "hard_question": "Which command creates a new regular file with 0 bytes when given a non-existent file path, without opening an interactive editor?",
+    "hard_choices": {
+      "A": "mknod",
+      "B": "touch",
+      "C": "create",
+      "D": "mkfile"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'touch' creates a 0-byte file if it does not exist, updating timestamps otherwise.\n⚠️ Traps: 'mknod' creates device nodes or FIFOs; 'create' is not a standard Unix command; 'cat' without redirection waits for stdin."
+  },
+  {
+    "id": 333,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.69.",
+    "question": "Which option of the 'rm' command is used to remove a directory together with all of its subdirectories and files?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "rm -b",
+      "B": "rm -o",
+      "C": "rm -p",
+      "D": "rm -r"
+    },
+    "correct_key": "D",
+    "explanation": "คำสั่ง rm -r (หรือ -R, --recursive) ใช้สำหรับลบไดเรกทอรีพร้อมไฟล์และไดเรกทอรีย่อยทั้งหมดที่อยู่ข้างใน",
+    "hard_question": "Which flag supplied to 'rm' triggers recursive descent to delete directories and their entire contents?",
+    "hard_choices": {
+      "A": "rm -d",
+      "B": "rm -r",
+      "C": "rm -a",
+      "D": "rm -p"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'rm -r' (or -R) deletes directory trees recursively.\n⚠️ Traps: 'rm -d' only deletes empty directories; 'rmdir -p' removes parent directories if empty; '-a' is not an rm flag."
+  },
+  {
+    "id": 334,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.70.",
+    "question": "Which command is used to identify the format and type of a file (e.g., ASCII text, ELF executable, JPEG image) by inspecting its magic bytes?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "type",
+      "B": "file",
+      "C": "finfo",
+      "D": "info"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง file ตรวจสอบ Magic Numbers (Magic Bytes) ที่ส่วนหัวของไฟล์ เพื่อระบุว่าไฟล์นั้นเป็นประเภทใด เช่น Text, Binary, Script หรือ Image โดยไม่สนนามสกุลไฟล์",
+    "hard_question": "Which utility examines file headers against a database of magic numbers (/etc/magic) to classify file types independently of their file extension?",
+    "hard_choices": {
+      "A": "type",
+      "B": "file",
+      "C": "stat",
+      "D": "mimetype"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'file' tests each argument to classify it using filesystem tests, magic number tests, and language tests.\n⚠️ Traps: 'type' describes how a command name would be interpreted (alias, builtin, file); 'stat' displays inode metadata (size, permissions, timestamps)."
+  },
+  {
+    "id": 335,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.71.",
+    "question": "Which command option with 'wc' is used to count the number of characters in a file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "grep -c",
+      "B": "wc -m",
+      "C": "count -c",
+      "D": "cut -c"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง wc (Word Count) มีออปชันสำหรับนับ: wc -m นับจำนวนตัวอักษร (Characters), wc -c นับจำนวนไบต์ (Bytes), wc -w นับจำนวนคำ (Words), และ wc -l นับจำนวนบรรทัด (Lines)",
+    "hard_question": "Under GNU coreutils 'wc', which option calculates character counts taking multibyte UTF-8 sequences into account rather than raw byte counts?",
+    "hard_choices": {
+      "A": "wc -c",
+      "B": "wc -m",
+      "C": "wc -k",
+      "D": "wc -w"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'wc -m' counts characters (including multi-byte characters); 'wc -c' counts raw bytes.\n⚠️ Traps: 'wc -c' in UTF-8 counts bytes, which will exceed character count for non-ASCII characters; 'wc -w' counts words."
+  },
+  {
+    "id": 336,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.72.",
+    "question": "Which command is used to display text output one screen/page at a time with backward and forward scrolling?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "less",
+      "B": "sed",
+      "C": "pause",
+      "D": "grep"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง less เป็น Terminal Pager ที่แสดงเนื้อหาทีละหน้า โดยสามารถกดปุ่มลูกศร, Page Up, Page Down หรือ spacebar เพื่อเลื่อนดูเนื้อหาได้อย่างอิสระ",
+    "hard_question": "Which terminal pager utility permits bidirectional scrolling, searching, and pipe inspection while displaying one page at a time?",
+    "hard_choices": {
+      "A": "less",
+      "B": "sed",
+      "C": "awk",
+      "D": "tee"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'less' is the ubiquitous POSIX pager for full-screen paginated viewing.\n⚠️ Traps: 'sed' is a stream editor for filtering and transforming text; 'awk' is a text processing programming language; 'tee' duplicates input streams."
+  },
+  {
+    "id": 337,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.73.",
+    "question": "Which command displays the disk space used by each file and subdirectory in the current working directory?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ls -l",
+      "B": "ls -la",
+      "C": "du -a",
+      "D": "df -h"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง du (Disk Usage เช่น du -a หรือ du -sh *) จะคำนวณและแสดงปริมาณพื้นที่ดิสก์จริง (Disk allocation) ที่แต่ละไฟล์และโฟลเดอร์ในไดเรกทอรีปัจจุบันใช้งาน",
+    "hard_question": "Which command displays the actual storage block allocation for all files and directories within the current directory rather than just file logical lengths?",
+    "hard_choices": {
+      "A": "ls -l",
+      "B": "du -a",
+      "C": "df .",
+      "D": "stat -c %s *"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'du -a' displays disk space consumed by each file and directory.\n⚠️ Traps: 'ls -l' reports apparent logical byte size, which differs from physical block usage (e.g. sparse files); 'df .' reports filesystem-level free space."
+  },
+  {
+    "id": 338,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.74.",
+    "question": "The output of which command includes the owner user ID / username of each file?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ls",
+      "B": "help",
+      "C": "date",
+      "D": "ls -l"
+    },
+    "correct_key": "D",
+    "explanation": "คำสั่ง ls -l (Long format) แสดงข้อมูลโดยละเอียดของไฟล์ ได้แก่ Permissions, Links, Owner User, Owner Group, Size, Timestamp และ Filename",
+    "hard_question": "In standard coreutils, which command format lists files with columns displaying file type, permissions, hard link count, owner username, group name, size, and timestamp?",
+    "hard_choices": {
+      "A": "ls -a",
+      "B": "ls -x",
+      "C": "ls -l",
+      "D": "ls -C"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'ls -l' uses the long listing format containing the owner username/UID.\n⚠️ Traps: 'ls' alone outputs only names; 'ls -C' outputs names in columns; 'ls -x' sorts names across rows."
+  },
+  {
+    "id": 339,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.75.",
+    "question": "Which command is used to display all files including hidden files in the current directory and all of its subdirectories recursively?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ls -aR",
+      "B": "ls -a",
+      "C": "ls -R",
+      "D": "ls -l"
+    },
+    "correct_key": "A",
+    "explanation": "คำสั่ง ls -aR รวมออปชัน -a (All แสดงไฟล์ซ่อน) และ -R (Recursive แสดงไฟล์ในโฟลเดอร์ย่อยทั้งหมดลงไป)",
+    "hard_question": "Which combination of 'ls' flags lists all entries including dotfiles while recursively descending through the directory hierarchy?",
+    "hard_choices": {
+      "A": "ls -aR",
+      "B": "ls -lr",
+      "C": "ls -la",
+      "D": "ls -Rd"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 'ls -aR' combines '-a' (include hidden files) and '-R' (recursive directory descent).\n⚠️ Traps: '-lr' reverses sort order in long listing; '-la' lists hidden files but does not recurse; '-Rd' prevents descending into directories."
+  },
+  {
+    "id": 340,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.76.",
+    "question": "What information is displayed by the 'pwd' command?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The user's account password",
+      "B": "The contents of the /etc/passwd file",
+      "C": "The present (current) working directory path",
+      "D": "A list of available printer working devices"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง pwd ย่อมาจาก 'Print Working Directory' หรือ 'Present Working Directory' ใช้แสดงเส้นทาง Path ของโฟลเดอร์ปัจจุบันที่กำลังทำงานอยู่",
+    "hard_question": "What is the primary function of the POSIX 'pwd' utility?",
+    "hard_choices": {
+      "A": "Displaying the user's encrypted credentials from /etc/shadow",
+      "B": "Printing the absolute pathname of the current working directory",
+      "C": "Changing the system password policy timeout",
+      "D": "Querying PAM (Pluggable Authentication Modules) for current user privileges"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'pwd' prints the absolute pathname of the working directory.\n⚠️ Traps: Passwords are managed by 'passwd'; shadow credentials are in /etc/shadow."
+  },
+  {
+    "id": 341,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.77.",
+    "question": "Which command is used to set the default permission mask for newly created files and directories?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "chmod",
+      "B": "chown",
+      "C": "umask",
+      "D": "chgrp"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง umask (User File Creation Mask) ใช้กำหนดค่า Mask ที่จะนำไปหักลบออกจากค่า Default Permissions (666 สำหรับไฟล์, 777 สำหรับไดเรกทอรี) เมื่อมีการสร้างไฟล์หรือโฟลเดอร์ใหม่",
+    "hard_question": "If the system umask is set to 022, what default permission bits will be assigned to a newly created regular file (base mode 0666) and directory (base mode 0777)?",
+    "hard_choices": {
+      "A": "File: 644 (rw-r--r--), Directory: 755 (rwxr-xr-x)",
+      "B": "File: 755 (rwxr-xr-x), Directory: 644 (rw-r--r--)",
+      "C": "File: 666 (rw-rw-rw-), Directory: 777 (rwxrwxrwx)",
+      "D": "File: 600 (rw-------), Directory: 700 (rwx------)"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 umask bits are subtracted/cleared: File base 666 & ~022 = 644 (rw-r--r--); Directory base 777 & ~022 = 755 (rwxr-xr-x).\n⚠️ Traps: Standard file creation does not include execute bits (base is 666, not 777); 'chmod' modifies existing files, whereas 'umask' sets the initial creation mask."
+  },
+  {
+    "id": 342,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.78.",
+    "question": "Which option of the 'tar' command is used to list the table of contents of an archive file without extracting it?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "tar -cvf",
+      "B": "tar -tvf",
+      "C": "tar -xvf",
+      "D": "tar -ovf"
+    },
+    "correct_key": "B",
+    "explanation": "ในคำสั่ง tar: -t ย่อมาจาก list Table of contents ใช้ดูรายชื่อไฟล์ภายใน archive โดยไม่ต้องแตกไฟล์ (-c คือ create, -x คือ extract)",
+    "hard_question": "Which tar operation mode inspects a tar archive and prints a directory-style listing of contained members to stdout without writing them to disk?",
+    "hard_choices": {
+      "A": "tar -cvf archive.tar",
+      "B": "tar -tvf archive.tar",
+      "C": "tar -xvf archive.tar",
+      "D": "tar -uvf archive.tar"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'tar -t' (--list) lists archive members.\n⚠️ Traps: '-c' creates archives; '-x' extracts archive contents; '-u' updates archive members."
+  },
+  {
+    "id": 343,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.79.",
+    "question": "Which command searches the contents of a file for lines matching a particular text pattern or regular expression?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "touch",
+      "B": "grep",
+      "C": "find",
+      "D": "ls"
+    },
+    "correct_key": "B",
+    "explanation": "คำสั่ง grep (Global Regular Expression Print) ใช้สำหรับค้นหาข้อความหรือ Regular Expression ภายในเนื้อหาของไฟล์",
+    "hard_question": "Which command scans text line-by-line across files or standard input and outputs lines that match a specified regular expression pattern?",
+    "hard_choices": {
+      "A": "find",
+      "B": "locate",
+      "C": "grep",
+      "D": "sed -d"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 'grep' filters lines matching regex patterns.\n⚠️ Traps: 'find' searches directory trees for filenames/metadata; 'locate' queries pre-indexed database paths; 'sed' is a stream editor."
+  },
+  {
+    "id": 344,
+    "chapter_id": 10,
+    "chapter_title": "Linux Lab 2: Commands & OS Concepts",
+    "chapter_subtitle": "แบบฝึกหัดทบทวน Linux Commands, Shell Utilities และแนวคิด OS",
+    "section_name": "Quiz 4: System & File Utilities",
+    "orig_num": "Lab2.80.",
+    "question": "Which 'uname' flag outputs the operating system name (e.g., 'GNU/Linux')?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "uname -n",
+      "B": "uname -r",
+      "C": "uname -o",
+      "D": "uname -m"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่ง uname -o (-o ย่อมาจาก operating system) จะแสดงชื่อระบบปฏิบัติการ (เช่น GNU/Linux) ต่างจาก uname -s ซึ่งแสดงชื่อเคอร์เนล (เช่น Linux)",
+    "hard_question": "In GNU coreutils 'uname', which flag specifically outputs the high-level operating system identifier (such as 'GNU/Linux') rather than the kernel name (-s) or machine hardware name (-m)?",
+    "hard_choices": {
+      "A": "uname -s",
+      "B": "uname -o",
+      "C": "uname -r",
+      "D": "uname -p"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 'uname -o' prints the operating system name (e.g. 'GNU/Linux').\n⚠️ Traps: 'uname -s' prints the kernel name (e.g. 'Linux'); 'uname -r' prints the kernel release; 'uname -n' prints the network node hostname."
   }
 ]

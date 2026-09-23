@@ -8,7 +8,7 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 
 ---
 
-## 📚 Scope & Content (264 Total Questions)
+## 📚 Scope & Content (344 Total Questions)
 - **Chapter 1: Introduction** (41 questions)
 - **Chapter 2: Operating-System Structures** (53 questions)
 - **Chapter 3: Processes** (21 questions)
@@ -17,7 +17,8 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 - **Chapter 6: Synchronization Tools** (15 questions)
 - **Chapter 7: Synchronization Examples** (6 questions)
 - **Chapter 8: Deadlocks** (15 questions)
-- **🐧 Linux Commands Lab Quiz** (58 questions across 7 topics: Process, Memory, Storage, Permissions, Network, Utilities)
+- **🐧 Linux Commands Lab Quiz 1** (58 questions across 7 topics: Process, Memory, Storage, Permissions, Network, Utilities)
+- **🐧 Linux Commands Lab Quiz 2** (80 questions across 4 topics: Linux Commands Review, OS Concepts Review, Essential Commands, System & File Utilities)
 
 ---
 
