@@ -9630,5 +9630,1823 @@
     },
     "hard_correct_key": "B",
     "hard_explanation": "🎯 'uname -o' prints the operating system name (e.g. 'GNU/Linux').\n⚠️ Traps: 'uname -s' prints the kernel name (e.g. 'Linux'); 'uname -r' prints the kernel release; 'uname -n' prints the network node hostname."
+  },
+  {
+    "orig_num": "2B.1.",
+    "question": "Which among the following operations is NOT a mandatory operation that should be capable by all general-purpose Operating Systems?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Multiprogramming",
+      "B": "Multitasking",
+      "C": "Time Sharing",
+      "D": "Real-time processing"
+    },
+    "correct_key": "D",
+    "explanation": "Every modern general-purpose operating system must support multiprogramming, multitasking, and time-sharing. However, real-time processing is specialized and not a mandatory requirement for standard general-purpose desktop/server systems.",
+    "hard_question": "Which computational paradigm is an optional specialization rather than a universal requirement for general-purpose time-sharing operating systems?",
+    "hard_choices": {
+      "A": "Preemptive Multitasking",
+      "B": "Hard Real-time deterministic scheduling",
+      "C": "Dual-mode hardware memory protection",
+      "D": "Multiprogramming resource allocation"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hard real-time execution guarantees rigid deadlines; general-purpose OS designs prioritize average throughput and fairness instead.\n⚠️ Traps: Multiprogramming, multitasking, and dual-mode execution are baseline OS requirements.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 345
+  },
+  {
+    "orig_num": "2B.2.",
+    "question": "Which among the following is a command interpreter shell in UNIX/Linux systems?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Bourne-Again shell (bash)",
+      "B": "GNOME",
+      "C": "KDE",
+      "D": "MS-DOS"
+    },
+    "correct_key": "A",
+    "explanation": "Bourne-Again shell (bash) is the standard command-line interpreter (shell) in GNU/Linux. GNOME and KDE are graphical desktop environments (GUI), while MS-DOS is an ancient standalone disk operating system.",
+    "hard_question": "Which software component acts as the primary user-mode command interpreter (shell) in standard GNU/Linux installations?",
+    "hard_choices": {
+      "A": "Bourne-Again shell (bash)",
+      "B": "X11 Window Server",
+      "C": "Wayland Compositor",
+      "D": "Systemd init daemon"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Bash is a command-language interpreter executing commands from standard input or script files.\n⚠️ Traps: X11/Wayland handle GUI rendering; Systemd is the PID 1 system and service manager.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 346
+  },
+  {
+    "orig_num": "2B.3.",
+    "question": "System calls provide a programming interface to the services made available by the ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Users",
+      "B": "I/O devices",
+      "C": "Operating system kernel",
+      "D": "Compilers"
+    },
+    "correct_key": "C",
+    "explanation": "System calls provide the fundamental interface between user-level application programs and the hardware services managed by the operating system kernel.",
+    "hard_question": "What is the primary architectural purpose of a system call trap into kernel mode?",
+    "hard_choices": {
+      "A": "To grant user applications direct unmediated write access to peripheral device registers",
+      "B": "To invoke privileged kernel routines and services through a controlled, protected interface",
+      "C": "To recompile interpreted bytecode into native CPU instructions",
+      "D": "To flush user-space cache lines into physical DRAM blocks"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 System calls switch CPU execution from user mode to kernel mode via software interrupts/traps, executing privileged OS service routines.\n⚠️ Traps: System calls strictly prevent unmediated hardware access.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 347
+  },
+  {
+    "orig_num": "2B.4.",
+    "question": "Which among these are recognized categories of System Calls in modern operating systems?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Process control",
+      "B": "File manipulation",
+      "C": "Device manipulation",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "Silberschatz categorizes system calls into 6 primary types: (1) Process control, (2) File manipulation, (3) Device manipulation, (4) Information maintenance, (5) Communications, and (6) Protection.",
+    "hard_question": "According to Silberschatz Chapter 2, which major functional classification encompasses fork(), execve(), and wait() system calls?",
+    "hard_choices": {
+      "A": "Information maintenance",
+      "B": "Process control",
+      "C": "Communications",
+      "D": "Device manipulation"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 fork(), execve(), and wait() belong to the Process Control category.\n⚠️ Traps: stat() is Information maintenance; pipe() is Communications; ioctl() is Device manipulation.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 348
+  },
+  {
+    "orig_num": "2B.5.",
+    "question": "The operations 'get time or date', 'set system data', and 'get/set process or file attributes' fall under which category of System Calls?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Process control",
+      "B": "Information maintenance",
+      "C": "Communication",
+      "D": "Device manipulation"
+    },
+    "correct_key": "B",
+    "explanation": "Information maintenance system calls transfer information between the user program and the OS, including system timers, dates, process/file attributes, and system diagnostic data.",
+    "hard_question": "Which system call classification is responsible for transferring bookkeeping and telemetry metadata (such as system uptime, wall-clock time, and resource limits) between the kernel and user space?",
+    "hard_choices": {
+      "A": "Device manipulation",
+      "B": "Protection",
+      "C": "Information maintenance",
+      "D": "Process control"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Information maintenance covers calls like time(), date(), getpid(), and sysinfo().\n⚠️ Traps: Process control manages lifecycle (create/terminate); Device manipulation manages hardware read/write.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 349
+  },
+  {
+    "orig_num": "2B.6.",
+    "question": "Choose the correct logical computer system hierarchy starting from the lowest layer to the highest layer.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Hardware -> Operating System -> System Programs -> Application Programs",
+      "B": "Hardware -> System Programs -> Operating System -> Application Programs",
+      "C": "Hardware -> Operating System -> Application Programs -> System Programs",
+      "D": "Hardware -> Application Programs -> Operating System -> System Programs"
+    },
+    "correct_key": "A",
+    "explanation": "The standard logical layering (Silberschatz Chapter 1/2) is: Hardware (lowest) -> Operating System Kernel -> System Programs (shells, compilers, utilities) -> Application Programs (browsers, word processors) (highest).",
+    "hard_question": "In the standard 4-layer conceptual model of a computer system, where do command line shells, compilers, and system daemons reside?",
+    "hard_choices": {
+      "A": "Between the Hardware and the OS Kernel",
+      "B": "Between the OS Kernel and End-User Application Programs",
+      "C": "Within the privileged Kernel Mode Ring 0 space",
+      "D": "Below the microarchitecture firmware level"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 System programs provide a convenient execution environment on top of the OS kernel, sitting beneath user applications.\n⚠️ Traps: Shells and compilers run in user mode, not Ring 0.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 350
+  },
+  {
+    "orig_num": "2B.7.",
+    "question": "Which of the following tasks are categorized as System Program tasks rather than OS kernel tasks?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "File management utilities (e.g., cp, rm, ls)",
+      "B": "Programming-language support (e.g., compilers, assemblers)",
+      "C": "Program loading and execution (e.g., loaders, linkers)",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "System programs encompass utilities for file manipulation, status information, programming language support, program loading/execution, communications, and background services (daemons).",
+    "hard_question": "Which of the following software tools is classified as a user-mode System Program rather than a core kernel mechanism?",
+    "hard_choices": {
+      "A": "CPU Dispatcher",
+      "B": "Page fault handler",
+      "C": "Dynamic link loader (ld.so)",
+      "D": "Interrupt Vector Table"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Dynamic link loaders (ld.so) run in user space as system programs.\n⚠️ Traps: Dispatcher, page fault handler, and IVT are internal kernel mechanisms.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 351
+  },
+  {
+    "orig_num": "2B.8.",
+    "question": "Programs such as web browsers, word processors, spreadsheets, and database management systems provided on computers are called ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "System programs",
+      "B": "Command interpreters",
+      "C": "Application programs",
+      "D": "Device drivers"
+    },
+    "correct_key": "C",
+    "explanation": "Application programs define the ways in which system resources are used to solve specific computing problems of end users (word processing, web browsing, spreadsheet calculation).",
+    "hard_question": "How does Silberschatz distinguish Application Programs from System Programs?",
+    "hard_choices": {
+      "A": "Application programs run in kernel mode; system programs run in user mode.",
+      "B": "Application programs solve end-user computational problems, whereas system programs provide tools for development and system operation.",
+      "C": "Application programs cannot issue system calls directly.",
+      "D": "System programs are stored exclusively in ROM firmware."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 System programs support system operation and development; application programs address user tasks.\n⚠️ Traps: Both run in user mode and issue system calls.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 352
+  },
+  {
+    "orig_num": "2B.9.",
+    "question": "What architectural structure was followed by early MS-DOS?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Layered structure",
+      "B": "Microkernel architecture",
+      "C": "Simple (monolithic / non-modular) structure",
+      "D": "Loadable Kernel Modules"
+    },
+    "correct_key": "C",
+    "explanation": "Early MS-DOS lacked dual-mode protection and hardware separation, using a Simple Structure where application programs could access underlying BIOS routines and display hardware directly.",
+    "hard_question": "Why was the early MS-DOS architecture famously vulnerable to application bugs and malware crashes?",
+    "hard_choices": {
+      "A": "Its microkernel IPC overhead introduced severe latency.",
+      "B": "It used a simple, non-modular structure where applications could bypass the OS to write directly to BIOS and hardware memory.",
+      "C": "Its layered design had too many access control boundary checks.",
+      "D": "It enforced strict hardware rings that restricted BIOS interrupts."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In MS-DOS, applications could overwrite low memory and direct I/O without hardware protection.\n⚠️ Traps: MS-DOS had no microkernel or layered architecture.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 353
+  },
+  {
+    "orig_num": "2B.10.",
+    "question": "While designing and implementing an operating system, __________ determine HOW to do something, and _________ determine WHAT will be done.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "mechanisms, policies",
+      "B": "hardware, software",
+      "C": "system programs, application programs",
+      "D": "compilers, interpreters"
+    },
+    "correct_key": "A",
+    "explanation": "Separation of policy and mechanism is a core OS design principle: Mechanisms determine HOW to do something (e.g., timer interrupt context switch), while Policies determine WHAT will be done (e.g., which process runs next).",
+    "hard_question": "In the fundamental OS principle 'Separation of Policy and Mechanism', which pairing correctly aligns the concept with its definition?",
+    "hard_choices": {
+      "A": "Policy: how to implement a hardware timer; Mechanism: which thread receives CPU time",
+      "B": "Mechanism: the tool/data structure that performs an action; Policy: the decision rule governing when and how to apply the tool",
+      "C": "Policy: microkernel architecture; Mechanism: monolithic architecture",
+      "D": "Mechanism: user preferences; Policy: kernel device drivers"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Mechanisms provide the capability (how); policies decide parameters and rules (what).\n⚠️ Traps: Reversing policy and mechanism is a common trap.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 354
+  },
+  {
+    "orig_num": "2B.11.",
+    "question": "In a strictly Layered Operating System structure, what constitutes the bottom-most layer (Layer 0)?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "User interface",
+      "B": "Backing store",
+      "C": "Memory-management routines",
+      "D": "Hardware"
+    },
+    "correct_key": "D",
+    "explanation": "In a layered approach (e.g., THE multiprogramming system), Layer 0 is the underlying physical Hardware, and Layer N (topmost layer) is the User Interface.",
+    "hard_question": "In Dijkstra's classic layered operating system design, which layer occupies Layer 0, and which layer occupies Layer N?",
+    "hard_choices": {
+      "A": "Layer 0: CPU Scheduler; Layer N: Hardware",
+      "B": "Layer 0: Hardware; Layer N: User Interface",
+      "C": "Layer 0: File System; Layer N: Device Drivers",
+      "D": "Layer 0: Microkernel; Layer N: Hypervisor"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Layer 0 is physical hardware; Layer N is user interface; each intermediate layer uses only services of lower layers.\n⚠️ Traps: Hardware is always the foundation (Layer 0).",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 355
+  },
+  {
+    "orig_num": "2B.12.",
+    "question": "In a Microkernel OS structure, communication between client programs and the various services running in user space is primarily provided by ______________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Direct shared pointers",
+      "B": "Message passing",
+      "C": "Kernel device drivers",
+      "D": "Monolithic system calls"
+    },
+    "correct_key": "B",
+    "explanation": "In microkernel designs (such as Mach), non-essential services run as user processes. Communication between client applications and user-space servers occurs via message passing through the microkernel.",
+    "hard_question": "What is the primary communication mechanism used in Mach and other microkernels to coordinate user-space servers, and what is its chief performance tradeoff?",
+    "hard_choices": {
+      "A": "Direct branch instructions; introduces memory fragmentation",
+      "B": "Message passing; introduces performance overhead due to repeated user-to-kernel mode switches and context switches",
+      "C": "Hardware bus arbitration; limits multiprocessor scalability",
+      "D": "Shared page tables; compromises memory protection boundaries"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Microkernels rely on message passing across address spaces, which incurs context switch and copying overhead.\n⚠️ Traps: Microkernels avoid monolithic shared memory drivers for security/modularity.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 356
+  },
+  {
+    "orig_num": "2B.13.",
+    "question": "Which modern OS design architecture utilizes object-oriented techniques allowing the kernel to load core services dynamically as needed?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Layered approach",
+      "B": "Pure Microkernels",
+      "C": "Loadable Kernel Modules (LKMs)",
+      "D": "MS-DOS Monolithic approach"
+    },
+    "correct_key": "C",
+    "explanation": "Loadable Kernel Modules (LKMs, used in Linux, macOS, and Solaris) allow the kernel to dynamically link components (like device drivers and filesystems) into the running kernel using object-oriented module interfaces.",
+    "hard_question": "How do Loadable Kernel Modules (LKMs) combine the advantages of layered architectures and microkernel modularity without suffering message-passing penalties?",
+    "hard_choices": {
+      "A": "Modules run in isolated user-space processes with zero context switching.",
+      "B": "Modules are dynamically loaded into kernel address space on demand, communicating directly without IPC overhead.",
+      "C": "Modules compile into hardware microcode before execution.",
+      "D": "Modules strictly run as virtualized guest containers."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 LKMs load directly into kernel memory on demand, offering modularity without message-passing performance costs.\n⚠️ Traps: Unlike microkernels, LKMs run in kernel mode (Ring 0).",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 357
+  },
+  {
+    "orig_num": "2B.14.",
+    "question": "The fundamental concept of a ____________ is to abstract the hardware of a single computer into several distinct execution environments, creating the illusion that each environment is its own private computer.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Virtual Machine",
+      "B": "Monolithic kernel",
+      "C": "System call interface",
+      "D": "Command interpreter"
+    },
+    "correct_key": "A",
+    "explanation": "A Virtual Machine (VM) abstracts the physical hardware (CPU, memory, disk, network) into multiple virtual execution environments, each running its own independent guest OS.",
+    "hard_question": "In system virtualization, what role does a Type-1 Hypervisor play with respect to hardware abstraction?",
+    "hard_choices": {
+      "A": "It runs as an application inside a host OS to simulate CPU registers in software.",
+      "B": "It runs directly on bare-metal hardware, arbitrating guest OS access to CPU cores, memory pages, and I/O devices.",
+      "C": "It replaces user-space libraries with virtual POSIX stubs.",
+      "D": "It converts 32-bit binaries into 64-bit microcode."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hypervisors virtualize physical hardware into multiple isolated virtual machine environments.\n⚠️ Traps: Type-2 hypervisors run on a host OS; Type-1 runs on bare metal.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 358
+  },
+  {
+    "orig_num": "2B.15.",
+    "question": "Virtual machine software runs in User mode while the Virtual machine itself runs in Kernel mode. TRUE or FALSE?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "True",
+      "B": "False"
+    },
+    "correct_key": "B",
+    "explanation": "FALSE. The virtual machine software / hypervisor runs in Kernel mode (controlling the physical hardware), whereas the virtual machine (guest OS and its applications) runs in User mode (or non-root VMX mode).",
+    "hard_question": "Under hardware-assisted virtualization (e.g. Intel VT-x), which statement correctly describes the CPU operational modes of the hypervisor versus the guest OS?",
+    "hard_choices": {
+      "A": "Hypervisor runs in VMX non-root user mode; Guest OS runs in bare-metal Ring 0.",
+      "B": "Hypervisor runs in VMX root mode (kernel mode); Guest OS runs in VMX non-root mode.",
+      "C": "Both Hypervisor and Guest OS execute simultaneously in user-space Ring 3.",
+      "D": "The Guest OS has unrestricted physical access to page tables and timer interrupts."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The virtualization software (hypervisor) executes in root mode with full control; guest systems execute in non-root mode.\n⚠️ Traps: The guest cannot run in unrestricted physical kernel mode without causing privilege collisions.",
+    "chapter_id": 11,
+    "chapter_title": "Chapter 2: Operating-System Structures (Set 2)",
+    "chapter_subtitle": "System Calls, Shells, Architectures, Virtual Machines, Policies & Mechanisms",
+    "section_name": "Quiz 1: OS Structures & Concepts",
+    "id": 359
+  },
+  {
+    "orig_num": "3B.1.",
+    "question": "A process is a ___________ under execution, while a thread is a _______ of execution within a process.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "memory, control",
+      "B": "state, memory unit",
+      "C": "program, unit",
+      "D": "system call, queue"
+    },
+    "correct_key": "C",
+    "explanation": "A process is a program in execution (an active entity with program counter, stack, data, and heap), whereas a thread is a basic unit of CPU execution within a process.",
+    "hard_question": "What is the key technical distinction between a process and a thread in modern operating systems?",
+    "hard_choices": {
+      "A": "A process shares its address space with siblings; a thread has a private page table.",
+      "B": "A process is an active instance of a program possessing its own address space; a thread is a dispatchable execution context sharing address space within a process.",
+      "C": "Processes are scheduled by hardware; threads are scheduled by compilers.",
+      "D": "A thread owns file descriptors; a process only owns the program counter."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Processes own isolated address spaces and resources; threads within a process share the code, data, and open files while keeping private stacks/registers.\n⚠️ Traps: Threads share address space; they do not have private page tables.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 360
+  },
+  {
+    "orig_num": "3B.2.",
+    "question": "Which among the following are valid states in the classic 5-State Process Model? (i) New, (ii) Running, (iii) Waiting, (iv) Ready, (v) Terminated",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "(i), (ii) and (iv)",
+      "B": "(iii) and (v)",
+      "C": "(ii), (iii), (iv) and (v)",
+      "D": "(i), (ii), (iii), (iv) and (v)"
+    },
+    "correct_key": "D",
+    "explanation": "All five states are valid in the classic process lifecycle: New (being created), Ready (waiting for CPU), Running (instructions executing), Waiting (waiting for I/O or event), Terminated (finished execution).",
+    "hard_question": "In the 5-state process lifecycle, when a running process issues a blocking read() system call, to which state does it immediately transition?",
+    "hard_choices": {
+      "A": "Ready",
+      "B": "Waiting (Blocked)",
+      "C": "Terminated",
+      "D": "Suspended-Ready"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Blocking I/O moves a process from Running to Waiting until the I/O event completes.\n⚠️ Traps: Timer interrupts move processes to Ready, not Waiting.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 361
+  },
+  {
+    "orig_num": "3B.3.",
+    "question": "Process state, Program Counter, CPU registers, CPU-scheduling information, Memory-management information, Accounting information, and I/O status are stored in the ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Process Control Block (PCB)",
+      "B": "Long-term Scheduler",
+      "C": "Short-term Scheduler",
+      "D": "Medium-term Scheduler"
+    },
+    "correct_key": "A",
+    "explanation": "Each process is represented in the operating system by a Process Control Block (PCB, also called task_struct in Linux), which maintains all execution and resource metadata.",
+    "hard_question": "Which kernel data structure encapsulates the execution context, saved registers, memory limits, and file descriptor table for an active task?",
+    "hard_choices": {
+      "A": "Process Control Block (PCB / task_struct)",
+      "B": "Translation Lookaside Buffer (TLB)",
+      "C": "Thread-Local Storage (TLS)",
+      "D": "Memory Management Unit (MMU)"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 The PCB stores all state required to pause and resume process execution.\n⚠️ Traps: TLB caches address translations; TLS is user-space thread data.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 362
+  },
+  {
+    "orig_num": "3B.4.",
+    "question": "Processes entering the system are placed into the _______ queue, while processes residing in main memory and ready to execute are kept on the _______ queue.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "ready, job",
+      "B": "new, running",
+      "C": "waiting, running",
+      "D": "job, ready"
+    },
+    "correct_key": "D",
+    "explanation": "Historically, all admitted processes enter the job queue (admission queue), whereas processes residing in main memory waiting for CPU allocation reside in the ready queue.",
+    "hard_question": "Which scheduling queue holds processes that are resident in RAM and immediately eligible for CPU core dispatch?",
+    "hard_choices": {
+      "A": "Device queue",
+      "B": "Ready queue",
+      "C": "Job pool",
+      "D": "Event wait queue"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The Ready queue holds processes waiting for CPU time.\n⚠️ Traps: Device queues hold processes waiting for specific I/O devices.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 363
+  },
+  {
+    "orig_num": "3B.5.",
+    "question": "Performing a STATE SAVE of the current process and a STATE RESTORE of a different process when switching the CPU core is called a ______.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "State switch",
+      "B": "Context switch",
+      "C": "Process switch",
+      "D": "PCB switch"
+    },
+    "correct_key": "B",
+    "explanation": "A Context Switch saves the state of the active running process into its PCB and loads the saved context of a new process from its PCB, representing purely computational overhead.",
+    "hard_question": "Why is a context switch considered purely computational overhead by operating system designers?",
+    "hard_choices": {
+      "A": "It invalidates CPU registers, forces TLB flushes, and does no useful user work while executing.",
+      "B": "It always requires writing the entire physical memory to disk.",
+      "C": "It halts the hardware clock oscillator.",
+      "D": "It forces all child processes to abort."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Context switching performs no useful user computation; time is spent saving/restoring registers and flushing memory mappings.\n⚠️ Traps: It does not swap full memory to disk unless paging out.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 364
+  },
+  {
+    "orig_num": "3B.6.",
+    "question": "When a parent process creates a new child process, which of the following statements can be possible regarding execution?\n(i) The parent continues to execute concurrently with its children.\n(ii) The parent waits until some or all of its children have terminated.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Only (i)",
+      "B": "Only (ii)",
+      "C": "Both (i) and (ii)",
+      "D": "Neither (i) nor (ii)"
+    },
+    "correct_key": "C",
+    "explanation": "Silberschatz Chapter 3 specifies two execution possibilities upon child creation: (1) Parent continues execution concurrently with child, or (2) Parent waits (via wait() system call) until children terminate.",
+    "hard_question": "In POSIX process management, how does a parent process transition between concurrent execution and synchronized termination with its child?",
+    "hard_choices": {
+      "A": "By executing wait() or waitpid() to block until child termination, or continuing execution concurrently without calling wait().",
+      "B": "By invoking nice() to lower child priority.",
+      "C": "By converting child threads into daemon threads.",
+      "D": "By unmounting the child's procfs hierarchy."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Calling wait() suspends the parent until child termination; omitting wait() leaves them running concurrently.\n⚠️ Traps: If parent does not call wait() after child exits, the child becomes a zombie.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 365
+  },
+  {
+    "orig_num": "3B.7.",
+    "question": "Which among the following is a valid reason why a parent process may terminate the execution of its child process?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The child has exceeded its usage of some of its allocated resources.",
+      "B": "The task assigned to the child is no longer required.",
+      "C": "The parent is exiting, and the OS does not allow children to continue (cascading termination).",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "A parent may terminate child processes if: resource quotas are exceeded, the assigned task is obsolete, or cascading termination is enforced upon parent exit.",
+    "hard_question": "What is the phenomenon called when an operating system terminates all child and descendant processes upon the exit of their parent process?",
+    "hard_choices": {
+      "A": "Cascading termination",
+      "B": "Zombie harvesting",
+      "C": "Orphan adoption",
+      "D": "Deadlock unraveling"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Cascading termination occurs when the OS automatically terminates all child processes if the parent terminates.\n⚠️ Traps: When a parent terminates without cascading, orphaned children are adopted by systemd/init.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 366
+  },
+  {
+    "orig_num": "3B.8.",
+    "question": "Which among the following are fundamental models of Interprocess Communication (IPC)?\n(i) Shared Memory, (ii) Context Switch, (iii) Message Passing, (iv) System Bus",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "(i) and (ii)",
+      "B": "(i) and (iii)",
+      "C": "(ii) and (iv)",
+      "D": "(i), (ii), (iii) and (iv)"
+    },
+    "correct_key": "B",
+    "explanation": "The two fundamental IPC models are Shared Memory (processes exchange data by reading/writing shared memory regions) and Message Passing (messages exchanged via kernel primitives).",
+    "hard_question": "Between Shared Memory and Message Passing IPC models, which provides higher performance for exchanging large volumes of data on the same host, and why?",
+    "hard_choices": {
+      "A": "Message Passing, because kernel copying optimizes cache prefetching.",
+      "B": "Shared Memory, because after initial setup, data transfer occurs at memory speeds without kernel intervention.",
+      "C": "Message Passing, because it avoids race conditions entirely without locking.",
+      "D": "Shared Memory, because it eliminates the need for synchronization primitives."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Shared memory allows direct memory access without system calls or kernel buffers after setup.\n⚠️ Traps: Shared memory still requires synchronization (semaphores/mutexes) to prevent race conditions.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 367
+  },
+  {
+    "orig_num": "3B.9.",
+    "question": "In a typical Shared Memory system, where does the shared memory segment physically lie when initially established?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "In the address space of the process creating the shared-memory segment.",
+      "B": "In the address space of the process to which communication is made.",
+      "C": "Decided randomly by the Operating System scheduler.",
+      "D": "Exclusively inside the kernel's stack frame."
+    },
+    "correct_key": "A",
+    "explanation": "Normally, a shared-memory segment resides in the address space of the process creating the segment. Other processes wishing to communicate must then attach this segment to their own address spaces.",
+    "hard_question": "When a process creates a POSIX shared memory object using shm_open() and mmap(), how do other processes gain access to that shared region?",
+    "hard_choices": {
+      "A": "They must attach the existing memory object into their own virtual address space via mmap().",
+      "B": "The kernel automatically merges their entire page tables into a single address space.",
+      "C": "They issue read() system calls directly targeting the creator's private stack.",
+      "D": "They must run as threads inside the creator process."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Other processes open the shared object and map it into their own virtual address spaces using mmap().\n⚠️ Traps: Address spaces remain separate; only the shared pages map to the same physical frames.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 368
+  },
+  {
+    "orig_num": "3B.10.",
+    "question": "With respect to the Producer-Consumer problem, in which type of buffer must the consumer wait if the buffer is empty AND the producer wait if the buffer is full?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Bounded buffer",
+      "B": "Unbounded buffer",
+      "C": "Circular mailbox",
+      "D": "Direct pipe"
+    },
+    "correct_key": "A",
+    "explanation": "In a Bounded Buffer (fixed capacity), the consumer waits if empty, and the producer waits if full. In an Unbounded Buffer, the producer never has to wait because capacity is practically infinite.",
+    "hard_question": "Under what condition does the producer in the Producer-Consumer problem block in an Unbounded Buffer system?",
+    "hard_choices": {
+      "A": "When the queue reaches 1024 items.",
+      "B": "The producer never needs to block in an unbounded buffer system; only the consumer blocks when the buffer is empty.",
+      "C": "When the consumer issues a SIGSTOP signal.",
+      "D": "Whenever a context switch occurs."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In an unbounded buffer, there is no limit on queue length, so the producer never blocks.\n⚠️ Traps: Only bounded buffers restrict the producer when full.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 369
+  },
+  {
+    "orig_num": "3B.11.",
+    "question": "In a Direct Message Passing system, identify which scheme is symmetric and which is asymmetric:\nSet 1:\n  send(P, message)\n  receive(Q, message)\nSet 2:\n  send(P, message)\n  receive(id, message)",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Both Set-1 and Set-2 are symmetric.",
+      "B": "Both Set-1 and Set-2 are asymmetric.",
+      "C": "Set-1 is symmetric and Set-2 is asymmetric.",
+      "D": "Set-1 is asymmetric and Set-2 is symmetric."
+    },
+    "correct_key": "C",
+    "explanation": "In symmetric addressing, both sender and receiver explicitly name each other: send(P, msg) and receive(Q, msg). In asymmetric addressing, only the sender names the recipient; the receiver accepts messages from any sender and saves their ID: receive(id, msg).",
+    "hard_question": "What is the primary modularity drawback of symmetric direct communication schemes in message passing systems?",
+    "hard_choices": {
+      "A": "Changing the process identifier requires updating both sender and receiver source definitions (hard-coded naming coupling).",
+      "B": "It prevents the kernel from using mailbox buffers.",
+      "C": "It requires physical point-to-point network cabling.",
+      "D": "It forces synchronous blocking on all receive calls."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Explicit naming couples processes, making modular code refactoring cumbersome.\n⚠️ Traps: Asymmetric schemes relieve the receiver from knowing the sender in advance.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 370
+  },
+  {
+    "orig_num": "3B.12.",
+    "question": "In an Indirect Message Passing system utilizing mailboxes (or ports), who can be the owner of the shared mailbox?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The process that created the mailbox",
+      "B": "The operating system",
+      "C": "All processes that access the mailbox",
+      "D": "Both (A) and (B)"
+    },
+    "correct_key": "D",
+    "explanation": "A mailbox can be owned either by a process (part of its address space; terminates when process exits) or by the operating system (independent entity with its own lifecycle).",
+    "hard_question": "When an indirect mailbox is owned by a process rather than the operating system, what happens when that owner process terminates?",
+    "hard_choices": {
+      "A": "The mailbox disappears and any subsequent senders to the mailbox receive an error.",
+      "B": "The mailbox automatically migrates to physical ROM.",
+      "C": "The mailbox remains indefinitely in the kernel address space.",
+      "D": "All waiting messages are broadcast to the network."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 A process-owned mailbox dies with its creator process.\n⚠️ Traps: OS-owned mailboxes persist independently until explicitly destroyed.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 371
+  },
+  {
+    "orig_num": "3B.13.",
+    "question": "In client-server network communication using Sockets, when a client process requests a connection, the host OS assigns it an ephemeral port number that is ___________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "less than 1024",
+      "B": "greater than 1024",
+      "C": "between 80 and 1024",
+      "D": "between 0 and 255"
+    },
+    "correct_key": "B",
+    "explanation": "Ports 0 to 1023 are Well-Known (reserved) ports for standard services (HTTP 80, SSH 22, FTP 21). Client ephemeral ports assigned dynamically by the OS must be greater than 1024 (typically 1024 to 65535).",
+    "hard_question": "Why are port numbers below 1024 restricted and requiring root/superuser privileges to bind on Unix-like operating systems?",
+    "hard_choices": {
+      "A": "They represent standard well-known network service ports (e.g. SSH, HTTP, DNS) protected from unauthorized impersonation.",
+      "B": "They are physically wired to specific CPU interrupt lines.",
+      "C": "They are restricted to 8-bit IPv4 subnets.",
+      "D": "They can only handle UDP broadcast packets."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Ports 0–1023 are privileged well-known service ports requiring root access to bind.\n⚠️ Traps: Ports are 16-bit logical software abstractions, not physical pins.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 372
+  },
+  {
+    "orig_num": "3B.14.",
+    "question": "The External Data Representation (XDR) used by Remote Procedure Calls (RPC) is designed to be ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Machine-independent",
+      "B": "Machine-dependent",
+      "C": "Kernel-specific",
+      "D": "Hardware-accelerated only"
+    },
+    "correct_key": "A",
+    "explanation": "XDR (External Data Representation) provides an architecture- and machine-independent data serialization format to resolve differences in endianness (Big-Endian vs Little-Endian) and data structure alignment between client and server.",
+    "hard_question": "In Remote Procedure Call (RPC) implementations, how does XDR resolve byte-ordering conflicts across heterogeneous architectures?",
+    "hard_choices": {
+      "A": "By forcing all client and server CPUs to switch to Little-Endian mode dynamically.",
+      "B": "By serializing data into a canonical network standard format (XDR) at the sender and deserializing at the receiver.",
+      "C": "By transmitting raw C memory pointers across the socket connection.",
+      "D": "By wrapping all numbers into ASCII strings."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 XDR serializes parameters into a canonical representation, overcoming endianness and type size differences.\n⚠️ Traps: Raw memory pointers are invalid across separate machines and address spaces.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 373
+  },
+  {
+    "orig_num": "3B.15.",
+    "question": "Because Remote Procedure Calls (RPCs) are vulnerable to network failures, duplicate packets, and server restarts, robust operating systems must ensure that RPC messages are acted on ___________ to guarantee transactional correctness.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "at most once",
+      "B": "at least once",
+      "C": "at least twice",
+      "D": "exactly once"
+    },
+    "correct_key": "D",
+    "explanation": "To eliminate the risk of duplicate non-idempotent operations (such as processing a bank transfer multiple times), robust RPC systems implement 'exactly once' execution semantics using acknowledgments and transaction identifiers.",
+    "hard_question": "How does an RPC runtime implement 'exactly once' semantics for non-idempotent operations across an unreliable network?",
+    "hard_choices": {
+      "A": "By disabling UDP packets and only using half-duplex serial connections.",
+      "B": "By attaching unique timestamps/transaction IDs to requests, maintaining a server response cache, and discarding duplicate incoming requests.",
+      "C": "By re-executing the procedure until the network confirms packet receipt.",
+      "D": "By storing all remote function return values in the BIOS NVRAM."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Exactly-once semantics require unique request IDs and server-side duplicate filtering.\n⚠️ Traps: Re-executing non-idempotent operations leads to 'at least once' errors.",
+    "chapter_id": 12,
+    "chapter_title": "Chapter 3: Processes (Set 2)",
+    "chapter_subtitle": "Process States, PCB, Context Switch, IPC, Sockets, RPC",
+    "section_name": "Quiz 1: Process Management & IPC",
+    "id": 374
+  },
+  {
+    "orig_num": "5B.1.",
+    "question": "Consider the following scenarios with respect to CPU-scheduling decisions:\n(i) A process switches from the running state to the waiting state.\n(ii) A process switches from the running state to the ready state.\n(iii) A process switches from the waiting state to the ready state.\n(iv) A process terminates.\nPreemptive scheduling decisions can take place under which of these scenarios?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "(ii) and (iii)",
+      "B": "(i) and (iv)",
+      "C": "(i) and (iii)",
+      "D": "(i) and (ii)"
+    },
+    "correct_key": "A",
+    "explanation": "Scheduling under (i) and (iv) is non-preemptive (cooperative) because the process voluntarily gives up the CPU. Under (ii) [timer interrupt] and (iii) [I/O completion makes a higher-priority process ready], scheduling is preemptive.",
+    "hard_question": "Which state transitions trigger preemptive scheduling actions where the kernel involuntarily revokes the CPU from an actively executing process?",
+    "hard_choices": {
+      "A": "Running -> Waiting (e.g. blocking read)",
+      "B": "Running -> Ready (e.g. quantum expiration) and Waiting -> Ready (e.g. high-priority I/O event)",
+      "C": "Running -> Terminated",
+      "D": "New -> Ready"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Transitions 2 (running->ready) and 3 (waiting->ready) involve preemption.\n⚠️ Traps: Transitions 1 and 4 are non-preemptive.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 375
+  },
+  {
+    "orig_num": "5B.2.",
+    "question": "Consider the following CPU-scheduling scenarios:\n(i) A process switches from running to waiting.\n(ii) A process switches from running to ready.\n(iii) A process switches from waiting to ready.\n(iv) A process terminates.\nNon-Preemptive (cooperative) scheduling takes place exclusively under which scenarios?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "(ii) and (iii)",
+      "B": "(i) and (iv)",
+      "C": "(i) and (iii)",
+      "D": "(i) and (ii)"
+    },
+    "correct_key": "B",
+    "explanation": "When scheduling occurs only under conditions (i) [process blocks for I/O] and (iv) [process finishes], the scheduling scheme is non-preemptive (cooperative).",
+    "hard_question": "In a strictly cooperative (non-preemptive) multitasking OS, under what conditions will CPU execution switch from one user process to another?",
+    "hard_choices": {
+      "A": "Only when the running process voluntarily yields, requests blocking I/O, or terminates.",
+      "B": "Whenever a higher-priority process finishes disk I/O.",
+      "C": "At deterministic intervals dictated by the hardware timer chip.",
+      "D": "When the CPU core temperature reaches thermal thresholds."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Non-preemptive systems rely on the process to voluntarily yield or exit.\n⚠️ Traps: Hardware timer preemption defines preemptive systems, not cooperative.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 376
+  },
+  {
+    "orig_num": "5B.3.",
+    "question": "Which among the following is the simplest CPU-scheduling algorithm by far to implement?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Shortest-Job-First (SJF)",
+      "B": "Priority Scheduling",
+      "C": "Round Robin (RR)",
+      "D": "First-Come, First-Served (FCFS)"
+    },
+    "correct_key": "D",
+    "explanation": "FCFS (First-Come, First-Served) is the simplest CPU-scheduling algorithm: processes are managed with a standard FIFO queue in the order of their arrival.",
+    "hard_question": "What is the primary pathological performance problem associated with FCFS CPU scheduling?",
+    "hard_choices": {
+      "A": "Starvation of CPU-bound processes",
+      "B": "The Convoy Effect (short I/O-bound processes trapped waiting behind a long CPU-bound process)",
+      "C": "Thrashing of virtual page frames",
+      "D": "Deadlock in the ready queue"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 FCFS suffers from the convoy effect, resulting in poor device and CPU utilization.\n⚠️ Traps: FCFS cannot starve because it is strictly FIFO.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 377
+  },
+  {
+    "orig_num": "5B.4.",
+    "question": "Consider 5 processes scheduled via FCFS. What is the Average Turnaround Time and Average Waiting Time?",
+    "code": "Process ID | Arrival Time | Burst Time\n-----------|--------------|-----------\nP1         | 5            | 4\nP2         | 0            | 3\nP3         | 1            | 2\nP4         | 7            | 1\nP5         | 4            | 6",
+    "code_caption": "FCFS Process Table",
+    "choices": {
+      "A": "Turnaround Time: 7.2 units, Waiting Time: 4.3 units",
+      "B": "Turnaround Time: 5.1 units, Waiting Time: 3.1 units",
+      "C": "Turnaround Time: 6.6 units, Waiting Time: 3.4 units",
+      "D": "Turnaround Time: 6.9 units, Waiting Time: 5.1 units"
+    },
+    "correct_key": "C",
+    "explanation": "Execution order by arrival: P2(0-3), P3(3-5), P5(5-11), P1(11-15), P4(15-16).\nCompletion times: P2=3, P3=5, P5=11, P1=15, P4=16.\nTurnaround (Completion - Arrival): P2: 3-0=3, P3: 5-1=4, P5: 11-4=7, P1: 15-5=10, P4: 16-7=9. Total = 33, Avg = 33/5 = 6.6 units.\nWaiting (Turnaround - Burst): P2: 3-3=0, P3: 4-2=2, P5: 7-6=1, P1: 10-4=6, P4: 9-1=8. Total = 17, Avg = 17/5 = 3.4 units.",
+    "hard_question": "Given the FCFS scheduling order P2(0-3) -> P3(3-5) -> P5(5-11) -> P1(11-15) -> P4(15-16), what is the exact waiting time experienced by process P1?",
+    "hard_choices": {
+      "A": "4 units",
+      "B": "6 units",
+      "C": "10 units",
+      "D": "2 units"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 P1 arrives at t=5 and begins execution at t=11; Waiting time = 11 - 5 = 6 units.\n⚠️ Traps: Turnaround time is 15 - 5 = 10 units.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 378
+  },
+  {
+    "orig_num": "5B.5.",
+    "question": "A set of 5 processes is scheduled via FCFS with 2 units of scheduling overhead (delta = 2) between each context dispatch. What is the efficiency of the CPU?",
+    "code": "Process ID | Arrival Time | Burst Time\n-----------|--------------|-----------\nP1         | 0            | 5\nP2         | 1            | 4\nP3         | 2            | 2\nP4         | 3            | 7\nP5         | 4            | 3",
+    "code_caption": "FCFS with Scheduling Overhead",
+    "choices": {
+      "A": "81.2 %",
+      "B": "67.7 %",
+      "C": "72.3 %",
+      "D": "71.4 %"
+    },
+    "correct_key": "B",
+    "explanation": "Useful time = sum of burst times = 5 + 4 + 2 + 7 + 3 = 21 units.\nWasted overhead time = 5 dispatches * 2 units = 10 units.\nTotal time = 21 + 10 = 31 units.\nEfficiency = Useful Time / Total Time = 21 / 31 = 67.7%.",
+    "hard_question": "If 5 tasks with total CPU burst time of 21 ms incur a 2 ms dispatcher overhead before every execution, what fraction of total elapsed time is lost to pure scheduling overhead?",
+    "hard_choices": {
+      "A": "10 / 31 (32.3%)",
+      "B": "10 / 21 (47.6%)",
+      "C": "2 / 21 (9.5%)",
+      "D": "5 / 31 (16.1%)"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Total time = 21 + (5*2) = 31 ms. Wasted overhead = 10 ms / 31 ms = 32.3% (Efficiency = 67.7%).\n⚠️ Traps: Do not divide overhead by only the burst time.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 379
+  },
+  {
+    "orig_num": "5B.6.",
+    "question": "Using Shortest Remaining Time First (SRTF, preemptive SJF), what is the Average Waiting Time of the processes?",
+    "code": "Process ID | Arrival Time | Burst Time (ms)\n-----------|--------------|----------------\nP1         | 0            | 7\nP2         | 3            | 5\nP3         | 5            | 11\nP4         | 10           | 4",
+    "code_caption": "SRTF Process Table",
+    "choices": {
+      "A": "4.25 milliseconds",
+      "B": "4.90 milliseconds",
+      "C": "2.35 milliseconds",
+      "D": "5.72 milliseconds"
+    },
+    "correct_key": "A",
+    "explanation": "Timeline analysis:\nAt t=0: P1 runs. At t=3: P1 has 4 ms left; P2 arrives with 5 ms. P1 has shorter remaining time (4 < 5), so P1 continues to completion at t=7.\nAt t=7: P2(5 ms) vs P3(11 ms). P2 runs until t=12.\nAt t=10: P4 arrives (4 ms). At t=12: P4(4 ms) vs P3(11 ms). P4 runs until t=16.\nAt t=16: P3 runs until t=27.\nGantt: P1(0-7), P2(7-12), P4(12-16), P3(16-27).\nWaiting: P1: 0-0=0 ms; P2: 7-3=4 ms; P3: 16-5=11 ms; P4: 12-10=2 ms.\nAverage Waiting Time = (0 + 4 + 11 + 2) / 4 = 17 / 4 = 4.25 ms.",
+    "hard_question": "Why is P1 NOT preempted at t=3 when P2 arrives in this SRTF scenario?",
+    "hard_choices": {
+      "A": "P1 has remaining burst time of 4 ms, which is strictly less than P2's initial burst time of 5 ms.",
+      "B": "SRTF is non-preemptive by definition.",
+      "C": "P2 has a higher priority number.",
+      "D": "P1 holds an active spinlock."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 At t=3, P1's remaining burst is 7 - 3 = 4 ms; P2 has 5 ms. Since 4 < 5, P1 retains the CPU.\n⚠️ Traps: SRTF only preempts if the incoming job's burst is strictly shorter than the current job's remaining time.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 380
+  },
+  {
+    "orig_num": "5B.7.",
+    "question": "Using Preemptive Shortest Remaining Time First (SRTF) scheduling, what is the Average Turnaround Time?",
+    "code": "Process ID | Arrival Time | Burst Time (ms)\n-----------|--------------|----------------\nP1         | 0            | 11\nP2         | 4            | 8\nP3         | 6            | 2\nP4         | 9            | 4",
+    "code_caption": "Preemptive SRTF Table",
+    "choices": {
+      "A": "9.2 milliseconds",
+      "B": "10 milliseconds",
+      "C": "8.3 milliseconds",
+      "D": "11 milliseconds"
+    },
+    "correct_key": "D",
+    "explanation": "At t=0: P1 runs. At t=4: P1 rem=7, P2 arrives (8). P1(7 < 8) continues.\nAt t=6: P1 rem=5, P3 arrives (2). P3 (2 < 5) PREEMPTS P1! P3 runs from 6 to 8.\nAt t=8: P1 rem=5, P2 rem=8. P1 runs from 8 to 9.\nAt t=9: P1 rem=4, P4 arrives (4). Tie: P1 continues to completion at t=13.\nAt t=13: P4(4) vs P2(8). P4 runs from 13 to 17.\nAt t=17: P2 runs from 17 to 25.\nCompletion: P1=13, P2=25, P3=8, P4=17.\nTurnaround (Completion - Arrival): P1: 13-0=13; P2: 25-4=21; P3: 8-6=2; P4: 17-9=8.\nTotal = 13 + 21 + 2 + 8 = 44 ms. Average = 44 / 4 = 11 ms.",
+    "hard_question": "At time t=6, what scheduling event occurs in this preemptive SRTF instance?",
+    "hard_choices": {
+      "A": "P1 continues executing because it arrived first.",
+      "B": "P3 preempts P1 because its 2 ms burst is less than P1's 5 ms remaining burst.",
+      "C": "P2 preempts P1 because of lower arrival timestamp.",
+      "D": "The scheduler triggers round-robin timeslicing."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 At t=6, P1 has 11 - 6 = 5 ms remaining; P3 arrives with burst 2 ms. Since 2 < 5, P3 preempts P1.\n⚠️ Traps: P2 has 8 ms and remains in the ready queue.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 381
+  },
+  {
+    "orig_num": "5B.8.",
+    "question": "What is the Average Waiting Time if Preemptive Priority Scheduling is used (0 is the HIGHEST priority)?",
+    "code": "Process ID | Arrival Time | Burst Time | Priority\n-----------|--------------|------------|---------\nP1         | 0            | 10         | 2\nP2         | 4            | 19         | 1\nP3         | 10           | 1          | 3\nP4         | 3            | 9          | 0",
+    "code_caption": "Preemptive Priority (0 = highest)",
+    "choices": {
+      "A": "15 milliseconds",
+      "B": "16 milliseconds",
+      "C": "14 milliseconds",
+      "D": "13 milliseconds"
+    },
+    "correct_key": "B",
+    "explanation": "At t=0: P1 (pri 2) runs. At t=3: P4 (pri 0) arrives and PREEMPTS P1. P4 runs until 3+9=12.\nAt t=4: P2 (pri 1) arrives, queued. At t=10: P3 (pri 3) arrives, queued.\nAt t=12: P4 completes. Highest ready is P2 (pri 1). P2 runs from 12 to 12+19=31.\nAt t=31: P1 (pri 2) runs remaining 7 ms (from 31 to 38).\nAt t=38: P3 (pri 3) runs from 38 to 39.\nGantt: P1(0-3), P4(3-12), P2(12-31), P1(31-38), P3(38-39).\nWaiting Time:\nP1: (31 - 3) = 28 ms\nP2: 12 - 4 = 8 ms\nP3: 38 - 10 = 28 ms\nP4: 3 - 3 = 0 ms\nAverage Waiting Time = (28 + 8 + 28 + 0) / 4 = 64 / 4 = 16 ms.",
+    "hard_question": "In this preemptive priority problem, how long does process P1 wait in total after being preempted at t=3?",
+    "hard_choices": {
+      "A": "31 ms",
+      "B": "28 ms",
+      "C": "10 ms",
+      "D": "19 ms"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 P1 ran from 0 to 3, then waited while P4 (3-12) and P2 (12-31) executed, resuming at t=31. Waiting = 31 - 3 = 28 ms.\n⚠️ Traps: Do not forget to subtract the 3 ms P1 already executed.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 382
+  },
+  {
+    "orig_num": "5B.9.",
+    "question": "Using Priority Non-Preemptive Scheduling (HIGHER number represents HIGHER priority), calculate the Average Turnaround Time and Waiting Time.",
+    "code": "Process ID | Arrival Time | Burst Time | Priority\n-----------|--------------|------------|---------\nP1         | 0            | 5          | 1\nP2         | 1            | 7          | 3\nP3         | 2            | 3          | 2\nP4         | 3            | 4          | 4",
+    "code_caption": "Non-Preemptive Priority (higher # = higher priority)",
+    "choices": {
+      "A": "Turnaround Time: 12.32 ms, Waiting Time: 7 ms",
+      "B": "Turnaround Time: 11.56 ms, Waiting Time: 7 ms",
+      "C": "Turnaround Time: 10.75 ms, Waiting Time: 6 ms",
+      "D": "Turnaround Time: 13.43 ms, Waiting Time: 6 ms"
+    },
+    "correct_key": "C",
+    "explanation": "At t=0: P1 is the only process, so P1 runs non-preemptively from 0 to 5.\nAt t=5: P2 (pri 3), P3 (pri 2), P4 (pri 4) are ready. P4 has highest priority (4), so P4 runs from 5 to 9.\nAt t=9: P2 (pri 3) has higher priority than P3 (pri 2), so P2 runs from 9 to 16.\nAt t=16: P3 runs from 16 to 19.\nCompletion: P1=5, P4=9, P2=16, P3=19.\nTurnaround: P1: 5-0=5; P2: 16-1=15; P3: 19-2=17; P4: 9-3=6. Total = 43 ms, Avg = 43/4 = 10.75 ms.\nWaiting: P1: 5-5=0; P2: 15-7=8; P3: 17-3=14; P4: 6-4=2. Total = 24 ms, Avg = 24/4 = 6 ms.",
+    "hard_question": "Why does process P1 execute from t=0 to t=5 even though P4 arrives at t=3 with much higher priority?",
+    "hard_choices": {
+      "A": "The scheduling algorithm is specified as Non-Preemptive, so the CPU cannot be revoked until P1 completes.",
+      "B": "P1 has higher nice priority.",
+      "C": "P4 was blocked on disk I/O.",
+      "D": "P1 has a smaller burst time."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Under non-preemptive scheduling, once a process gets CPU allocation, it runs until voluntary release or termination.\n⚠️ Traps: Under preemptive scheduling, P4 would have preempted P1 at t=3.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 383
+  },
+  {
+    "orig_num": "5B.10.",
+    "question": "Using Round Robin Scheduling with Time Quantum = 2 units, calculate the Average Turnaround Time and Waiting Time.",
+    "code": "Process ID | Arrival Time | Burst Time\n-----------|--------------|-----------\nP1         | 0            | 5\nP2         | 1            | 3\nP3         | 2            | 1\nP4         | 3            | 2",
+    "code_caption": "Round Robin (q = 2)",
+    "choices": {
+      "A": "Turnaround Time: 7.25 ms, Waiting Time: 4.50 ms",
+      "B": "Turnaround Time: 8.30 ms, Waiting Time: 5.40 ms",
+      "C": "Turnaround Time: 6.37 ms, Waiting Time: 4.02 ms",
+      "D": "Turnaround Time: 7.02 ms, Waiting Time: 3.17 ms"
+    },
+    "correct_key": "A",
+    "explanation": "Ready queue tracking:\nt=0: P1 runs. At t=1 P2 arrives, t=2 P3 arrives. P1 slice ends at t=2 (rem 3). Queue: [P2, P3, P1].\nt=2: P2 runs (burst 3). At t=3 P4 arrives. P2 slice ends at t=4 (rem 1). Queue: [P3, P1, P4, P2].\nt=4: P3 runs (burst 1), finishes at t=5. Queue: [P1, P4, P2].\nt=5: P1 runs 2 units (rem 1), ends at t=7. Queue: [P4, P2, P1].\nt=7: P4 runs 2 units, finishes at t=9. Queue: [P2, P1].\nt=9: P2 runs 1 unit, finishes at t=10. Queue: [P1].\nt=10: P1 runs 1 unit, finishes at t=11.\nCompletion: P3=5, P4=9, P2=10, P1=11.\nTurnaround: P1: 11-0=11; P2: 10-1=9; P3: 5-2=3; P4: 9-3=6. Total = 29 ms, Avg = 29/4 = 7.25 ms.\nWaiting: P1: 11-5=6; P2: 9-3=6; P3: 3-1=2; P4: 6-2=4. Total = 18 ms, Avg = 18/4 = 4.50 ms.",
+    "hard_question": "In this Round Robin execution, at what timestamp does process P3 complete and exit the ready queue?",
+    "hard_choices": {
+      "A": "t = 4",
+      "B": "t = 5",
+      "C": "t = 6",
+      "D": "t = 7"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 P3 receives the CPU at t=4 and has a burst of only 1 unit, completing at t=5.\n⚠️ Traps: Even though quantum is 2, P3 yields as soon as its 1-unit burst finishes.",
+    "chapter_id": 13,
+    "chapter_title": "Chapter 5: CPU Scheduling (Set 2)",
+    "chapter_subtitle": "Preemptive vs Non-Preemptive, FCFS, Overhead, SRTF, Priority, Round Robin",
+    "section_name": "Quiz 1: CPU Scheduling Algorithms",
+    "id": 384
+  },
+  {
+    "orig_num": "6B.1.",
+    "question": "In __________, only one process at a time is allowed into its critical section among all processes competing for the same shared resource.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Mutual Exclusion",
+      "B": "Synchronization",
+      "C": "Deadlock",
+      "D": "Starvation"
+    },
+    "correct_key": "A",
+    "explanation": "Mutual Exclusion is the fundamental requirement ensuring that if process Pi is executing in its critical section, no other processes can execute in their critical sections simultaneously.",
+    "hard_question": "Which of the three critical section requirements ensures that no two processes execute in their critical sections concurrently?",
+    "hard_choices": {
+      "A": "Progress",
+      "B": "Bounded Waiting",
+      "C": "Mutual Exclusion",
+      "D": "Fair Queuing"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Mutual Exclusion guarantees single-occupancy of the critical section.\n⚠️ Traps: Progress guarantees decisions are made without deadlock; Bounded Waiting prevents starvation.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 385
+  },
+  {
+    "orig_num": "6B.2.",
+    "question": "Process Synchronization mechanisms can be implemented at:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Software level only",
+      "B": "Hardware level only",
+      "C": "Both software and hardware levels",
+      "D": "Neither software nor hardware levels"
+    },
+    "correct_key": "C",
+    "explanation": "Synchronization is achieved through software algorithms (e.g. Peterson's solution) and hardware instructions (e.g. test_and_set, compare_and_swap, memory barriers).",
+    "hard_question": "Why do pure software synchronization algorithms (like Peterson's) fail on modern multi-core processors without hardware support?",
+    "hard_choices": {
+      "A": "Modern out-of-order processors and optimizing compilers reorder memory read/write instructions.",
+      "B": "Software algorithms only run on 8-bit processors.",
+      "C": "Multi-core chips lack RAM bus arbitration.",
+      "D": "Operating systems disable user-space variables."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Out-of-order execution and compiler reordering violate sequential consistency, requiring hardware memory fences or atomic instructions.\n⚠️ Traps: The issue is architectural memory ordering, not bit-width.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 386
+  },
+  {
+    "orig_num": "6B.3.",
+    "question": "Mutual Exclusion for a critical section can be directly provided by:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Binary Semaphores",
+      "B": "Mutex Locks",
+      "C": "Both Binary Semaphores and Mutex Locks",
+      "D": "Counting Semaphores initialized to 10"
+    },
+    "correct_key": "C",
+    "explanation": "Both Mutex Locks (boolean available flag with acquire/release) and Binary Semaphores (integer range 0 and 1 with wait/signal) provide mutual exclusion.",
+    "hard_question": "What is the primary conceptual ownership distinction between a Mutex Lock and a Binary Semaphore?",
+    "hard_choices": {
+      "A": "A mutex lock has ownership (only the thread that locked it can unlock it), whereas a binary semaphore can be signaled by any thread.",
+      "B": "Semaphores cannot spinlock.",
+      "C": "Mutexes run in user mode, semaphores only in kernel mode.",
+      "D": "Binary semaphores allow negative values."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Mutex locks enforce lock ownership; semaphores act as signaling mechanisms without ownership.\n⚠️ Traps: Semaphores can never take negative values in standard Dijkstra definitions.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 387
+  },
+  {
+    "orig_num": "6B.4.",
+    "question": "Peterson's solution is algorithmically restricted to exactly ______ processes alternating between their critical section and remainder section.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "One",
+      "B": "Two",
+      "C": "Three",
+      "D": "Unlimited"
+    },
+    "correct_key": "B",
+    "explanation": "Peterson's classic software solution is strictly designed for two processes (P0 and P1) sharing variables 'turn' and 'flag[2]'. Generalizing to N processes requires algorithms like Lamport's Bakery Algorithm.",
+    "hard_question": "Which algorithm generalizes software-based mutual exclusion to N processes in the absence of atomic hardware instructions?",
+    "hard_choices": {
+      "A": "Lamport's Bakery Algorithm",
+      "B": "Dijkstra's Shortest Path",
+      "C": "Floyd-Warshall Algorithm",
+      "D": "Peterson's 2-process solution"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Lamport's Bakery Algorithm solves mutual exclusion for N processes using ticket numbers.\n⚠️ Traps: Peterson's solution is strictly limited to 2 processes.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 388
+  },
+  {
+    "orig_num": "6B.5.",
+    "question": "A classic solution to the critical section problem using hardware Test-and-Set Lock:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Satisfies Mutual Exclusion but does NOT satisfy Bounded Waiting",
+      "B": "Satisfies Bounded Waiting but does NOT satisfy Mutual Exclusion",
+      "C": "Does not satisfy Mutual Exclusion",
+      "D": "Satisfies neither Mutual Exclusion nor Progress"
+    },
+    "correct_key": "A",
+    "explanation": "Simple Test-and-Set spinlocks satisfy Mutual Exclusion and Progress, but fail to guarantee Bounded Waiting because a waiting process may repeatedly be passed over by other contenders.",
+    "hard_question": "Why does a naive spinlock built with atomic test_and_set() fail the Bounded Waiting condition?",
+    "hard_choices": {
+      "A": "Process scheduling is random among spinning threads; an unlucky process can loop indefinitely without ever acquiring the lock.",
+      "B": "test_and_set causes deadlocks immediately.",
+      "C": "Atomic instructions disable interrupts permanently.",
+      "D": "The lock variable overflows its 32-bit register."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Without a FIFO waiting array, contention is arbitrary, risking starvation (violating Bounded Waiting).\n⚠️ Traps: Mutual exclusion and progress are satisfied; bounded waiting is violated.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 389
+  },
+  {
+    "orig_num": "6B.6.",
+    "question": "A semaphore S is an integer variable that, apart from initialization, is accessed only through two standard atomic operations:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "exit() and signal()",
+      "B": "exec() and signal()",
+      "C": "wait() and exit()",
+      "D": "wait() and signal() (historically P and V)"
+    },
+    "correct_key": "D",
+    "explanation": "Semaphores are accessed solely via wait() [P, Dutch 'proberen' to test/decrement] and signal() [V, Dutch 'verhogen' to increment], both executed atomically.",
+    "hard_question": "What is the atomic definition of wait(S) when the integer semaphore value S <= 0?",
+    "hard_choices": {
+      "A": "It immediately sets S to 0 and returns.",
+      "B": "The calling process must wait (either by busy waiting or by sleeping on a semaphore wait queue) until S becomes positive.",
+      "C": "It raises a SIGSEGV signal.",
+      "D": "It resets S to its initial value."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 wait(S) blocks the caller while S <= 0, then decrements S upon acquisition.\n⚠️ Traps: wait() does not return immediately if S <= 0.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 390
+  },
+  {
+    "orig_num": "6B.7.",
+    "question": "A situation where two or more processes are waiting indefinitely for an event that can be caused only by one of the waiting processes is called:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Mutex locked",
+      "B": "Deadlocked",
+      "C": "Spin locked",
+      "D": "Starved"
+    },
+    "correct_key": "B",
+    "explanation": "A set of processes is in a deadlocked state when every process in the set is waiting for an event that can be caused only by another process in the set.",
+    "hard_question": "How does deadlock differ conceptually from starvation (indefinite blocking)?",
+    "hard_choices": {
+      "A": "In starvation, a process waits indefinitely because other processes repeatedly get priority, but the system continues making progress; in deadlock, no process in the set can ever proceed.",
+      "B": "Deadlock only occurs on single-core systems.",
+      "C": "Starvation terminates the process immediately.",
+      "D": "Deadlock requires network sockets."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Deadlock involves a circular wait where progress is impossible; starvation involves unfairness where progress occurs elsewhere.\n⚠️ Traps: Starvation can happen without a deadlock cycle.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 391
+  },
+  {
+    "orig_num": "6B.8.",
+    "question": "Peterson's Solution is a classic ___________ based approach to the critical section problem.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Software",
+      "B": "Hardware",
+      "C": "Firmware",
+      "D": "Operating system hypervisor"
+    },
+    "correct_key": "A",
+    "explanation": "Peterson's algorithm is a software-based solution relying on shared memory variables without requiring special hardware atomic instructions (assuming sequential consistency).",
+    "hard_question": "What two shared variables are maintained in Peterson's software algorithm to synchronize processes P0 and P1?",
+    "hard_choices": {
+      "A": "int turn; boolean flag[2];",
+      "B": "semaphore mutex; int count;",
+      "C": "int head; int tail;",
+      "D": "atomic_t lock; pid_t holder;"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Peterson's solution uses 'int turn' to indicate whose turn it is, and 'boolean flag[2]' to indicate readiness.\n⚠️ Traps: Semaphores and atomic_t are hardware/OS constructs.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 392
+  },
+  {
+    "orig_num": "6B.9.",
+    "question": "The Bounded-Buffer Problem is also known by which classic synchronization name?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Readers-Writers Problem",
+      "B": "Dining-Philosophers Problem",
+      "C": "Producer-Consumer Problem",
+      "D": "Sleeping Barber Problem"
+    },
+    "correct_key": "C",
+    "explanation": "The Bounded-Buffer Problem is the classic Producer-Consumer Problem, where producers deposit items into a buffer of size N and consumers remove them.",
+    "hard_question": "In the standard semaphore solution to the Bounded-Buffer problem, which semaphores guard the buffer?",
+    "hard_choices": {
+      "A": "binary mutex, counting empty (init N), counting full (init 0)",
+      "B": "counting mutex (init 0), binary empty (init 1), binary full (init N)",
+      "C": "binary reader_lock, counting writer_lock",
+      "D": "condition variable signal, monitor lock"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 empty=N, full=0, and binary mutex=1.\n⚠️ Traps: Swapping empty and full initializations deadlocks the producer immediately.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 393
+  },
+  {
+    "orig_num": "6B.10.",
+    "question": "In the Readers-Writers Problem, multiple processes may concurrently acquire the lock in read mode, but only one process may acquire the lock for ________, as exclusive access is required for ________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "reading, readers",
+      "B": "reading, writers",
+      "C": "writing, writers",
+      "D": "locking, kernels"
+    },
+    "correct_key": "C",
+    "explanation": "Multiple readers can read shared data simultaneously without conflict, but a writer requires exclusive access (no other readers or writers) to maintain data consistency.",
+    "hard_question": "What is the primary danger in the 'First Readers-Writers Problem' where readers are never kept waiting unless a writer has already obtained permission?",
+    "hard_choices": {
+      "A": "Reader starvation",
+      "B": "Writer starvation (indefinite postponement of writers if readers arrive continuously)",
+      "C": "Deadlock between readers",
+      "D": "Corrupted reader buffers"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Continuous reader arrivals starve writers waiting for the lock.\n⚠️ Traps: In the second readers-writers problem, readers can starve if writers have priority.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 394
+  },
+  {
+    "orig_num": "6B.11.",
+    "question": "In the classic Producer-Consumer problem using semaphores, which of the following assumptions are TRUE?\n1. The pool consists of n buffers, each holding one unit of data.\n2. The mutex semaphore is initialized to 0.\n3. The mutex semaphore is initialized to 1.\n4. Semaphore empty is initialized to n; semaphore full is initialized to 0.\n5. Semaphore empty is initialized to 0; semaphore full is initialized to n.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "1, 3, 4",
+      "B": "1, 2, 4",
+      "C": "3, 4, 5",
+      "D": "1, 3, 5"
+    },
+    "correct_key": "A",
+    "explanation": "Statements 1, 3, and 4 are correct: (1) N buffer slots, (3) mutex initialized to 1 for mutual exclusion, (4) empty initialized to n (all free slots) and full initialized to 0 (no items produced yet).",
+    "hard_question": "What immediate failure occurs if semaphore mutex is incorrectly initialized to 0 instead of 1 in the Producer-Consumer problem?",
+    "hard_choices": {
+      "A": "The producer produces items without waiting.",
+      "B": "The producer immediately blocks on wait(mutex), freezing all progress permanently.",
+      "C": "The consumer reads stale data from unallocated memory.",
+      "D": "A race condition corrupts buffer indices."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 With mutex=0, the first wait(mutex) call blocks the caller, creating an immediate deadlock.\n⚠️ Traps: Mutex must be 1 to allow the first process into the critical section.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 395
+  },
+  {
+    "orig_num": "6B.12.",
+    "question": "The classic solution to the Dining-Philosophers Problem using Monitors guarantees which property?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Deadlock-free execution",
+      "B": "Starvation-free execution",
+      "C": "Zero context-switch overhead",
+      "D": "Hardware atomic bus locking"
+    },
+    "correct_key": "A",
+    "explanation": "The monitor solution ensures that a philosopher picks up forks only if BOTH chopsticks are available, preventing circular wait and ensuring deadlock-free execution. However, starvation is still possible without fair queuing.",
+    "hard_question": "Why does the monitor solution to the Dining-Philosophers problem prevent deadlock, but NOT necessarily prevent starvation?",
+    "hard_choices": {
+      "A": "It ensures philosophers only pick up chopsticks when both are free, preventing partial hold-and-wait, but an unlucky philosopher can be starved if neighbors alternate eating.",
+      "B": "Monitors disable interrupts permanently.",
+      "C": "Condition variables lack signal() operations.",
+      "D": "Deadlock and starvation are mathematically identical in monitors."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Both chopsticks are acquired simultaneously, preventing deadlock; however, alternating neighbors can perpetually starve the middle philosopher.\n⚠️ Traps: Deadlock freedom does not guarantee starvation freedom.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 396
+  },
+  {
+    "orig_num": "6B.13.",
+    "question": "Which are the valid operational states in which a philosopher can exist in the Dining-Philosophers problem?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Thinking",
+      "B": "Eating",
+      "C": "Hungry",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "A philosopher's lifecycle consists of three distinct states: Thinking (not attempting to eat), Hungry (attempting to acquire chopsticks), and Eating (using both chopsticks).",
+    "hard_question": "In monitor implementations of Dining-Philosophers, in which state does a philosopher check neighbor states before acquiring chopsticks?",
+    "hard_choices": {
+      "A": "Thinking",
+      "B": "Hungry",
+      "C": "Eating",
+      "D": "Sleeping"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 When a philosopher becomes Hungry, test() checks if left and right neighbors are not Eating.\n⚠️ Traps: Thinking philosophers do not compete for chopsticks.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 397
+  },
+  {
+    "orig_num": "6B.14.",
+    "question": "Processes share semaphore 'mutex' initialized to 1. If a buggy process accidentally reverses the order to: 'signal(mutex); ... critical section ... wait(mutex);', what consequence arises?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "A deadlock will occur immediately.",
+      "B": "Processes will starve permanently.",
+      "C": "Several processes may execute in their critical sections simultaneously, violating mutual exclusion.",
+      "D": "The CPU halts with a kernel panic."
+    },
+    "correct_key": "C",
+    "explanation": "Calling signal(mutex) before the critical section increments mutex to 2 or more, allowing other processes to enter their critical sections concurrently and catastrophically violating Mutual Exclusion.",
+    "hard_question": "What happens if a process executes wait(mutex) twice in succession before entering its critical section: 'wait(mutex); wait(mutex);'?",
+    "hard_choices": {
+      "A": "Mutual exclusion is strengthened.",
+      "B": "The process will deadlock itself on the second wait(mutex) call.",
+      "C": "Other processes can enter the critical section concurrently.",
+      "D": "The compiler catches the error at link time."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The first wait decrements mutex to 0; the second wait sees 0 and blocks the process forever.\n⚠️ Traps: Reversing wait/signal violates mutual exclusion; repeating wait deadlocks.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 398
+  },
+  {
+    "orig_num": "6B.15.",
+    "question": "A situation where multiple processes access and manipulate the same shared data concurrently and the outcome depends on the particular order in which access takes place is called a ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Deadlock",
+      "B": "Race condition",
+      "C": "Spin Lock",
+      "D": "Page Fault"
+    },
+    "correct_key": "B",
+    "explanation": "A Race Condition occurs when several processes access and manipulate shared data concurrently without synchronization, making the final value non-deterministic and dependent on execution timing.",
+    "hard_question": "What is the primary software defense against race conditions when accessing shared kernel data structures?",
+    "hard_choices": {
+      "A": "Ensuring all critical sections modifying shared data are protected by mutual exclusion primitives (mutexes, spinlocks, or semaphores).",
+      "B": "Increasing CPU clock frequencies.",
+      "C": "Using larger virtual memory pages.",
+      "D": "Disabling virtual memory paging."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Mutual exclusion serializes critical section access, eliminating race conditions.\n⚠️ Traps: Faster clock speeds do not prevent non-deterministic interleaving.",
+    "chapter_id": 14,
+    "chapter_title": "Chapter 6: Synchronization (Set 2)",
+    "chapter_subtitle": "Critical Section, Mutex, Semaphores, Peterson's, Classical Problems, Monitors",
+    "section_name": "Quiz 1: Synchronization & Concurrency",
+    "id": 399
+  },
+  {
+    "orig_num": "8B.1.",
+    "question": "For a deadlock to occur in a system, which of the four Coffman conditions must hold?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Mutual Exclusion only",
+      "B": "Hold and Wait only",
+      "C": "No Preemption only",
+      "D": "All four conditions (Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait) must hold simultaneously."
+    },
+    "correct_key": "D",
+    "explanation": "A deadlock can arise if and only if all four conditions hold simultaneously in a system: (1) Mutual Exclusion, (2) Hold and Wait, (3) No Preemption, and (4) Circular Wait.",
+    "hard_question": "Which deadlock prevention strategy directly invalidates the 'Hold and Wait' necessary condition?",
+    "hard_choices": {
+      "A": "Requiring a process to request and be allocated all its resources before execution begins, or release current resources before requesting new ones.",
+      "B": "Enforcing a global linear ordering on all resource types.",
+      "C": "Preempting resources from holding processes.",
+      "D": "Allowing simultaneous sharing of non-shareable resources."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Hold-and-wait prevention requires all-at-once allocation or releasing held resources before requesting.\n⚠️ Traps: Linear ordering prevents Circular Wait; preemption invalidates No Preemption.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 400
+  },
+  {
+    "orig_num": "8B.2.",
+    "question": "Consider a Resource Allocation Graph (RAG) for processes P1, P2, P3 with resources R1(1 instance), R2(2 instances), and R3(1 instance). Two directed cycles exist:\nCycle 1: P1 -> R1 -> P2 -> R3 -> P3 -> R2 -> P1\nCycle 2: P2 -> R3 -> P3 -> R2 -> P2\nIs the system deadlocked?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The system is safe",
+      "B": "The system is deadlocked",
+      "C": "The system can recover without aborting processes",
+      "D": "The system is in an unsafe state but not deadlocked"
+    },
+    "correct_key": "B",
+    "explanation": "Both instances of R2 are held by processes in the cycles (P3 holds one, P2 holds one, while P1 and P2 request R2). Since every instance of every resource in the cycles is held by processes also involved in the cycles, no process can make progress. Thus, the system is deadlocked.",
+    "hard_question": "Under what structural condition does a directed cycle in a multi-instance Resource Allocation Graph NOT imply a deadlock?",
+    "hard_choices": {
+      "A": "If an instance of a resource involved in the cycle is held by a process outside the cycle that can complete and release it.",
+      "B": "If the cycle contains an odd number of edges.",
+      "C": "If all processes in the cycle run at high priority.",
+      "D": "If the graph contains no request edges."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 In multi-instance RAGs, cycles do not deadlock if external processes can release instances to break the cycle.\n⚠️ Traps: When all instances are held exclusively within the cycles, deadlock is guaranteed.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 401
+  },
+  {
+    "orig_num": "8B.3.",
+    "question": "A system has 3 processes (P1, P2, P3) and 10 total instances of resource R. Current allocation and maximum needs are shown. Is the system in a safe state, and if so, what is the safe sequence?",
+    "code": "Process ID | Max Need | Current Allocated\n-----------|----------|------------------\nP1         | 8        | 4\nP2         | 2        | 1\nP3         | 7        | 2",
+    "code_caption": "Resource Allocation Table",
+    "choices": {
+      "A": "< P2, P1, P3 >",
+      "B": "< P1, P2, P3 >",
+      "C": "< P3, P1, P2 >",
+      "D": "Not in safe state. No safe sequence."
+    },
+    "correct_key": "A",
+    "explanation": "Total instances = 10. Currently allocated = 4 + 1 + 2 = 7. Free Available = 10 - 7 = 3.\nNeeds (Max - Allocated): P1 needs 4, P2 needs 1, P3 needs 5.\nWith Available = 3, only P2's need (1 <= 3) can be satisfied first.\nP2 runs, releases 1 -> Available becomes 3 + 1 = 4.\nWith Available = 4, P1's need (4 <= 4) can be satisfied.\nP1 runs, releases 4 -> Available becomes 4 + 4 = 8.\nWith Available = 8, P3's need (5 <= 8) can be satisfied.\nSafe sequence: < P2, P1, P3 >.",
+    "hard_question": "In this system, what is the minimum number of additional resource instances needed at t0 to allow < P1, P2, P3 > to be a valid safe sequence?",
+    "hard_choices": {
+      "A": "1 additional instance",
+      "B": "2 additional instances",
+      "C": "3 additional instances",
+      "D": "0 additional instances"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Available is 3; P1 needs 4. With 1 more instance (Available = 4), P1 could execute first.\n⚠️ Traps: P1 only needs 4, so 4 - 3 = 1.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 402
+  },
+  {
+    "orig_num": "8B.4.",
+    "question": "A system has 4 processes and 5 resource types (A, B, C, D, E). Find the smallest value of 'x' for which the system is in a safe state.",
+    "code": "Process | Allocated     | Maximum       | Available\n        | A B C D E     | A B C D E     | A B C D E\n--------|---------------|---------------|----------\nP1      | 1 0 2 1 1     | 1 1 2 1 3     | 0 0 x 1 1\nP2      | 2 0 1 1 0     | 2 2 2 1 0     |\nP3      | 1 1 0 1 0     | 2 1 3 1 0     |\nP4      | 1 1 1 1 0     | 1 1 2 2 1     |",
+    "code_caption": "Banker's Algorithm State",
+    "choices": {
+      "A": "1",
+      "B": "3",
+      "C": "2",
+      "D": "Not safe for any value of x"
+    },
+    "correct_key": "D",
+    "explanation": "Needs (Max - Allocated):\nP1: [0, 1, 0, 0, 2]\nP2: [0, 2, 1, 0, 0]\nP3: [1, 0, 3, 0, 0]\nP4: [0, 0, 1, 1, 1]\nNotice P1 requires 2 units of resource E. However, across the entire system, the total allocation of E is 1 (P1 has 1, all others have 0) and Available E is 1. Even after P4, P3, and P2 finish, they hold 0 units of E, so Available E can NEVER exceed 1! P1's need for 2 units of E can NEVER be satisfied regardless of x. Thus, the system is NOT safe for any value of x.",
+    "hard_question": "Why does the value of 'x' (resource C) have zero impact on the safety of this system state?",
+    "hard_choices": {
+      "A": "Resource C is never allocated to any process.",
+      "B": "Process P1 requires 2 units of resource E, but the total units of E available will never exceed 1 even after all other processes terminate.",
+      "C": "Processes P2 and P3 form an immediate deadlock loop.",
+      "D": "Banker's algorithm does not apply to systems with 5 resource types."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Total E in system is Allocated(1) + Available(1) = 2. But P1 holds 1 and needs 2 MORE (total 3). Max need 3 > Total 2, so P1 can never complete.\n⚠️ Traps: Varying x cannot fix a fundamental deficit in resource E.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 403
+  },
+  {
+    "orig_num": "8B.5.",
+    "question": "A system has 12 instances of a resource with n competing processes. Each process may require up to 4 instances. What is the maximum value of n for which the system will NEVER enter into deadlock?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "6"
+    },
+    "correct_key": "A",
+    "explanation": "To prevent deadlock in the worst case, each of the n processes holds (Max - 1) = (4 - 1) = 3 instances, and at least 1 remaining instance must be available to satisfy one process: n * (4 - 1) + 1 <= 12 => 3n + 1 <= 12 => 3n <= 11 => n <= 3.66. Thus, maximum integer n = 3. (With n=4, 4 processes could each hold 3 instances = 12, leaving 0 available, causing deadlock).",
+    "hard_question": "If n=4 processes each demand at most 4 instances from a pool of 12 instances, how can deadlock occur in the worst-case allocation?",
+    "hard_choices": {
+      "A": "Every process acquires 3 instances (4 * 3 = 12), exhausting the pool so none can acquire its 4th instance to finish.",
+      "B": "One process acquires all 12 instances.",
+      "C": "Each process acquires 1 instance.",
+      "D": "The operating system terminates all 4 processes."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 When 4 processes each hold 3 instances, all 12 are consumed and all 4 processes block waiting for 1 more, deadlocking.\n⚠️ Traps: For n=3, 3*3=9, leaving 3 instances, guaranteeing at least one process finishes.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 404
+  },
+  {
+    "orig_num": "8B.6.",
+    "question": "Every time a resource request cannot be granted immediately, a Deadlock Detection algorithm is invoked. What does this frequent invocation help identify?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The exact set of processes that have been deadlocked and the specific process that caused it",
+      "B": "The set of processes in the ready queue",
+      "C": "The memory fragmentation ratio",
+      "D": "CPU idle time averages"
+    },
+    "correct_key": "A",
+    "explanation": "Invoking deadlock detection on every ungranted request identifies precisely which processes are deadlocked and isolates the specific request/process that triggered the deadlock (at the expense of significant CPU overhead).",
+    "hard_question": "What is the primary performance drawback of invoking the deadlock detection algorithm on every single ungranted resource request?",
+    "hard_choices": {
+      "A": "Substantial CPU computational overhead (running an O(m * n^2) detection algorithm frequently).",
+      "B": "It corrupts the Resource Allocation Graph pointers.",
+      "C": "It forces immediate cascading termination of child processes.",
+      "D": "It invalidates all hardware cache lines."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 High CPU overhead is the main cost; real-world systems invoke detection periodically or when CPU utilization drops.\n⚠️ Traps: Detection itself does not terminate processes or corrupt graphs.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 405
+  },
+  {
+    "orig_num": "8B.7.",
+    "question": "A system contains 3 programs, and each requires 3 tape units for its operation. What is the MINIMUM number of tape units the system must have such that deadlocks NEVER arise?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "6",
+      "B": "7",
+      "C": "8",
+      "D": "9"
+    },
+    "correct_key": "B",
+    "explanation": "Worst case allocation: each of the 3 programs holds (Max - 1) = (3 - 1) = 2 tape units. Total held = 3 * 2 = 6 units. To guarantee that at least one program can acquire its final unit and complete, we need 1 more unit: 6 + 1 = 7 tape units.",
+    "hard_question": "If each of m processes requires a maximum of k instances of a single resource type, what general formula expresses the minimum total resource instances R required to guarantee deadlock-free execution?",
+    "hard_choices": {
+      "A": "R >= m * (k - 1) + 1",
+      "B": "R >= m * k",
+      "C": "R >= m * (k + 1)",
+      "D": "R >= (m - 1) * k"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 R >= m * (k - 1) + 1 guarantees that even if every process holds k-1 resources, at least one remains to let a process finish.\n⚠️ Traps: R = m * k is sufficient but not the MINIMUM.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 406
+  },
+  {
+    "orig_num": "8B.8.",
+    "question": "An OS uses the Banker's algorithm with 3 resource types (X, Y, Z) and 3 processes (P0, P1, P2). Available = [3, 2, 2]. Two independent requests arrive: REQ1: P0 requests (0, 0, 2); REQ2: P1 requests (2, 0, 0). Which one can be safely granted?",
+    "code": "Process | Allocation (X Y Z) | Max (X Y Z)\n--------|--------------------|------------\nP0      | 0 0 1              | 8 4 3\nP1      | 3 2 0              | 6 2 0\nP2      | 2 1 1              | 3 3 3\nAvailable: X=3, Y=2, Z=2",
+    "code_caption": "Banker's Algorithm State",
+    "choices": {
+      "A": "Only REQ1 can be permitted.",
+      "B": "Only REQ2 can be permitted.",
+      "C": "Both REQ1 and REQ2 can be permitted.",
+      "D": "Neither REQ1 nor REQ2 can be permitted."
+    },
+    "correct_key": "B",
+    "explanation": "Need = Max - Allocation:\nP0: [8, 4, 2]\nP1: [3, 0, 0]\nP2: [1, 2, 2]\n\nTesting REQ1 (P0 requests [0, 0, 2]):\nNew Available = [3, 2, 0]. P0 Allocation becomes [0, 0, 3], Need becomes [8, 4, 0].\nCheck if safe with Available = [3, 2, 0]:\nP1 needs [3, 0, 0] <= [3, 2, 0] -> P1 runs, releases [3, 2, 0] -> Available = [6, 4, 0].\nCan P2 run? P2 needs [1, 2, 2]. Available has Z=0, so P2 cannot run!\nCan P0 run? P0 needs [8, 4, 0]. Available X=6 < 8, so P0 cannot run!\nNeither P0 nor P2 can finish -> Unsafe! REQ1 must be denied.\n\nTesting REQ2 (P1 requests [2, 0, 0]):\nNew Available = [1, 2, 2]. P1 Allocation becomes [5, 2, 0], Need becomes [1, 0, 0].\nCheck if safe with Available = [1, 2, 2]:\nP1 needs [1, 0, 0] <= [1, 2, 2] -> P1 runs, releases [5, 2, 0] -> Available = [6, 4, 2].\nP2 needs [1, 2, 2] <= [6, 4, 2] -> P2 runs, releases [2, 1, 1] -> Available = [8, 5, 3].\nP0 needs [8, 4, 2] <= [8, 5, 3] -> P0 runs!\nSafe sequence < P1, P2, P0 > exists -> Safe! Thus, Only REQ2 can be permitted.",
+    "hard_question": "Why is REQ1 denied under the Banker's algorithm in this state?",
+    "hard_choices": {
+      "A": "P0 requested more resources than Available.",
+      "B": "Granting REQ1 leaves Available Z=0, preventing P2 from ever acquiring its required Z=2 instances, leaving the system in an unsafe state.",
+      "C": "P0 has lower priority than P1.",
+      "D": "P0 is in an infinite loop."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Granting REQ1 consumes all available Z instances, stranding P2 and leaving the system unsafe.\n⚠️ Traps: REQ1 does not exceed Available, but it leads to an unsafe state.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 407
+  },
+  {
+    "orig_num": "8B.9.",
+    "question": "A system has 5 instances of Resource Type 1 and 4 instances of Resource Type 2. Given the used and maximum resource table, what is the state of the system?",
+    "code": "Process | Type 1 (Used, Max) | Type 2 (Used, Max)\n--------|--------------------|-------------------\nP1      | 1 , 2              | 1 , 3\nP2      | 1 , 3              | 1 , 2\nP3      | 2 , 4              | 1 , 4\nTotal: Type 1 = 5 instances, Type 2 = 4 instances",
+    "code_caption": "2-Resource Allocation Table",
+    "choices": {
+      "A": "Can go to Safe or Unsafe State based on sequence",
+      "B": "Safe State",
+      "C": "Unsafe State",
+      "D": "Deadlock State"
+    },
+    "correct_key": "C",
+    "explanation": "Allocated Type 1 = 1 + 1 + 2 = 4 -> Available Type 1 = 5 - 4 = 1.\nAllocated Type 2 = 1 + 1 + 1 = 3 -> Available Type 2 = 4 - 3 = 1.\nAvailable = [1, 1].\nRemaining Needs [Type 1, Type 2]:\nP1: [2-1, 3-1] = [1, 2]\nP2: [3-1, 2-1] = [2, 1]\nP3: [4-2, 4-1] = [2, 3]\nWith Available = [1, 1]:\nP1 needs [1, 2] (insufficient Type 2: 2 > 1)\nP2 needs [2, 1] (insufficient Type 1: 2 > 1)\nP3 needs [2, 3] (insufficient both)\nNone of the processes can satisfy their needs with Available = [1, 1]. Therefore, the system is in an Unsafe State.",
+    "hard_question": "Why is this state classified as an 'Unsafe State' rather than definitively a 'Deadlock State'?",
+    "hard_choices": {
+      "A": "Processes might not immediately request their maximum needs and could release resources voluntarily before requesting more.",
+      "B": "Unsafe state and deadlock state are identical terms in operating systems.",
+      "C": "Available resources can increase spontaneously.",
+      "D": "The operating system will terminate P1 automatically."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 An unsafe state is not necessarily deadlocked; it only means the OS cannot guarantee avoiding a deadlock if all processes demand maximum needs.\n⚠️ Traps: Deadlock implies actual circular wait; unsafe means deadlock cannot be prevented in worst-case demands.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 408
+  },
+  {
+    "orig_num": "8B.10.",
+    "question": "The Wait-For Graph (WFG) is a deadlock detection algorithm that is applicable when ____________.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "All resource types have a single instance",
+      "B": "All resource types have multiple instances",
+      "C": "All resource types have exactly 3 instances",
+      "D": "The system uses Banker's algorithm for avoidance"
+    },
+    "correct_key": "A",
+    "explanation": "A Wait-For Graph (WFG) is obtained by removing resource nodes and collapsing edges into process-to-process wait edges. It is applicable ONLY when all resource types have a SINGLE instance, where a cycle is both necessary and sufficient for deadlock.",
+    "hard_question": "Why can the Wait-For Graph (WFG) NOT be used for deadlock detection when resource types contain multiple instances?",
+    "hard_choices": {
+      "A": "In multi-instance systems, a cycle in the graph is a necessary condition but NOT a sufficient condition for deadlock.",
+      "B": "Wait-for graphs cannot have directed edges.",
+      "C": "Multi-instance systems do not have processes.",
+      "D": "WFG algorithms have O(1) complexity."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Cycles in single-instance graphs guarantee deadlock; in multiple-instance systems, cycles are not sufficient, requiring Banker's-style detection matrix algorithms instead.\n⚠️ Traps: WFG collapse works only when single instances guarantee 1:1 process waiting dependencies.",
+    "chapter_id": 15,
+    "chapter_title": "Chapter 8: Deadlocks (Set 2)",
+    "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
+    "section_name": "Quiz 1: Deadlock Avoidance & Detection",
+    "id": 409
   }
 ]
