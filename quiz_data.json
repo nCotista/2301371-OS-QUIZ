@@ -11448,5 +11448,699 @@
     "chapter_subtitle": "Deadlock Characterization, Resource-Allocation Graphs, Banker's Algorithm, Detection & Recovery",
     "section_name": "Quiz 1: Deadlock Avoidance & Detection",
     "id": 409
+  },
+  {
+    "orig_num": "1B.1.",
+    "question": "Which among the following are functions of an Operating System?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Functions as an interface between user and hardware",
+      "B": "Resource allocation",
+      "C": "Memory management",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "An Operating System performs multiple vital functions: (1) providing an abstraction/interface between the user and raw computer hardware, (2) managing and allocating hardware resources (CPU, RAM, storage, I/O devices), and (3) managing memory, processes, and file systems.",
+    "hard_question": "From a systems architecture standpoint, which comprehensive collection of responsibilities defines the fundamental role of an Operating System?",
+    "hard_choices": {
+      "A": "Translating source code to machine code, compiling shared libraries, and overclocking hardware bus frequencies.",
+      "B": "Serving as an abstract user/hardware interface, acting as a resource allocator, and managing memory/process execution as a control program.",
+      "C": "Managing non-volatile flash firmware, handling BIOS POST diagnostics, and caching disk drive sectors directly.",
+      "D": "Enforcing distributed database ACID transactions while restricting CPU instructions to user mode."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 According to Silberschatz Chapter 1, the OS performs three primary roles: user view (convenience and interface), system view (resource allocator of CPU, memory, I/O), and control program (managing execution and preventing errors).\n⚠️ Traps: Compilers, database engines, and BIOS firmware are separate from the core operating system.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 410
+  },
+  {
+    "orig_num": "1B.2.",
+    "question": "In a computer system hierarchy, the Application Programs reside just above the computer hardware and the Operating System resides above the Application Programs. TRUE or FALSE?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "True",
+      "B": "False"
+    },
+    "correct_key": "B",
+    "explanation": "False. The correct architectural hierarchy of a computer system is: Hardware → Operating System → System Programs → Application Programs → Users. The operating system sits directly above the hardware to mediate access.",
+    "hard_question": "Consider the standard four-component computer system hierarchy (Hardware, Operating System, System/Application Programs, Users). Which layer is positioned immediately above the raw computer hardware?",
+    "hard_choices": {
+      "A": "Application Programs",
+      "B": "Operating System",
+      "C": "User Interface Shell",
+      "D": "Compilers and Linkers"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In standard computer systems architecture, the Operating System sits directly atop the raw computer hardware, abstracting device complexity and isolating user/application programs from physical registers and busses.\n⚠️ Traps: User application programs run on top of the OS, never directly on bare hardware in general-purpose systems.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 411
+  },
+  {
+    "orig_num": "1B.3.",
+    "question": "‘Batch’, ‘Time sharing’, ‘Real Time’, and ‘Distributed’ are types of which computing component?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "System Programs",
+      "B": "Application Programs",
+      "C": "Operating Systems",
+      "D": "Computer Hardware"
+    },
+    "correct_key": "C",
+    "explanation": "Batch systems, Time-sharing (multitasking) systems, Real-Time systems (hard/soft), and Distributed systems are standard classifications and operational models of Operating Systems.",
+    "hard_question": "How are computing paradigms such as 'Batch', 'Time-Sharing', 'Hard/Soft Real-Time', and 'Distributed' categorized in operating system theory?",
+    "hard_choices": {
+      "A": "Application-layer network protocols.",
+      "B": "Operating System architectural models and execution paradigms.",
+      "C": "Hardware CPU instruction set architectures (ISA).",
+      "D": "Compiler code optimization levels."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 These categories classify operating systems by how they schedule CPU time, interact with users, and manage resources: Batch (non-interactive serial processing), Time-sharing (rapid interactive preemption across users), Real-Time (deterministic deadline enforcement), and Distributed (computation across independent networked nodes).",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 412
+  },
+  {
+    "orig_num": "1B.4.",
+    "question": "What is the entity that is used for synchronizing orderly access to shared memory by different devices and the CPU?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Device controller",
+      "B": "Memory controller",
+      "C": "CPU arithmetic logic unit",
+      "D": "Firmware"
+    },
+    "correct_key": "B",
+    "explanation": "The memory controller synchronizes and arbitrates access to the shared system memory bus, ensuring orderly and non-conflicting memory cycles between the CPU and concurrent device controllers (such as Direct Memory Access controllers).",
+    "hard_question": "When multiple high-speed device controllers and processor cores concurrently issue memory read/write cycles across the system bus, which hardware component arbitrates and synchronizes orderly memory access?",
+    "hard_choices": {
+      "A": "The interrupt service routine (ISR).",
+      "B": "The memory controller.",
+      "C": "The disk host adapter.",
+      "D": "The instruction register decoder."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The memory controller arbitrates access to physical RAM frames, ensuring synchronized, conflict-free memory transactions between CPU execution units and peripheral DMA engines.\n⚠️ Traps: Device controllers manage specific peripherals, whereas the memory controller manages the main memory bus itself.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 413
+  },
+  {
+    "orig_num": "1B.5.",
+    "question": "Which is the initial program that runs when a computer is powered up or rebooted?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Bootstrap Program",
+      "B": "Operating System Kernel",
+      "C": "Device Drivers",
+      "D": "Init / Systemd Process"
+    },
+    "correct_key": "A",
+    "explanation": "The bootstrap program (firmware stored in ROM or EEPROM/Flash, such as BIOS or UEFI) is the very first code executed when the machine powers up. It runs diagnostics (POST), initializes hardware controllers, locates the OS bootloader, and loads the kernel into RAM.",
+    "hard_question": "What is the technical name and storage location of the initial firmware code executed immediately upon CPU reset or power-on?",
+    "hard_choices": {
+      "A": "Bootstrap program stored in non-volatile ROM/EEPROM (firmware).",
+      "B": "OS kernel binary loaded from swap partition into L1 cache.",
+      "C": "Master Boot Record (MBR) bootloader preloaded in DRAM.",
+      "D": "Interrupt vector table generated dynamically by the compiler."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 When power is applied or reset occurs, the CPU instruction pointer is hardware-wired to execute the bootstrap program stored in non-volatile ROM/Flash firmware (BIOS/UEFI).\n⚠️ Traps: The kernel binary resides on disk/SSD and cannot execute until the bootstrap program loads it into RAM.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 414
+  },
+  {
+    "orig_num": "1B.6.",
+    "question": "Hardware may trigger an interrupt at any time by sending a signal to the CPU, usually by way of the __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "system call",
+      "B": "device controller",
+      "C": "memory controller",
+      "D": "system bus"
+    },
+    "correct_key": "D",
+    "explanation": "Hardware devices assert an interrupt request (IRQ) electrical signal line across the system bus to notify the CPU that an event requires attention.",
+    "hard_question": "Through which physical hardware medium does an I/O device controller signal the processor that an asynchronous event or transfer completion has occurred?",
+    "hard_choices": {
+      "A": "By executing a privileged software trap instruction.",
+      "B": "By asserting an interrupt line across the system bus to the CPU / interrupt controller.",
+      "C": "By modifying the page table base register via the memory controller.",
+      "D": "By writing an error code directly to the CPU's program counter."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hardware devices trigger asynchronous interrupts by transmitting electrical signals along dedicated lines on the system bus to the CPU's interrupt pin or Advanced Programmable Interrupt Controller (APIC).\n⚠️ Traps: Software traps/system calls occur via CPU instructions, not physical bus lines.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 415
+  },
+  {
+    "orig_num": "1B.7.",
+    "question": "Software may trigger an interrupt by executing a special operation called a __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "system bus",
+      "B": "system call",
+      "C": "I/O request",
+      "D": "None of the above"
+    },
+    "correct_key": "B",
+    "explanation": "Software generates a software interrupt (also called a trap or exception) by executing a dedicated CPU instruction, commonly referred to as a system call (or supervisor call).",
+    "hard_question": "What processor instruction mechanism enables an unprivileged user application to synchronously generate a software interrupt to request kernel services?",
+    "hard_choices": {
+      "A": "Overwriting the interrupt vector table in low physical memory.",
+      "B": "Executing a system call instruction (software trap/exception).",
+      "C": "Asserting a hardware voltage level on the system bus.",
+      "D": "Sending an IPC packet through a raw network socket."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Software interrupts (traps) are generated when user programs execute system calls (e.g., syscall, int 0x80), cleanly switching execution to kernel mode via the interrupt dispatch table.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 416
+  },
+  {
+    "orig_num": "1B.8.",
+    "question": "Computer programs must be in __ to be executed.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "secondary memory",
+      "B": "cache memory",
+      "C": "main memory",
+      "D": "registers"
+    },
+    "correct_key": "C",
+    "explanation": "Under the Von Neumann architecture, programs must be loaded into main memory (RAM) so that the processor's instruction fetch unit can access instructions sequentially during the fetch-decode-execute cycle.",
+    "hard_question": "Under standard Von Neumann CPU architecture, where must instruction code and operand data reside for the processor's instruction fetch unit to execute them directly?",
+    "hard_choices": {
+      "A": "In persistent secondary storage blocks.",
+      "B": "Directly in main memory (physical address space).",
+      "C": "Inside the read-only BIOS firmware chip.",
+      "D": "Buffered in network socket ring buffers."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The CPU's instruction register and program counter can directly address and fetch instructions only from main memory (RAM). Code residing on disks/SSDs must be paged or loaded into RAM first.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 417
+  },
+  {
+    "orig_num": "1B.9.",
+    "question": "Main memory is __. Secondary memory is __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "volatile / non-volatile",
+      "B": "non-volatile / volatile",
+      "C": "volatile / volatile",
+      "D": "non-volatile / non-volatile"
+    },
+    "correct_key": "A",
+    "explanation": "Main memory (DRAM) is volatile—it loses its stored data when electrical power is switched off. Secondary storage (hard disk drives, SSDs, magnetic tape) is non-volatile—it preserves data persistently across reboots.",
+    "hard_question": "Comparing persistence characteristics across the storage hierarchy, what are the persistence properties of DRAM main memory versus secondary disk storage?",
+    "hard_choices": {
+      "A": "Main memory is volatile (loses contents upon power loss); secondary memory is non-volatile (retains data permanently).",
+      "B": "Main memory is non-volatile; secondary memory is volatile.",
+      "C": "Both main memory and secondary storage are completely volatile.",
+      "D": "Both main memory and secondary storage are completely non-volatile."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Dynamic RAM requires continuous electrical power and capacitive refresh cycles (volatile). Secondary storage media (magnetic platters, NAND flash) do not require power to retain data (non-volatile).",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 418
+  },
+  {
+    "orig_num": "1B.10.",
+    "question": "Interrupt-driven I/O operations can be easily used for bulk data movement. TRUE or FALSE?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "True",
+      "B": "False"
+    },
+    "correct_key": "B",
+    "explanation": "False. Interrupt-driven I/O is effective for moving small amounts of data (e.g. keyboard keystrokes), but produces massive CPU overhead when used for bulk data movement (e.g. disk or high-speed network I/O) due to repeated interrupt handling and context switching. Direct Memory Access (DMA) is used instead.",
+    "hard_question": "Why is simple interrupt-driven I/O unsuitable for high-throughput bulk data transfers (such as reading multi-megabyte files from disk)?",
+    "hard_choices": {
+      "A": "Interrupt lines cannot handle digital data words.",
+      "B": "Generating a hardware interrupt per byte or word introduces prohibitive CPU context-switching overhead.",
+      "C": "Disk controllers are physically unable to generate interrupt signals.",
+      "D": "Interrupt vectors can only be triggered by keyboard and mouse events."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 At high transfer speeds, servicing an interrupt per byte would consume all CPU cycles in interrupt context switching, leaving no CPU time for user processes. DMA solves this by transferring entire blocks autonomously, interrupting only once per block.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 419
+  },
+  {
+    "orig_num": "1B.11.",
+    "question": "In direct memory access (DMA), the device controller transfers an entire block of data directly to or from its own buffer storage to memory, with no intervention by the __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Operating system",
+      "B": "Main memory",
+      "C": "Secondary memory",
+      "D": "CPU"
+    },
+    "correct_key": "D",
+    "explanation": "In DMA, the device controller manages data transfer directly between its local buffer and main memory without the CPU copying bytes. The CPU is only interrupted once when the entire block transfer completes.",
+    "hard_question": "During a high-speed Direct Memory Access (DMA) transfer of a 64 KB disk block into RAM, which system component is relieved of all byte-by-byte transfer intervention?",
+    "hard_choices": {
+      "A": "The physical memory controller bus.",
+      "B": "The Central Processing Unit (CPU).",
+      "C": "The secondary storage controller.",
+      "D": "The device internal buffer registers."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The DMA controller takes over the memory bus to transfer data directly into RAM. The CPU is relieved of all byte-moving duties and continues running other computations until the completion interrupt arrives.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 420
+  },
+  {
+    "orig_num": "1B.12.",
+    "question": "Which among the following is NOT a category of Computer System based on the number of General-Purpose Processors?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Single Processor systems",
+      "B": "Multiprocessor systems",
+      "C": "Time sharing systems",
+      "D": "Clustered systems"
+    },
+    "correct_key": "C",
+    "explanation": "Based on processor topology and architecture, computer systems are categorized into Single-Processor systems, Multiprocessor systems, and Clustered systems. 'Time-sharing' is an operating system scheduling and interaction paradigm, not a hardware processor count categorization.",
+    "hard_question": "Which of the following describes an operating system scheduling and interactivity technique rather than a hardware classification based on processor architecture?",
+    "hard_choices": {
+      "A": "Single-processor system",
+      "B": "Multiprocessor system (tightly coupled)",
+      "C": "Time-sharing system",
+      "D": "Clustered system (loosely coupled)"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Single-processor, multiprocessor, and clustered systems categorize hardware processor configurations. Time-sharing (multitasking) is a logical software scheduling technique implemented by the OS kernel.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 421
+  },
+  {
+    "orig_num": "1B.13.",
+    "question": "Which type of computer systems are also known as parallel systems or tightly coupled systems?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Single Processor systems",
+      "B": "Multiprocessor systems",
+      "C": "Clustered systems",
+      "D": "Distributed network systems"
+    },
+    "correct_key": "B",
+    "explanation": "Multiprocessor systems are known as parallel systems or tightly coupled systems because two or more processors communicate closely, sharing physical memory, clock, bus, and peripherals.",
+    "hard_question": "What architectural classification denotes computer systems containing multiple processors that communicate closely, sharing physical memory, system clock, and peripheral devices?",
+    "hard_choices": {
+      "A": "Loosely coupled clustered systems.",
+      "B": "Multiprocessor (tightly coupled / parallel) systems.",
+      "C": "Grid computing networks.",
+      "D": "Peer-to-peer overlay systems."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Multiprocessor systems share a single physical address space, system clock, and memory bus—making them 'tightly coupled' or 'parallel'. In contrast, clustered systems share storage over local area networks ('loosely coupled').",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 422
+  },
+  {
+    "orig_num": "1B.14.",
+    "question": "In which type of Multiprocessor system is each processor assigned a specific task controlled by a master processor, following a master-slave relationship?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Symmetric multiprocessing (SMP)",
+      "B": "Asymmetric multiprocessing (AMP)",
+      "C": "Uniform Memory Access (UMA)",
+      "D": "Non-Uniform Memory Access (NUMA)"
+    },
+    "correct_key": "B",
+    "explanation": "In Asymmetric Multiprocessing (AMP), a master processor controls the system, runs the OS kernel, and allocates specific tasks to subordinate slave processors (master-slave relationship). In Symmetric Multiprocessing (SMP), all processors are peers and run the OS concurrently.",
+    "hard_question": "Under which multiprocessing model does a designated master CPU control the operating system data structures and assign dedicated work to slave processors?",
+    "hard_choices": {
+      "A": "Symmetric Multiprocessing (SMP)",
+      "B": "Asymmetric Multiprocessing (AMP)",
+      "C": "Symmetric Clustering",
+      "D": "Uniform Memory Architecture"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In Asymmetric Multiprocessing (AMP), the master CPU executes the kernel and schedules tasks onto subordinate (slave) processors. In Symmetric Multiprocessing (SMP), all processors are peers that share memory and run the OS concurrently.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 423
+  },
+  {
+    "orig_num": "1B.15.",
+    "question": "In an Asymmetrically Clustered system, how many machines are in hot-standby mode?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Zero",
+      "B": "One",
+      "C": "Two or more",
+      "D": "All machines"
+    },
+    "correct_key": "B",
+    "explanation": "In asymmetric clustering, exactly one machine is kept in hot-standby mode while the active server runs applications. The standby host does nothing except monitor the active server; if the active server fails, the hot-standby host takes over.",
+    "hard_question": "In an asymmetric clustering high-availability configuration, what is the role and count of the hot-standby nodes?",
+    "hard_choices": {
+      "A": "All nodes actively run independent applications while monitoring each other (count = N).",
+      "B": "Exactly one machine is kept in hot-standby mode, monitoring the active server and taking over only upon failure.",
+      "C": "Zero machines standby; failed nodes reboot from cold tape backup.",
+      "D": "Every node runs 50% of the database workload symmetrically."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In asymmetric clustering, one dedicated node is held in hot-standby mode doing nothing other than monitoring the active server. In symmetric clustering, two or more hosts run applications while monitoring each other.",
+    "chapter_id": 16,
+    "chapter_title": "Chapter 1: Introduction (Set 2)",
+    "chapter_subtitle": "Operating System Functions, Computer Hierarchy, Hardware Interrupts, DMA, Multiprocessor & Clustering",
+    "section_name": "Midterm Exam Set 2",
+    "id": 424
+  },
+  {
+    "orig_num": "4B.1.",
+    "question": "A thread comprises a thread ID, a program counter (PC), a register set, and a __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "stack",
+      "B": "queue",
+      "C": "array",
+      "D": "linked list"
+    },
+    "correct_key": "A",
+    "explanation": "A thread is a basic unit of CPU utilization. It comprises a unique thread ID, a program counter, a register set, and its own private stack (for local variables and function call frames). It shares the code section, data section, and OS resources with other threads belonging to the same process.",
+    "hard_question": "Which architectural component is unique to each individual thread within a multi-threaded process rather than shared across all threads?",
+    "hard_choices": {
+      "A": "Private stack and CPU register state (including Program Counter).",
+      "B": "Global data segment and heap memory allocation.",
+      "C": "Open file descriptor table and signal disposition table.",
+      "D": "Executable text (code) section."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Each thread possesses its own thread ID, program counter, CPU register set, and call stack. Code, data (heap/globals), and OS resources (open files, sockets) are shared across all threads of the process.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 425
+  },
+  {
+    "orig_num": "4B.2.",
+    "question": "Which among the following are shared by threads belonging to the same process?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Code section",
+      "B": "Data section",
+      "C": "Operating System resources (e.g. open files)",
+      "D": "All of the above"
+    },
+    "correct_key": "D",
+    "explanation": "Threads belonging to the same process share the process's code section, data section (global variables, static variables, and heap), and OS resources (such as open file descriptors, signals, and network connections).",
+    "hard_question": "Which set of resources is fully shared among peer threads executing within the same process address space?",
+    "hard_choices": {
+      "A": "Individual thread call stacks and program counter registers.",
+      "B": "Code segment, data/heap segment, and operating system resources (file descriptors).",
+      "C": "Thread-local storage (TLS) buffers and architectural register sets.",
+      "D": "Thread control blocks (TCBs) and scheduling priorities."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Peer threads share the memory address space (text, data, heap) and open OS handles. Call stacks and CPU register sets are strictly private to each thread.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 426
+  },
+  {
+    "orig_num": "4B.3.",
+    "question": "Responsiveness, Resource sharing, Economy, and Utilization of multiprocessor architectures are the four primary benefits obtained from __.",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Single-threaded programming",
+      "B": "Multi-threaded programming",
+      "C": "Monolithic operating systems",
+      "D": "Batch processing"
+    },
+    "correct_key": "B",
+    "explanation": "The four major benefits of multithreaded programming described in Silberschatz Chapter 4 are: (1) Responsiveness (interactive UI does not freeze when a background task runs), (2) Resource sharing (threads naturally share memory space), (3) Economy (creating and context-switching threads is much cheaper than processes), and (4) Scalability / Multiprocessor utilization.",
+    "hard_question": "In operating systems theory, what programming model specifically yields the four canonical benefits of Responsiveness, Resource Sharing, Economy, and Multiprocessor Scalability?",
+    "hard_choices": {
+      "A": "Cooperative non-preemptive coroutines.",
+      "B": "Multi-threaded programming.",
+      "C": "Isolated multi-tenant containerization.",
+      "D": "Hardware microcode emulation."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Silberschatz Chapter 4 explicitly lists the four major benefits of multithreading: Responsiveness, Resource sharing, Economy, and Scalability on multiprocessor architectures.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 427
+  },
+  {
+    "orig_num": "4B.4.",
+    "question": "Identify the multithreading model depicted below where multiple user-level threads are mapped to a single kernel thread:",
+    "code": "User Threads:    [ T1 ]   [ T2 ]   [ T3 ]\n                    \\       |       /\n                     \\      |      /\nKernel Thread:           [ K_Thread ]",
+    "code_caption": "User-to-Kernel Thread Mapping Diagram",
+    "choices": {
+      "A": "One-to-one model",
+      "B": "Many-to-many model",
+      "C": "Many-to-one model",
+      "D": "One-to-many model"
+    },
+    "correct_key": "C",
+    "explanation": "In the Many-to-One model, many user-level threads are mapped to a single kernel thread. Thread management is handled by a user-space thread library. However, if any thread makes a blocking system call, the entire process blocks, and threads cannot run in parallel across multiple CPU cores.",
+    "hard_question": "Under which multithreading model does a blocking system call issued by a single user thread cause the entire process to block, preventing parallelism on multicore hardware?",
+    "hard_choices": {
+      "A": "One-to-One model",
+      "B": "Many-to-Many model",
+      "C": "Many-to-One model",
+      "D": "Two-level hybrid model"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 In the Many-to-One model, the OS kernel is only aware of a single kernel thread. If that thread blocks in the kernel (e.g. on I/O), all user threads mapped to it are blocked simultaneously, and true multicore execution is impossible.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 428
+  },
+  {
+    "orig_num": "4B.5.",
+    "question": "Identify the multithreading model depicted below where each user-level thread is mapped directly to a separate kernel thread:",
+    "code": "User Threads:    [ T1 ]       [ T2 ]       [ T3 ]\n                   |            |            |\n                   v            v            v\nKernel Threads:  [ K1 ]       [ K2 ]       [ K3 ]",
+    "code_caption": "User-to-Kernel Thread Mapping Diagram",
+    "choices": {
+      "A": "One-to-one model",
+      "B": "Many-to-many model",
+      "C": "Many-to-one model",
+      "D": "One-to-many model"
+    },
+    "correct_key": "A",
+    "explanation": "In the One-to-One model (used by Linux and Windows), each user thread maps directly to an independent kernel thread. This provides concurrency on multicore systems and prevents blocking when one thread issues a syscall, though creating each thread incurs kernel overhead.",
+    "hard_question": "Which multithreading model is standard in modern desktop and server operating systems (such as Linux and Windows), providing true multicore concurrency at the cost of kernel thread management overhead?",
+    "hard_choices": {
+      "A": "One-to-One model",
+      "B": "Many-to-One model",
+      "C": "Pure user-space Green Thread model",
+      "D": "Non-preemptive fiber model"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 The One-to-One model maps each user thread to an OS kernel thread. If one thread blocks, others continue executing, and threads run simultaneously across multiple CPU cores.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 429
+  },
+  {
+    "orig_num": "4B.6.",
+    "question": "Identify the multithreading model depicted below where many user-level threads are multiplexed onto a smaller or equal number of kernel threads:",
+    "code": "User Threads:    [ T1 ]   [ T2 ]   [ T3 ]   [ T4 ]\n                    \\       /        \\       /\nKernel Threads:      [ K1 ]            [ K2 ]",
+    "code_caption": "User-to-Kernel Thread Mapping Diagram",
+    "choices": {
+      "A": "One-to-one model",
+      "B": "Many-to-many model",
+      "C": "Many-to-one model",
+      "D": "One-to-many model"
+    },
+    "correct_key": "B",
+    "explanation": "In the Many-to-Many model, many user-level threads are multiplexed onto a smaller or equal number of kernel threads. Developers can create as many user threads as needed, and the kernel can schedule them on multiple processors without blocking the entire process.",
+    "hard_question": "Which multithreading architecture multiplexes an arbitrary number of user threads over a smaller or equal pool of kernel threads, combining user-space lightweight creation with multicore parallelism?",
+    "hard_choices": {
+      "A": "Many-to-Many model",
+      "B": "Many-to-One model",
+      "C": "One-to-One model",
+      "D": "Monolithic process model"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 The Many-to-Many model allows user applications to spawn many lightweight threads without exhausting kernel thread limits, while still leveraging multicore concurrency.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 430
+  },
+  {
+    "orig_num": "4B.7.",
+    "question": "Which type of threading allows a physical CPU core's hardware execution resources to act as multiple logical processors for increased throughput?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Single threading",
+      "B": "Multi-threading",
+      "C": "Hyperthreading (Simultaneous Multithreading / SMT)",
+      "D": "All of the above"
+    },
+    "correct_key": "C",
+    "explanation": "Hyperthreading (Intel's implementation of Simultaneous Multithreading or SMT) duplicates architectural state (registers, program counters) on a single physical core, allowing the operating system to see multiple logical processors and interleave instructions from multiple hardware threads.",
+    "hard_question": "What hardware feature duplicates architectural register sets and program counters on a single physical CPU core, presenting multiple logical cores to the OS scheduler?",
+    "hard_choices": {
+      "A": "Asymmetric Multiprocessing (AMP)",
+      "B": "Simultaneous Multithreading (SMT / Hyperthreading)",
+      "C": "Direct Memory Access (DMA)",
+      "D": "Translation Lookaside Buffer (TLB) tagging"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 SMT / Hyperthreading allows a single physical core to maintain the execution context of two or more threads concurrently, keeping execution pipelines full during memory stalls.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 431
+  },
+  {
+    "orig_num": "4B.8.",
+    "question": "Upon running the WMIC command below, we obtain the output: 'Number of Cores = 4. Number of Logical Processors = 8.' This shows that the system is Hyperthreaded. TRUE or FALSE?",
+    "code": "Command: CPU Get NumberOfCores, NumberOfLogicalProcessors\nOutput:  NumberOfCores = 4, NumberOfLogicalProcessors = 8",
+    "code_caption": "WMIC Hardware Query Output",
+    "choices": {
+      "A": "True",
+      "B": "False"
+    },
+    "correct_key": "A",
+    "explanation": "True. Because the number of logical processors (8) is greater than the number of physical cores (4)—specifically 4 physical cores × 2 threads = 8 logical processors—the system is using hardware multithreading (Hyperthreading / SMT).",
+    "hard_question": "A system diagnostics query reports: 'Physical Cores: 4, Logical Processors: 8'. What precise microarchitectural conclusion can be deduced?",
+    "hard_choices": {
+      "A": "The system utilizes Simultaneous Multithreading (SMT / Hyper-Threading) with 2 hardware thread contexts per physical core.",
+      "B": "The system has 2 separate motherboard CPU sockets running in Asymmetric Multiprocessing mode.",
+      "C": "The OS kernel is running inside an emulated 8-way virtual machine on a single core.",
+      "D": "The system has 4 cores and 4 GPUs mapped as symmetric execution units."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 When logical processors = 2 × physical cores (8 = 2 × 4), each physical core hosts two architectural contexts via SMT/Hyperthreading.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 432
+  },
+  {
+    "orig_num": "4B.9.",
+    "question": "Upon running the following C program, how many times will the statement 'Hello there' be printed?",
+    "code": "#include <stdio.h>\n#include <sys/types.h>\n#include <unistd.h>\n\nint main() {\n    fork();\n    fork();\n    fork();\n    fork();\n    printf(\"\\n Hello there\");\n    return 0;\n}",
+    "code_caption": "Concurrent Process Creation with fork()",
+    "choices": {
+      "A": "4 times",
+      "B": "8 times",
+      "C": "16 times",
+      "D": "1 time"
+    },
+    "correct_key": "C",
+    "explanation": "Each call to fork() creates a new child process by duplicating the calling process. After n successive fork() calls without condition checks, there are 2^n processes running. Here, n = 4, so 2^4 = 16 processes execute printf(\"\\n Hello there\"), printing the message 16 times.",
+    "hard_question": "Given a C program executing a sequential sequence of 4 unconditional fork() system calls followed by a single printf() statement, what is the exact number of times the message is printed?",
+    "hard_choices": {
+      "A": "4 times (one print per fork call)",
+      "B": "8 times (2^3 processes)",
+      "C": "16 times (2^4 processes in total)",
+      "D": "32 times (2^5 processes)"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 n consecutive fork() invocations generate 2^n concurrent processes. With n = 4: 2^4 = 16 processes reach the printf statement.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 433
+  },
+  {
+    "orig_num": "4B.10.",
+    "question": "Which type of thread cancellation occurs when the target thread periodically checks whether it should terminate, allowing it an opportunity to terminate itself in an orderly fashion?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Asynchronous cancellation",
+      "B": "Deferred cancellation",
+      "C": "Forced kernel preemption",
+      "D": "Cascading cancellation"
+    },
+    "correct_key": "B",
+    "explanation": "In deferred cancellation, the target thread periodically checks a cancellation flag at designated cancellation points (e.g. pthread_testcancel()), enabling it to safely release acquired locks, close open files, and clean up state before terminating. In asynchronous cancellation, the thread is terminated immediately, which risks leaving shared resources corrupted or mutexes locked forever.",
+    "hard_question": "When a thread must be terminated, which cancellation technique requires the target thread to periodically check a cancellation point to perform orderly cleanup and unlock shared resources?",
+    "hard_choices": {
+      "A": "Asynchronous cancellation",
+      "B": "Deferred cancellation",
+      "C": "Immediate signal preemption",
+      "D": "Voluntary yield scheduling"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Deferred cancellation gives the target thread control to reach a known safe state (cancellation point) and run cleanup handlers before exiting, preventing resource leaks or deadlocks from held mutexes.",
+    "chapter_id": 17,
+    "chapter_title": "Chapter 4: Threads & Concurrency (Set 2)",
+    "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
+    "section_name": "Midterm Exam Set 2",
+    "id": 434
   }
 ]
