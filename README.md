@@ -8,7 +8,7 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 
 ---
 
-## 📚 Scope & Content (434 Total Questions)
+## 📚 Scope & Content (454 Total Questions)
 ### 📘 Midterm Exam Review (Set 1 - 206 Questions)
 - **Chapter 1: Introduction** (41 questions)
 - **Chapter 2: Operating-System Structures** (53 questions)
@@ -19,8 +19,9 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 - **Chapter 7: Synchronization Examples** (6 questions)
 - **Chapter 8: Deadlocks** (15 questions)
 
-### ⚡ Midterm Exam Practice (Set 2 - 90 Questions)
+### ⚡ Midterm Exam Practice (Set 2 & 3 - 110 Questions)
 - **Chapter 1: Introduction 2** (15 questions)
+- **Chapter 1: Introduction 3** (20 questions)
 - **Chapter 2: Operating-System Structures 2** (15 questions)
 - **Chapter 3: Processes 2** (15 questions)
 - **Chapter 4: Threads & Concurrency 2** (10 questions)

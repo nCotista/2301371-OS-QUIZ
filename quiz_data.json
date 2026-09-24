@@ -12142,5 +12142,565 @@
     "chapter_subtitle": "Thread Components & Sharing, Multithreading Models, Hyperthreading, Forking, Thread Cancellation",
     "section_name": "Midterm Exam Set 2",
     "id": 434
+  },
+  {
+    "orig_num": "1C.1.",
+    "question": "An operating system can be viewed as a \"government\" because it:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Executes all application tasks on behalf of users",
+      "B": "Directly provides end-user functionality",
+      "C": "Performs no useful function by itself, but provides an environment in which other programs can do useful work",
+      "D": "Maximizes CPU utilization regardless of user requirements"
+    },
+    "correct_key": "C",
+    "explanation": "ระบบปฏิบัติการเปรียบเสมือนรัฐบาล ตัวมันเองไม่ได้ผลิตงานที่เป็นประโยชน์ต่อผู้ใช้โดยตรง แต่ทำหน้าที่สร้างสภาพแวดล้อมและจัดสรรทรัพยากรเพื่อให้โปรแกรมอื่นๆ เข้ามาทำงานได้อย่างราบรื่นและมีประสิทธิภาพ (Silberschatz Section 1.1)",
+    "hard_question": "According to Silberschatz Chapter 1, why is an operating system often conceptually compared to a government in human society?",
+    "hard_choices": {
+      "A": "It directly executes end-user computational workloads and manufactures application data.",
+      "B": "Like a government, it performs no useful function by itself; rather, it creates an environment within which other programs can do useful work.",
+      "C": "It strictly maximizes hardware instruction clock rates while banning third-party software.",
+      "D": "It translates high-level programming language code directly into microcode."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Silberschatz Section 1.1 explicitly states: 'An operating system is similar to a government. Like a government, it performs no useful function by itself. It simply provides an environment within which other programs can do useful work.'\n⚠️ Traps: The OS does not manufacture end-user work directly; it provides mediation and environment.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 435
+  },
+  {
+    "orig_num": "1C.2.",
+    "question": "From the system point of view, what are the primary roles of an operating system?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Application debugger and memory chip manager",
+      "B": "Resource allocator and control program",
+      "C": "Command compiler and user interface designer",
+      "D": "File compressor and network hardware driver"
+    },
+    "correct_key": "B",
+    "explanation": "ในมุมมองของระบบ (System view) OS มีบทบาทหลัก 2 ประการ คือ เป็นตัวจัดสรรทรัพยากร (Resource Allocator) ให้กับคำขอต่างๆ อย่างยุติธรรม และเป็นโปรแกรมควบคุม (Control Program) เพื่อป้องกันข้อผิดพลาดและการใช้งานที่ไม่ถูกต้อง",
+    "hard_question": "From the SYSTEM's perspective (as opposed to the user's perspective), which dual roles define an operating system according to Silberschatz?",
+    "hard_choices": {
+      "A": "Application debugger and microcode interpreter",
+      "B": "Resource allocator and control program",
+      "C": "Hardware overclocking manager and static link loader",
+      "D": "Graphical window compositor and network firewall"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 From the system view, the OS acts as: (1) a Resource Allocator managing conflicting requests for CPU time, memory, and I/O, and (2) a Control Program supervising process execution to prevent errors and improper system usage.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 436
+  },
+  {
+    "orig_num": "1C.3.",
+    "question": "Which program is the only software that runs at all times on the computer?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Bootstrap program",
+      "B": "Command interpreter (Shell)",
+      "C": "System daemon",
+      "D": "Kernel"
+    },
+    "correct_key": "D",
+    "explanation": "Kernel คือแกนกลางของระบบปฏิบัติการและเป็นโปรแกรมหนึ่งเดียวที่ทำงาน (resident) อยู่ในหน่วยความจำตลอดเวลาที่มีการเปิดใช้งานคอมพิวเตอร์ ส่วนโปรแกรมอื่นๆ ถือเป็น System Program หรือ Application",
+    "hard_question": "What is the single core software component that is resident in memory and executing at all times on a running computer system?",
+    "hard_choices": {
+      "A": "The command interpreter shell (e.g., bash)",
+      "B": "The firmware bootstrap loader (BIOS/UEFI)",
+      "C": "The operating system kernel",
+      "D": "The init / systemd daemon"
+    },
+    "hard_correct_key": "C",
+    "hard_explanation": "🎯 Silberschatz defines the operating system kernel as 'the one program running at all times on the computer.' Shells, daemons, and compilers are system programs running outside the privileged kernel.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 437
+  },
+  {
+    "orig_num": "1C.4.",
+    "question": "Where is the initial program (bootstrap program) stored when the computer is powered on?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Main memory (DRAM)",
+      "B": "Secondary storage (Hard disk boot sector)",
+      "C": "Non-volatile firmware such as ROM or EEPROM",
+      "D": "CPU Cache"
+    },
+    "correct_key": "C",
+    "explanation": "Bootstrap program ต้องถูกเก็บไว้ในหน่วยความจำแบบไม่ลบเลือน (Non-volatile) เช่น ROM หรือ Flash/EEPROM (ที่เรียกว่า Firmware/BIOS/UEFI) เพื่อไม่ให้ข้อมูลสูญหายเมื่อปิดเครื่อง",
+    "hard_question": "When electrical power is first applied to a computer, in which physical storage medium must the initial bootstrap program reside?",
+    "hard_choices": {
+      "A": "Volatile dynamic RAM (DRAM) refreshed by the memory controller",
+      "B": "Non-volatile semiconductor firmware such as ROM, EEPROM, or SPI Flash",
+      "C": "Secondary magnetic hard disk swap partition",
+      "D": "Processor L1 instruction cache lines"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Because RAM is volatile and uninitialized at power-on, the CPU reset vector addresses non-volatile firmware (ROM or EEPROM/Flash) containing the bootstrap program.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 438
+  },
+  {
+    "orig_num": "1C.5.",
+    "question": "What is the primary function of the bootstrap program during system startup?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Compiling kernel source files",
+      "B": "Initializing hardware and loading the operating system kernel into main memory",
+      "C": "Allocating swap space on secondary storage",
+      "D": "Scheduling user processes to run on CPU cores"
+    },
+    "correct_key": "B",
+    "explanation": "หน้าที่หลักของ Bootstrap program คือการทดสอบและกำหนดค่าเริ่มต้นของฮาร์ดแวร์ (POST) ค้นหาตำแหน่งของ OS และโหลดตัว Kernel เข้าสู่ RAM เพื่อเริ่มการทำงาน",
+    "hard_question": "During the power-on self-test (POST) and system boot sequence, what are the primary responsibilities of the firmware bootstrap program?",
+    "hard_choices": {
+      "A": "Compiling C source code into assembly and formatting user filesystems",
+      "B": "Initializing hardware registers and device controllers, locating the bootloader/kernel on disk, and loading the OS kernel into RAM",
+      "C": "Creating virtual memory page tables and generating TLS certificates",
+      "D": "Spawning user-space application processes and mounting network shares"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The bootstrap program performs hardware initialization (CPU registers, device controllers, memory), locates the OS kernel image on boot media, loads it into main memory, and transfers CPU execution to it.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 439
+  },
+  {
+    "orig_num": "1C.6.",
+    "question": "Which statement correctly distinguishes UEFI from the traditional BIOS?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "UEFI can only boot 16-bit real-mode operating systems",
+      "B": "UEFI stores initialization and boot loader files (.efi) in the EFI System Partition (ESP)",
+      "C": "BIOS supports larger disks and boots faster than UEFI",
+      "D": "UEFI cannot perform hardware diagnostics (POST)"
+    },
+    "correct_key": "B",
+    "explanation": "UEFI เป็นมาตรฐานสมัยใหม่ที่แทนที่ BIOS แบบเดิม โดย UEFI สามารถอ่านระบบไฟล์ได้โดยตรงและเรียกไฟล์บูต .efi จากพาร์ติชันพิเศษที่ชื่อ EFI System Partition (ESP) รองรับดิสก์ขนาดใหญ่กว่า 2.2 TB (GPT) และทำงานในโหมด 32-bit หรือ 64-bit",
+    "hard_question": "How does the Unified Extensible Firmware Interface (UEFI) fundamentally improve upon legacy BIOS architecture during the boot phase?",
+    "hard_choices": {
+      "A": "UEFI runs in 16-bit real mode and relies exclusively on Master Boot Record (MBR) 512-byte sectors.",
+      "B": "UEFI understands modern file systems (FAT32) directly, loading executable bootloader binaries (.efi) from a dedicated EFI System Partition (ESP) and supporting GPT partitions > 2.2 TB.",
+      "C": "UEFI eliminates all CPU protection rings, executing kernel code directly in Ring 3.",
+      "D": "UEFI executes only after the Linux kernel has initialized all device drivers."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Unlike legacy BIOS (which executed 16-bit code from a 512-byte MBR sector), UEFI operates in 32-bit or 64-bit mode, understands filesystems natively, supports GPT partitions (>2.2 TB), and executes `.efi` bootloaders directly from the ESP.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 440
+  },
+  {
+    "orig_num": "1C.7.",
+    "question": "In virtualization environments, what occurs if \"Virtualization Technology\" (VT-x / AMD-V) is disabled in the BIOS/UEFI settings?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The host operating system fails to boot completely",
+      "B": "Hard disk drives cannot be partitioned",
+      "C": "Hypervisors (such as VirtualBox) cannot enable hardware-assisted acceleration for guest OSs",
+      "D": "System calls cannot be executed in user mode"
+    },
+    "correct_key": "C",
+    "explanation": "ฟีเจอร์ VT-x / AMD-V เป็นคำสั่งระดับฮาร์ดแวร์สำหรับช่วยเร่งการประมวลผล Virtualization หากปิดไว้ Hypervisor จะไม่สามารถใช้ Hardware-assisted virtualization ได้ ทำให้ประสิทธิภาพลดลงหรืออาจเปิด Guest OS แบบ 64-bit ไม่ได้",
+    "hard_question": "If Intel VT-x or AMD-V is disabled in the motherboard firmware (BIOS/UEFI), what is the direct technical consequence on virtualization software like VirtualBox or VMware?",
+    "hard_choices": {
+      "A": "The host CPU cannot execute any 64-bit user applications.",
+      "B": "The hypervisor cannot utilize hardware-assisted virtualization extensions (VMX root/non-root modes), severely degrading performance and preventing 64-bit guest execution.",
+      "C": "The physical memory controller refuses to allocate RAM frames to user processes.",
+      "D": "Direct Memory Access (DMA) transactions are completely halted."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 VT-x / AMD-V provides hardware CPU extensions (like root and non-root operation modes) that allow hypervisors to run guest kernels efficiently without complex software binary translation.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 441
+  },
+  {
+    "orig_num": "1C.8.",
+    "question": "How does a hardware device controller inform the CPU that an I/O operation has completed?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "By writing directly to the program counter",
+      "B": "By asserting a signal on the interrupt-request line",
+      "C": "By triggering a software trap via sysenter",
+      "D": "By modifying the mode bit from 0 to 1"
+    },
+    "correct_key": "B",
+    "explanation": "เมื่ออุปกรณ์ I/O ทำงานเสร็จสิ้น วงจร Device Controller จะส่งสัญญาณไฟฟ้าผ่านสายส่งสัญญาณ Interrupt-request line บนบัสเพื่อแจ้งให้ CPU ทราบ (ฮาร์ดแวร์อินเทอร์รัปต์)",
+    "hard_question": "Through what physical mechanism does an I/O device controller asynchronously notify the processor that a data transfer has finished?",
+    "hard_choices": {
+      "A": "By polling the CPU's instruction register every microsecond.",
+      "B": "By asserting an electrical voltage signal along the interrupt-request line of the system bus.",
+      "C": "By modifying the operating system's process control block directly in RAM.",
+      "D": "By executing a software trap instruction in user mode."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hardware device controllers send signals along physical interrupt-request (IRQ) lines to the CPU's interrupt pin or APIC to alert the CPU asynchronously of I/O completion.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 442
+  },
+  {
+    "orig_num": "1C.9.",
+    "question": "What is the array of memory addresses that points to specialized Interrupt Service Routines (ISRs) called?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Process Control Block table",
+      "B": "System-call dispatch list",
+      "C": "Interrupt vector",
+      "D": "Translation Lookaside Buffer"
+    },
+    "correct_key": "C",
+    "explanation": "Interrupt Vector คือตารางที่จัดเก็บ Address ของ Interrupt Service Routine (ISR) สำหรับจัดการเหตุการณ์แต่ละประเภท โดยตัวเลขหมายเลขอินเทอร์รัปต์จะถูกใช้เป็นดัชนีชี้ไปยังฟังก์ชันจัดการที่เกี่ยวข้อง",
+    "hard_question": "What table of function pointers in low memory is indexed by an interrupt number to locate the corresponding Interrupt Service Routine (ISR)?",
+    "hard_choices": {
+      "A": "Process Control Block (PCB) table",
+      "B": "Interrupt vector (or Interrupt Descriptor Table / IDT)",
+      "C": "Inverted Page Table (IPT)",
+      "D": "Translation Lookaside Buffer (TLB)"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 The interrupt vector is an array of memory addresses indexed by device interrupt numbers that point directly to the appropriate Interrupt Service Routines (ISRs).",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 443
+  },
+  {
+    "orig_num": "1C.10.",
+    "question": "What is a software-generated interrupt caused by an error (e.g., division by zero) or a user request for OS services termed?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Maskable interrupt",
+      "B": "Trap (or Exception)",
+      "C": "Hardware vector",
+      "D": "Context delay"
+    },
+    "correct_key": "B",
+    "explanation": "Trap หรือ Exception คืออินเทอร์รัปต์ที่เกิดจากซอฟต์แวร์ เช่น ข้อผิดพลาดในการรันโปรแกรม (หารด้วยศูนย์, memory fault) หรือเกิดจากการสั่ง System Call เพื่อขอใช้บริการจาก OS",
+    "hard_question": "What technical term describes a synchronous software-generated interrupt triggered either by an execution error (e.g., divide-by-zero, page fault) or by a deliberate user-mode system call?",
+    "hard_choices": {
+      "A": "Asynchronous bus interrupt",
+      "B": "Trap (or Exception)",
+      "C": "Maskable hardware request",
+      "D": "DMA transfer burst"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 A trap (or exception) is a software-generated synchronous interrupt caused either by an arithmetic/memory error or by a specific request from a user program (system call).",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 444
+  },
+  {
+    "orig_num": "1C.11.",
+    "question": "Which of the following memory types is the ONLY large storage media that the CPU can address and access directly?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Solid State Drive (SSD)",
+      "B": "Main memory (RAM)",
+      "C": "Optical disk",
+      "D": "Magnetic disk"
+    },
+    "correct_key": "B",
+    "explanation": "หน่วยความจำหลัก (Main Memory / RAM) เป็นสื่อบันทึกข้อมูลขนาดใหญ่เพียงชนิดเดียวที่ CPU สามารถอ้างอิงตำแหน่ง (address) และเข้าถึงข้อมูลคำสั่งได้โดยตรงผ่านบัสระบบ ส่วนหน่วยบันทึกข้อมูลทุติยภูมิ (Secondary storage) ต้องโหลดเข้า RAM ก่อนเสมอ",
+    "hard_question": "Under standard computer architecture, which storage component represents the ONLY general-purpose, large-capacity memory that the CPU can directly address and execute instructions from?",
+    "hard_choices": {
+      "A": "NVMe Solid State Drive (SSD)",
+      "B": "Main memory (RAM / DRAM)",
+      "C": "Magnetic hard disk drive (HDD)",
+      "D": "USB Flash drive"
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 General-purpose CPUs can only execute instruction streams and load/store data operands directly from main memory (RAM). Secondary storage devices are I/O peripherals accessed via controllers.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 445
+  },
+  {
+    "orig_num": "1C.12.",
+    "question": "Direct Memory Access (DMA) is primarily used for high-speed I/O devices to:",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Allow device controllers to transfer entire blocks of data directly to memory without continuous CPU intervention",
+      "B": "Generate an interrupt for every single byte transferred",
+      "C": "Prevent user processes from executing system calls",
+      "D": "Eliminate the need for device drivers"
+    },
+    "correct_key": "A",
+    "explanation": "DMA ช่วยให้อุปกรณ์ความเร็วสูงส่งผ่านข้อมูลเป็นบล็อกใหญ่เข้าสู่ RAM ได้โดยตรง โดยเกิดอินเทอร์รัปต์เพียงครั้งเดียวเมื่อโอนย้ายเสร็จทั้งบล็อก ทำให้ไม่ต้องรบกวน CPU ในทุกๆ ไบต์",
+    "hard_question": "What is the primary architectural purpose of Direct Memory Access (DMA) in high-throughput peripheral I/O systems?",
+    "hard_choices": {
+      "A": "Enabling the device controller to transfer an entire block of data directly to/from main memory without continuous byte-by-byte CPU intervention, interrupting the CPU only once per block.",
+      "B": "Forcing the CPU to execute a busy-wait polling loop for every transmitted 32-bit word.",
+      "C": "Replacing device drivers with microcode stored permanently inside the L2 cache.",
+      "D": "Doubling the physical bus clock frequency of secondary storage controllers."
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 DMA transfers large data blocks directly between device buffers and physical RAM, generating a single interrupt upon block transfer completion and freeing the CPU for compute tasks.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 446
+  },
+  {
+    "orig_num": "1C.13.",
+    "question": "What is the primary purpose of dual-mode operation (User mode vs. Kernel mode)?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "To allow two users to share the CPU simultaneously",
+      "B": "To protect the operating system from errant users and errant users from one another",
+      "C": "To separate physical memory from virtual memory",
+      "D": "To accelerate arithmetic calculations in application programs"
+    },
+    "correct_key": "B",
+    "explanation": "การแบ่งโหมดเป็น User mode และ Kernel mode มีจุดประสงค์สำคัญในการสร้างการป้องกัน (Protection) ป้องกันไม่ให้โปรแกรมของผู้ใช้เข้าไปแก้ไขโค้ดของระบบ หรือรบกวนโปรเซสของผู้ใช้อื่น",
+    "hard_question": "Why do modern CPU architectures implement hardware dual-mode execution (User mode vs. Kernel mode)?",
+    "hard_choices": {
+      "A": "To allow two CPU cores to execute identical instructions in lockstep for redundancy.",
+      "B": "To ensure system protection by preventing user programs from executing privileged instructions or directly compromising kernel memory and other processes.",
+      "C": "To bypass physical memory translation during high-throughput I/O operations.",
+      "D": "To execute multiple operating system kernels concurrently on a single uniprocessor."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Dual-mode operation provides fundamental system protection: user code cannot execute privileged operations (e.g. disabling interrupts, modifying page tables, performing raw I/O), preventing accidental crashes or malicious tampering.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 447
+  },
+  {
+    "orig_num": "1C.14.",
+    "question": "When a user program executes a system call to request an OS service, what transition takes place in the hardware?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The mode bit changes from 0 to 1 (Kernel to User)",
+      "B": "The system remains in User mode throughout execution",
+      "C": "The mode bit changes from 1 to 0 (User to Kernel)",
+      "D": "The CPU halts until the operation completes"
+    },
+    "correct_key": "C",
+    "explanation": "ปกติ Mode bit ใน User Mode จะมีค่าเป็น 1 เมื่อเกิด System Call หรือ Trap ฮาร์ดแวร์จะเปลี่ยนสถานะ Mode bit เป็น 0 เพื่อเข้าสู่ Kernel Mode ทำให้สามารถสั่งการคำสั่งอภิสิทธิ์ได้",
+    "hard_question": "In hardware dual-mode architecture, what exact state transition occurs when a user application executes a software trap/syscall instruction?",
+    "hard_choices": {
+      "A": "The mode bit transitions from 0 to 1 (Kernel mode to User mode).",
+      "B": "The hardware mode bit transitions from 1 to 0 (User mode to Kernel mode), transferring execution to the kernel's syscall dispatch routine.",
+      "C": "The CPU executes the instruction directly in user mode without altering hardware flags.",
+      "D": "The mode bit toggles randomly until an interrupt acknowledges the request."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 In dual-mode architectures (such as x86 and ARM), user mode corresponds to mode bit 1. When a system call or trap occurs, hardware transitions the mode bit from 1 to 0 (privileged kernel mode) and branches to the kernel handler.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 448
+  },
+  {
+    "orig_num": "1C.15.",
+    "question": "Which of the following instructions must be designated as a PRIVILEGED instruction?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Reading the current time of day from the system clock",
+      "B": "Performing a floating-point multiplication",
+      "C": "Modifying the hardware timer and turning off interrupts",
+      "D": "Jumping to another instruction within the application's code segment"
+    },
+    "correct_key": "C",
+    "explanation": "คำสั่งที่สามารถหยุดการทำงานของระบบหรือควบคุมฮาร์ดแวร์พื้นฐาน เช่น การปิดอินเทอร์รัปต์ การตั้งค่าตัวจับเวลา (Timer) หรือการเข้าถึงพอร์ต I/O ต้องถูกจำกัดเป็น Privileged instruction เพื่อความปลอดภัย",
+    "hard_question": "Which of the following operations MUST strictly be executed as a privileged instruction by the CPU hardware?",
+    "hard_choices": {
+      "A": "Executing a conditional branch instruction within an application loop.",
+      "B": "Modifying the hardware timer register and executing the CLI (Clear Interrupts / disable interrupts) instruction.",
+      "C": "Reading the time-of-day register for high-resolution profiling.",
+      "D": "Performing arithmetic multiplication on floating-point registers."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Disabling interrupts (CLI) and modifying timer registers must be privileged; if user code could execute them, it could disable preemption and permanently seize the CPU.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 449
+  },
+  {
+    "orig_num": "1C.16.",
+    "question": "What happens if an application running in User mode attempts to execute a privileged instruction?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "The instruction executes normally with limited memory",
+      "B": "The CPU ignores the instruction and continues to the next line",
+      "C": "The hardware treats it as illegal and traps to the operating system",
+      "D": "The system switches automatically to kernel mode without error"
+    },
+    "correct_key": "C",
+    "explanation": "หากคำสั่ง Privileged ถูกเรียกใช้ขณะที่ Mode bit เป็น User mode (1) ฮาร์ดแวร์จะไม่ประมวลผลคำสั่งนั้น แต่จะส่งสัญญาณข้อผิดพลาด (Trap to OS) ส่งผลให้ OS เข้ามาระงับหรือปิดโปรแกรมนั้นทันที",
+    "hard_question": "When a processor in User mode (mode bit = 1) encounters an instruction reserved strictly for Kernel mode, how does the hardware respond?",
+    "hard_choices": {
+      "A": "The CPU silently drops the instruction and continues executing subsequent instructions.",
+      "B": "Hardware treats the instruction as illegal, generates a trap/exception to the operating system, which typically terminates the violating process.",
+      "C": "The CPU automatically promotes the process to supervisor status without notification.",
+      "D": "The CPU reboots into BIOS setup mode immediately."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hardware enforces protection boundaries: attempting a privileged instruction in user mode triggers a General Protection Fault (trap to OS), causing the kernel to terminate the program.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 450
+  },
+  {
+    "orig_num": "1C.17.",
+    "question": "What is the main objective of multiprogramming?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "To guarantee an interactive response time for desktop users",
+      "B": "To maximize CPU utilization by keeping multiple jobs in memory so the CPU always has work to execute",
+      "C": "To run programs without using main memory",
+      "D": "To eliminate the need for an operating system kernel"
+    },
+    "correct_key": "B",
+    "explanation": "วัตถุประสงค์หลักของ Multiprogramming คือเพิ่มอัตราการใช้งานของ CPU (CPU Utilization) โดยการเก็บหลายๆ โปรแกรมไว้ใน Memory พร้อมกัน เมื่อโปรแกรมหนึ่งต้องรอ I/O ระบบปฏิบัติการจะสลับ CPU ไปรันโปรแกรมอื่นทันที",
+    "hard_question": "What is the primary design motivation behind Multiprogramming in early and modern operating systems?",
+    "hard_choices": {
+      "A": "Minimizing interactive user response times on graphical personal computers.",
+      "B": "Maximizing CPU utilization by organizing jobs so that the CPU always has a process ready to execute whenever the running process waits for I/O.",
+      "C": "Eliminating the need for secondary storage by paging directly to network devices.",
+      "D": "Enforcing strict hard real-time scheduling deadlines."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Multiprogramming increases CPU utilization by keeping multiple jobs in memory; when one job waits for I/O, the OS switches the CPU to another job. (Time-sharing adds frequent interactive switching on top of multiprogramming).",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 451
+  },
+  {
+    "orig_num": "1C.18.",
+    "question": "Why is a hardware timer essential in a time-sharing (multitasking) operating system?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "To synchronize device drivers with the system clock",
+      "B": "To prevent a single process from monopolizing the CPU indefinitely",
+      "C": "To speed up arithmetic floating-point execution",
+      "D": "To format secondary storage sectors periodically"
+    },
+    "correct_key": "B",
+    "explanation": "ในระบบ Time-sharing จำเป็นต้องมีฮาร์ดแวร์ Timer เพื่อสร้าง Interrupt เมื่อครบช่วงเวลาที่กำหนด (Time slice) ป้องกันไม่ให้โปรแกรมใดโปรแกรมหนึ่ง เช่น โปรแกรมที่ติด Infinite loop ครอบครอง CPU เพียงลำพัง",
+    "hard_question": "Why is a fixed or variable hardware timer indispensable for implementing preemptive time-sharing operating systems?",
+    "hard_choices": {
+      "A": "To ensure that disk controller read heads remain synchronized with magnetic sectors.",
+      "B": "To guarantee that the operating system kernel maintains control over the CPU by generating periodic interrupts, preventing infinite loops or rogue processes from monopolizing hardware.",
+      "C": "To accelerate instruction pipeline throughput for mathematical calculations.",
+      "D": "To measure network latency across wide area networks."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 Hardware timers generate periodic interrupts that return CPU control to the kernel, enabling the scheduler to preempt running processes (e.g., at time slice expiration or infinite loop).",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 452
+  },
+  {
+    "orig_num": "1C.19.",
+    "question": "In Intel CPU architecture, which protection ring corresponds to Kernel mode?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Ring 0",
+      "B": "Ring 1",
+      "C": "Ring 2",
+      "D": "Ring 3"
+    },
+    "correct_key": "A",
+    "explanation": "สถาปัตยกรรม x86 ของ Intel กำหนดสิทธิ์เป็น 4 วงแหวน (Rings 0–3) โดย Ring 0 มีสิทธิ์สูงสุดในการเข้าถึงฮาร์ดแวร์เทียบเท่า Kernel Mode ขณะที่ Ring 3 มีสิทธิ์ต่ำสุดและใช้สำหรับ User Application",
+    "hard_question": "In the hierarchical four-ring protection domain structure of the Intel x86 processor architecture, which privilege level corresponds to Kernel (Supervisor) mode?",
+    "hard_choices": {
+      "A": "Ring 0 (Most privileged / Kernel mode)",
+      "B": "Ring 1 (Device driver isolation)",
+      "C": "Ring 2 (Operating system extensions)",
+      "D": "Ring 3 (Least privileged / User mode)"
+    },
+    "hard_correct_key": "A",
+    "hard_explanation": "🎯 Intel x86 defines Rings 0 to 3. Ring 0 has the greatest privilege and executes the OS kernel. Ring 3 has the least privilege and runs user applications.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 453
+  },
+  {
+    "orig_num": "1C.20.",
+    "question": "When a CPU executes an interrupt, what must the hardware/OS do before dispatching to the interrupt service routine?",
+    "code": null,
+    "code_caption": null,
+    "choices": {
+      "A": "Delete all background processes",
+      "B": "Save the state/context of the interrupted program (e.g., registers and return address)",
+      "C": "Reset the system clock to zero",
+      "D": "Clear the entire contents of RAM"
+    },
+    "correct_key": "B",
+    "explanation": "เมื่อเกิด Interrupt ขึ้น ฮาร์ดแวร์และ OS จะต้องบันทึกสถานะการทำงาน (Context/State เช่น Registers, Program Counter, Flags) ของโปรแกรมที่กำลังทำงานอยู่ลงใน Kernel Stack หรือ PCB เสียก่อน เพื่อให้สามารถกลับมาทำงานต่อได้อย่างถูกต้องหลังจากที่ Interrupt Service Routine (ISR) ทำงานเสร็จสิ้น",
+    "hard_question": "Before the processor transfers control to an Interrupt Service Routine (ISR), which crucial step must be performed to ensure program correctness upon return?",
+    "hard_choices": {
+      "A": "Purging all page table mappings and TLB caches.",
+      "B": "Saving the architectural state (Program Counter, registers, and processor flags) of the currently executing instruction context onto the kernel stack.",
+      "C": "Terminating all lower-priority background batch tasks.",
+      "D": "Writing all dirty file system blocks from cache to secondary disk."
+    },
+    "hard_correct_key": "B",
+    "hard_explanation": "🎯 An interrupt pauses normal execution. To resume seamlessly afterward, the hardware/OS must preserve the program counter and CPU register context so that the RTI (return from interrupt) instruction can restore exact program state.",
+    "chapter_id": 18,
+    "chapter_title": "Chapter 1: Introduction (Set 3)",
+    "chapter_subtitle": "OS Functions, System Hierarchy, Firmware & UEFI, Hardware Interrupts & Vectors, Dual-Mode & Rings, Multiprogramming & Timers",
+    "section_name": "Midterm Exam Set 3",
+    "id": 454
   }
 ]
