@@ -1,0 +1,850 @@
+[
+  {
+    "id": 1,
+    "db_id": 207,
+    "section": "Quiz 1: Process Management",
+    "question": "Show Linux distro (distributor, description, release, codename).",
+    "canonical_answer": "lsb_release -a",
+    "hint": "คำสั่งขึ้นต้นด้วย lsb_ หรือลองดูไฟล์ os-release ในไดเรกทอรี /etc",
+    "simulated_output": "No LSB modules are available.\nDistributor ID: Ubuntu\nDescription:    Ubuntu 22.04.3 LTS\nRelease:        22.04\nCodename:       jammy",
+    "patterns": [
+      "^lsb_release(\\s+-a)?$",
+      "^cat\\s+\\/etc\\/os-release$",
+      "^hostnamectl(\\s+status)?$"
+    ],
+    "explanation": "คำสั่ง lsb_release -a จะแสดงข้อมูล Distribution ทั้งหมด ได้แก่ Distributor ID, Description, Release number และ Codename (หรือใช้คำสั่ง: cat /etc/os-release)"
+  },
+  {
+    "id": 2,
+    "db_id": 208,
+    "section": "Quiz 1: Process Management",
+    "question": "Show kernel version.",
+    "canonical_answer": "uname -r",
+    "hint": "ใช้คำสั่ง uname พร้อม flag ที่ย่อมาจาก release (-r)",
+    "simulated_output": "5.15.0-89-generic",
+    "patterns": [
+      "^uname\\s+-r$",
+      "^uname\\s+-a$",
+      "^cat\\s+\\/proc\\/version$"
+    ],
+    "explanation": "uname -r แสดงเฉพาะหมายเลข Release/Version ของ Linux Kernel ปัจจุบัน (หรือใช้ uname -a เพื่อดูข้อมูลระบบทั้งหมด)"
+  },
+  {
+    "id": 3,
+    "db_id": 209,
+    "section": "Quiz 1: Process Management",
+    "question": "Show kernel (file) and its size.",
+    "canonical_answer": "ls -lh /boot/vmlinuz-$(uname -r)",
+    "hint": "ใช้คำสั่ง ls -lh ตรวจสอบไฟล์ในไดเรกทอรี /boot/vmlinuz-... โดยใช้ subshell $(uname -r)",
+    "simulated_output": "-rw------- 1 root root 11M Oct 18 14:22 /boot/vmlinuz-5.15.0-89-generic",
+    "patterns": [
+      "^ls\\s+-(lh|hl|l)\\s+\\/boot\\/vmlinuz(-|\\*)?(\\$\\(uname\\s+-r\\))?",
+      "^ls\\s+-lh\\s+\\/boot\\/vmlinuz",
+      "^ls\\s+-l\\s+\\/boot\\/vmlinuz",
+      "^du\\s+-h\\s+\\/boot\\/vmlinuz"
+    ],
+    "explanation": "ไฟล์ Kernel ของ Linux จะอยู่ในไดเรกทอรี /boot ขึ้นต้นด้วย vmlinuz- ตามด้วยเวอร์ชัน ใช้พารามิเตอร์ -lh เพื่อแสดงขนาดไฟล์ในหน่วยที่มนุษย์อ่านง่าย (เช่น MB)"
+  },
+  {
+    "id": 4,
+    "db_id": 210,
+    "section": "Quiz 1: Process Management",
+    "question": "Show CPU information.",
+    "canonical_answer": "lscpu",
+    "hint": "ใช้คำสั่ง lscpu หรืออ่าน virtual file จาก /proc/cpuinfo",
+    "simulated_output": "Architecture:                    x86_64\nCPU op-mode(s):                  32-bit, 64-bit\nAddress sizes:                   39 bits physical, 48 bits virtual\nByte Order:                      Little Endian\nCPU(s):                          8\nOn-line CPU(s) list:             0-7\nVendor ID:                       GenuineIntel\nModel name:                      12th Gen Intel(R) Core(TM) i7-12700H\nCPU family:                      6\nModel:                           154\nThread(s) per core:              2\nCore(s) per socket:              4\nSocket(s):                       1",
+    "patterns": [
+      "^lscpu$",
+      "^cat\\s+\\/proc\\/cpuinfo$",
+      "^less\\s+\\/proc\\/cpuinfo$"
+    ],
+    "explanation": "lscpu แสดงรายละเอียดสถาปัตยกรรม CPU, จำนวน Cores, Threads, Model name และ Cache (หรือใช้คำสั่ง: cat /proc/cpuinfo)"
+  },
+  {
+    "id": 5,
+    "db_id": 211,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process with lowest priority (least favorable). (สร้าง process โดยใช้คำสั่ง sleep n)",
+    "canonical_answer": "nice -n 19 sleep 100",
+    "hint": "ใช้คำสั่ง nice กำหนดค่าความสำคัญสูงสุดทางบวก (-n 19) แล้วตามด้วย sleep",
+    "simulated_output": "[1] 48123 (running with niceness 19: least favorable priority)",
+    "patterns": [
+      "^nice\\s+-n\\s*19\\s+sleep\\s+\\d+(\\s*&)?$",
+      "^nice\\s+-19\\s+sleep\\s+\\d+(\\s*&)?$",
+      "^nice\\s+--adjustment=19\\s+sleep\\s+\\d+(\\s*&)?$"
+    ],
+    "explanation": "ค่า nice value มีช่วงตั้งแต่ -20 ถึง 19 โดยค่า 19 คือความสำคัญต่ำสุด (least favorable / friendly to other processes)"
+  },
+  {
+    "id": 6,
+    "db_id": 212,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process (> 60 sec), pause, and resume.",
+    "canonical_answer": "sleep 100 -> Ctrl+Z -> bg",
+    "hint": "รัน sleep 100 กด Ctrl+Z เพื่อหยุดชั่วคราว แล้วพิมพ์ bg เพื่อรันต่อใน background",
+    "simulated_output": "sleep 100\n^Z\n[1]+  Stopped                 sleep 100\nstudent@os-lab:~$ bg\n[1]+ sleep 100 &",
+    "patterns": [
+      "sleep\\s+\\d+.*(ctrl\\+?z|\\^z).*bg",
+      "^sleep\\s+\\d+\\s*&$",
+      "^bg$",
+      "^sleep\\s+\\d+$",
+      "sleep.*->.*ctrl\\+?z.*->.*bg",
+      "sleep\\s+\\d+\\s*;\\s*bg"
+    ],
+    "explanation": "Ctrl+Z จะส่งสัญญาณ SIGTSTP เพื่อระงับโปรเซสไว้ชั่วคราว จากนั้นพิมพ์ bg หรือ fg เพื่อ resume ให้โปรเซสทำงานต่อ"
+  },
+  {
+    "id": 7,
+    "db_id": 213,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process (> 60 sec) in background, and terminate.",
+    "canonical_answer": "sleep 100 & -> kill %1",
+    "hint": "รัน sleep 100 & แล้วตามด้วยคำสั่ง kill %1 เพื่อยุติ job หมายเลข 1",
+    "simulated_output": "[1] 48135\nstudent@os-lab:~$ kill %1\n[1]+  Terminated              sleep 100",
+    "patterns": [
+      "sleep\\s+\\d+\\s*&.*kill\\s+%(1|sleep)",
+      "^kill\\s+%(1|sleep)$",
+      "^killall\\s+sleep$",
+      "sleep\\s+\\d+\\s*&.*kill"
+    ],
+    "explanation": "การใส่เครื่องหมาย & ท้ายคำสั่งจะรันโปรเซสใน background และใช้คำสั่ง kill %1 เพื่อส่งสัญญาณ SIGTERM ยุติโปรเซส job หมายเลข 1"
+  },
+  {
+    "id": 8,
+    "db_id": 214,
+    "section": "Quiz 1: Process Management",
+    "question": "Run three processes in background, and bring the second to the foreground.",
+    "canonical_answer": "sleep 101 & sleep 102 & sleep 103 & -> fg %2",
+    "hint": "รัน sleep 101 & sleep 102 & sleep 103 & แล้วใช้ fg %2 เพื่อดึง job 2 มา foreground",
+    "simulated_output": "[1] 48141\n[2] 48142\n[3] 48143\nstudent@os-lab:~$ fg %2\nsleep 102",
+    "patterns": [
+      "sleep.*&.*sleep.*&.*fg\\s+%2",
+      "^fg\\s+%2$",
+      "^fg\\s+2$"
+    ],
+    "explanation": "รันโปรเซสทั้ง 3 ตัวไว้ใน background แล้วใช้คำสั่ง fg %2 เพื่อนำ job ตัวที่ 2 กลับขึ้นมาทำงานที่ foreground"
+  },
+  {
+    "id": 9,
+    "db_id": 215,
+    "section": "Quiz 1: Process Management",
+    "question": "Run three processes in background, and terminate the first.",
+    "canonical_answer": "sleep 101 & sleep 102 & sleep 103 & -> kill %1",
+    "hint": "รัน 3 background jobs แล้วสั่ง kill %1 เพื่อ kill ตัวแรก",
+    "simulated_output": "[1] 48145\n[2] 48146\n[3] 48147\nstudent@os-lab:~$ kill %1\n[1]   Terminated              sleep 101",
+    "patterns": [
+      "sleep.*&.*sleep.*&.*kill\\s+%1",
+      "^kill\\s+%1$"
+    ],
+    "explanation": "รันโปรเซสทั้ง 3 ตัวไว้ใน background แล้วสั่ง kill %1 เพื่อยุติการทำงานของ job ตัวแรก"
+  },
+  {
+    "id": 10,
+    "db_id": 216,
+    "section": "Quiz 1: Process Management",
+    "question": "Run two processes and connect them using a pipe (เช่น ใช้คำสั่ง cat และ grep เพื่อ print ไฟล์ /etc/passwd โดยกรองเฉพาะบรรทัดที่มีคำว่า home).",
+    "canonical_answer": "cat /etc/passwd | grep home",
+    "hint": "ใช้ pipe (|) เชื่อม cat /etc/passwd เข้ากับ grep home",
+    "simulated_output": "student:x:1000:1000:Student User,,,:/home/student:/bin/bash",
+    "patterns": [
+      "^cat\\s+\\/etc\\/passwd\\s*\\|\\s*grep\\s+[\"']?home[\"']?$",
+      "^grep\\s+[\"']?home[\"']?\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "เครื่องหมาย Pipe (|) จะส่ง Standard Output ของคำสั่ง cat /etc/passwd ไปเป็น Standard Input ให้คำสั่ง grep กรองเฉพาะบรรทัดที่มีคำว่า 'home'"
+  },
+  {
+    "id": 11,
+    "db_id": 217,
+    "section": "Quiz 1: Process Management",
+    "question": "Show uptime (elapsed time since booting).",
+    "canonical_answer": "uptime -p",
+    "hint": "ใช้คำสั่ง uptime พร้อมออปชัน -p (pretty)",
+    "simulated_output": "up 3 hours, 42 minutes",
+    "patterns": [
+      "^uptime\\s+-p$",
+      "^uptime$"
+    ],
+    "explanation": "uptime -p แสดงระยะเวลาที่เครื่องเปิดทำงานอยู่ (pretty format เช่น 'up 2 hours, 15 minutes') หรือใช้คำสั่ง uptime แบบปกติ"
+  },
+  {
+    "id": 12,
+    "db_id": 218,
+    "section": "Quiz 2: Memory Management",
+    "question": "Show memory information.",
+    "canonical_answer": "cat /proc/meminfo",
+    "hint": "อ่านข้อมูลจาก virtual file ใน /proc ชื่อ meminfo ด้วยคำสั่ง cat",
+    "simulated_output": "MemTotal:       16315284 kB\nMemFree:         8342116 kB\nMemAvailable:   11245920 kB\nBuffers:          345120 kB\nCached:          3145892 kB\nSwapTotal:       2097148 kB\nSwapFree:        2097148 kB",
+    "patterns": [
+      "^cat\\s+\\/proc\\/meminfo$",
+      "^less\\s+\\/proc\\/meminfo$",
+      "^head(\\s+-[n\\d]+)?\\s+\\/proc\\/meminfo$"
+    ],
+    "explanation": "/proc/meminfo เป็น Virtual File ของ Kernel ที่เก็บรายละเอียดหน่วยความจำทั้งหมดอย่างลึกซึ้ง เช่น MemTotal, MemFree, Buffers, Cached"
+  },
+  {
+    "id": 13,
+    "db_id": 219,
+    "section": "Quiz 2: Memory Management",
+    "question": "Show amount of free and used memory in the system.",
+    "canonical_answer": "free -h",
+    "hint": "ใช้คำสั่ง free พร้อมออปชัน -h (human-readable)",
+    "simulated_output": "               total        used        free      shared  buff/cache   available\nMem:            15Gi       4.2Gi       8.0Gi       320Mi       3.4Gi        11Gi\nSwap:          2.0Gi          0B       2.0Gi",
+    "patterns": [
+      "^free\\s+-h$",
+      "^free\\s+-m$",
+      "^free$"
+    ],
+    "explanation": "คำสั่ง free -h แสดงตารางหน่วยความจำ RAM และ Swap ทั้งหมด (total, used, free, shared, buff/cache, available) ในรูปแบบ Human-readable (เช่น MB, GB)"
+  },
+  {
+    "id": 14,
+    "db_id": 220,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file, rename, and delete.",
+    "canonical_answer": "touch testfile.txt -> mv testfile.txt renamed.txt -> rm renamed.txt",
+    "hint": "ใช้ touch สร้างไฟล์, mv เปลี่ยนชื่อ, rm ลบไฟล์ (คั่นด้วย && หรือ ->)",
+    "simulated_output": "Created testfile.txt -> Renamed to renamed.txt -> Removed renamed.txt successfully.",
+    "patterns": [
+      "touch\\s+\\S+.*mv\\s+\\S+\\s+\\S+.*rm\\s+\\S+",
+      "^touch\\s+\\S+$",
+      "^rm\\s+\\S+$"
+    ],
+    "explanation": "touch ใช้สร้างไฟล์เปล่า, mv ใช้เปลี่ยนชื่อไฟล์, และ rm ใช้ลบไฟล์"
+  },
+  {
+    "id": 15,
+    "db_id": 221,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a folder, rename, and delete.",
+    "canonical_answer": "mkdir testdir -> mv testdir renameddir -> rmdir renameddir",
+    "hint": "ใช้ mkdir สร้างโฟลเดอร์, mv เปลี่ยนชื่อ, rmdir หรือ rm -r เพื่อลบโฟลเดอร์",
+    "simulated_output": "Created directory testdir/ -> Renamed to renameddir/ -> Removed renameddir/ successfully.",
+    "patterns": [
+      "mkdir\\s+\\S+.*mv\\s+\\S+\\s+\\S+.*rm(dir|\\s+-r)\\s+\\S+",
+      "^mkdir\\s+\\S+$",
+      "^rmdir\\s+\\S+$"
+    ],
+    "explanation": "mkdir ใช้สร้างโฟลเดอร์, mv ใช้เปลี่ยนชื่อโฟลเดอร์, และ rmdir ใช้ลบโฟลเดอร์เปล่า"
+  },
+  {
+    "id": 16,
+    "db_id": 222,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file and change permission so that only the owner can read.",
+    "canonical_answer": "touch secret.txt && chmod 400 secret.txt",
+    "hint": "ใช้ touch สร้างไฟล์ แล้วตามด้วย chmod 400 (owner read-only)",
+    "simulated_output": "-r-------- 1 student student 0 Nov 10 01:00 secret.txt (Permission: 400)",
+    "patterns": [
+      "(touch\\s+\\S+\\s*(&&|;)\\s*)?chmod\\s+400\\s+\\S+",
+      "^chmod\\s+400\\s+\\S+$",
+      "^chmod\\s+u=r,go=\\s+\\S+$"
+    ],
+    "explanation": "Permission 400 (r--------) กำหนดให้ Owner มีสิทธิ์อ่าน (r=4) เพียงผู้เดียว ส่วน Group และ Others ไม่มีสิทธิ์ใด ๆ"
+  },
+  {
+    "id": 17,
+    "db_id": 223,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file and change both owner and group to 'root'.",
+    "canonical_answer": "sudo chown root:root rootfile.txt",
+    "hint": "ใช้คำสั่ง sudo chown root:root ชื่อไฟล์",
+    "simulated_output": "-rw-r--r-- 1 root root 0 Nov 10 01:00 rootfile.txt (Owner and group updated)",
+    "patterns": [
+      "^(sudo\\s+)?chown\\s+root:root\\s+\\S+$",
+      "^(sudo\\s+)?chown\\s+root\\.root\\s+\\S+$"
+    ],
+    "explanation": "คำสั่ง chown user:group เปลี่ยนทั้งเจ้าของและกลุ่มของไฟล์ไปเป็น root"
+  },
+  {
+    "id": 18,
+    "db_id": 224,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a folder and a symbolic link to the folder.",
+    "canonical_answer": "mkdir original_folder && ln -s original_folder symlink_folder",
+    "hint": "ใช้ mkdir สร้างโฟลเดอร์ แล้วตามด้วย ln -s original_folder symlink_folder",
+    "simulated_output": "lrwxrwxrwx 1 student student 15 Nov 10 01:00 symlink_folder -> original_folder",
+    "patterns": [
+      "(mkdir\\s+\\S+\\s*(&&|;)\\s*)?ln\\s+-s\\s+\\S+\\s+\\S+",
+      "^ln\\s+-s\\s+\\S+\\s+\\S+$"
+    ],
+    "explanation": "ln -s สร้าง Soft Link (Symbolic Link) ชี้ไปยังโฟลเดอร์เป้าหมาย"
+  },
+  {
+    "id": 19,
+    "db_id": 225,
+    "section": "Quiz 3: Storage Management",
+    "question": "Show disk space usage in human-readable format.",
+    "canonical_answer": "df -h",
+    "hint": "คำสั่ง df (disk free) พร้อมออปชัน -h",
+    "simulated_output": "Filesystem      Size  Used Avail Use% Mounted on\nudev            7.8G     0  7.8G   0% /dev\ntmpfs           1.6G  1.8M  1.6G   1% /run\n/dev/sda1        98G   24G   69G  26% /\ntmpfs           7.8G     0  7.8G   0% /dev/shm",
+    "patterns": [
+      "^df\\s+-h$",
+      "^df\\s+-H$",
+      "^df$"
+    ],
+    "explanation": "df -h (Disk Free) แสดงพื้นที่ว่างและการใช้งานของ Filesystem แต่ละ Partition ในหน่วย KB/MB/GB/TB"
+  },
+  {
+    "id": 20,
+    "db_id": 226,
+    "section": "Quiz 3: Storage Management",
+    "question": "Show file space (≠ size) usage of /usr/share/dict/american-english in human-readable format.",
+    "canonical_answer": "du -h /usr/share/dict/american-english",
+    "hint": "ใช้คำสั่ง du (disk usage) พร้อม flag -h ตามด้วย path ของไฟล์",
+    "simulated_output": "944K    /usr/share/dict/american-english",
+    "patterns": [
+      "^du\\s+-h\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^du\\s+-h\\s+\\S*american-english$",
+      "^du\\s+\\/usr\\/share\\/dict\\/american-english$"
+    ],
+    "explanation": "คำสั่ง du -h (Disk Usage) แสดงพื้นที่จริงที่ไฟล์กินพื้นที่บนดิสก์ (Disk blocks allocated) ซึ่งแตกต่างจากขนาดไฟล์ (File size)"
+  },
+  {
+    "id": 21,
+    "db_id": 227,
+    "section": "Quiz 3: Storage Management",
+    "question": "Check and repair file system on harddisk.",
+    "canonical_answer": "sudo fsck -f /dev/sda1",
+    "hint": "ใช้คำสั่ง sudo fsck พร้อม flag -f และระบุพาร์ติชันเช่น /dev/sda1",
+    "simulated_output": "e2fsck 1.46.5 (30-Dec-2021)\nPass 1: Checking inodes, blocks, and sizes\nPass 2: Checking directory structure\nPass 3: Checking directory connectivity\nPass 4: Checking reference counts\nPass 5: Checking group summary information\n/dev/sda1: 245120/6553600 files (0.2% non-contiguous), 3124500/26214400 blocks",
+    "patterns": [
+      "^(sudo\\s+)?fsck(\\s+-f)?\\s+\\/dev\\/sd[a-z]\\d*$",
+      "^(sudo\\s+)?fsck"
+    ],
+    "explanation": "fsck (File System Consistency Check) ใช้ตรวจสอบและซ่อมแซมความเสียหายของพาร์ติชันดิสก์ (ควรทำขณะ Unmounted)"
+  },
+  {
+    "id": 22,
+    "db_id": 228,
+    "section": "Quiz 3: Storage Management",
+    "question": "Search for a given filename.",
+    "canonical_answer": "find / -name \"filename.txt\"",
+    "hint": "ใช้คำสั่ง find ค้นหาจาก root (/) ด้วย -name \"filename.txt\"",
+    "simulated_output": "/home/student/documents/filename.txt\n/var/backup/filename.txt",
+    "patterns": [
+      "^find\\s+(\\/|\\.|\\S+)\\s+-name\\s+[\"']?filename(\\.txt)?[\"']?$",
+      "^find\\s+-name\\s+[\"']?filename(\\.txt)?[\"']?$",
+      "^locate\\s+filename"
+    ],
+    "explanation": "find เริ่มค้นหาจาก root directory (/) โดยระบุชื่อไฟล์ด้วยออปชัน -name (หรือใช้คำสั่ง: locate filename.txt)"
+  },
+  {
+    "id": 23,
+    "db_id": 229,
+    "section": "Quiz 4: User Management",
+    "question": "Change password.",
+    "canonical_answer": "passwd",
+    "hint": "พิมพ์คำสั่ง passwd สั้นๆ",
+    "simulated_output": "Changing password for student.\nCurrent password: \nNew password: \nRetype new password: \npasswd: password updated successfully",
+    "patterns": [
+      "^passwd$",
+      "^sudo\\s+passwd$"
+    ],
+    "explanation": "คำสั่ง passwd ใช้สำหรับเปลี่ยนรหัสผ่านของผู้ใช้ปัจจุบัน (หรือใช้: sudo passwd <username> เพื่อเปลี่ยนรหัสผ่านให้ผู้อื่น)"
+  },
+  {
+    "id": 24,
+    "db_id": 230,
+    "section": "Quiz 4: User Management",
+    "question": "Show on-line users.",
+    "canonical_answer": "users",
+    "hint": "คำสั่ง users เพื่อดูรายชื่อ user ที่กำลังล็อกอิน",
+    "simulated_output": "student root guest",
+    "patterns": [
+      "^users$",
+      "^who\\s+-q$"
+    ],
+    "explanation": "คำสั่ง users แสดงรายชื่อผู้ใช้ที่กำลังล็อกอินอยู่ในระบบขณะนี้ (หรือใช้คำสั่ง: who)"
+  },
+  {
+    "id": 25,
+    "db_id": 231,
+    "section": "Quiz 4: User Management",
+    "question": "Show current users on the system and what they are doing.",
+    "canonical_answer": "w",
+    "hint": "คำสั่งอักษรตัวเดียวคือ 'w' (หรือ who -u)",
+    "simulated_output": " 01:42:01 up  3:42,  3 users,  load average: 0.14, 0.08, 0.03\nUSER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT\nstudent  pts/0    192.168.1.10     00:15    0.00s  0.25s  0.01s w\nroot     pts/1    192.168.1.15     01:10    4:12   0.05s  0.05s bash",
+    "patterns": [
+      "^w$",
+      "^who\\s+-u$",
+      "^who$"
+    ],
+    "explanation": "คำสั่ง w แสดงข้อมูลว่าใครล็อกอินอยู่ กำลังรันคำสั่งอะไร (WHAT), เวลาที่ล็อกอิน (LOGIN@), และระยะเวลาที่ Idle"
+  },
+  {
+    "id": 26,
+    "db_id": 232,
+    "section": "Quiz 4: User Management",
+    "question": "Enable administrator (root or superuser) account.",
+    "canonical_answer": "sudo passwd root",
+    "hint": "ใช้ sudo passwd root เพื่อกำหนดรหัสผ่านและเปิดใช้งาน root",
+    "simulated_output": "New password: \nRetype new password: \npasswd: password updated successfully\nroot account is now enabled.",
+    "patterns": [
+      "^sudo\\s+passwd\\s+root$",
+      "^passwd\\s+root$"
+    ],
+    "explanation": "บน Ubuntu/Debian บัญชี root จะถูกปิดไว้ การตั้งรหัสผ่านด้วย sudo passwd root จะเปิดใช้งานบัญชี root ทันที (หรือสลับไปใช้งานด้วย: sudo -i)"
+  },
+  {
+    "id": 27,
+    "db_id": 233,
+    "section": "Quiz 4: User Management",
+    "question": "Add a new user and remove.",
+    "canonical_answer": "sudo adduser testuser && sudo deluser --remove-home testuser",
+    "hint": "ใช้ sudo adduser testuser && sudo deluser --remove-home testuser",
+    "simulated_output": "Adding user 'testuser' ...\nAdding new group 'testuser' (1001) ...\nCreating home directory '/home/testuser' ...\nRemoving user 'testuser' ...\nRemoving home directory '/home/testuser' ... Done.",
+    "patterns": [
+      "adduser\\s+\\S+.*deluser",
+      "useradd\\s+\\S+.*userdel",
+      "^sudo\\s+adduser\\s+\\S+$",
+      "^sudo\\s+useradd\\s+\\S+$"
+    ],
+    "explanation": "adduser ใช้สร้างผู้ใช้ใหม่พร้อมโฟลเดอร์ home และ deluser --remove-home ใช้ลบผู้ใช้พร้อมลบไดเรกทอรีประจำตัว"
+  },
+  {
+    "id": 28,
+    "db_id": 234,
+    "section": "Quiz 5: Network Management",
+    "question": "Remote login to Linux (ใช้คำสั่ง ssh หรือใช้โปรแกรมที่มี GUI เช่น PuTTY).",
+    "canonical_answer": "ssh username@hostname_or_ip",
+    "hint": "ใช้ ssh ตามด้วย username@hostname_or_ip",
+    "simulated_output": "The authenticity of host 'hostname_or_ip' can't be established.\nECDSA key fingerprint is SHA256:abcd1234efgh5678...\nConnected to remote Linux server via Secure Shell.",
+    "patterns": [
+      "^ssh\\s+\\S+@\\S+$",
+      "^ssh\\s+\\S+$"
+    ],
+    "explanation": "คำสั่ง ssh เชื่อมต่อไปยังเครื่องเซิร์ฟเวอร์ปลายทางผ่าน Secure Shell (หรือใช้: ssh -i key.pem user@ip สำหรับ Key authentication)"
+  },
+  {
+    "id": 29,
+    "db_id": 235,
+    "section": "Quiz 5: Network Management",
+    "question": "Transfer a file to Linux (ใช้คำสั่ง ftp/sftp หรือใช้โปรแกรมที่มี GUI เช่น FileZilla).",
+    "canonical_answer": "sftp username@hostname_or_ip",
+    "hint": "ใช้คำสั่ง sftp username@hostname_or_ip หรือ scp",
+    "simulated_output": "Connected to hostname_or_ip.\nsftp> put localfile.txt\nUploading localfile.txt to /home/username/localfile.txt\n100% 1024KB   4.2MB/s   00:00",
+    "patterns": [
+      "^sftp\\s+\\S+@\\S+$",
+      "^sftp\\s+\\S+$",
+      "^scp\\s+\\S+\\s+\\S+@\\S+:",
+      "^ftp\\s+\\S+"
+    ],
+    "explanation": "sftp (Secure File Transfer Protocol) ใช้ส่งและรับไฟล์ผ่านพอร์ต SSH ที่ปลอดภัย"
+  },
+  {
+    "id": 30,
+    "db_id": 236,
+    "section": "Quiz 5: Network Management",
+    "question": "Show IP address of your computer.",
+    "canonical_answer": "ip a  (หรือ ip addr show / hostname -I)",
+    "hint": "ใช้คำสั่ง ip a หรือ ip addr show หรือ hostname -I",
+    "simulated_output": "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN\n    inet 127.0.0.1/8 scope host lo\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP\n    inet 192.168.1.150/24 brd 192.168.1.255 scope global dynamic eth0",
+    "patterns": [
+      "^ip\\s+(a|addr|address)(\\s+show)?$",
+      "^hostname\\s+-I$",
+      "^ifconfig$"
+    ],
+    "explanation": "คำสั่ง ip a หรือ ip addr show แสดงรายการ Network interfaces และ IP addresses ทั้งหมดของเครื่อง"
+  },
+  {
+    "id": 31,
+    "db_id": 237,
+    "section": "Quiz 5: Network Management",
+    "question": "Show IP address of google.com.",
+    "canonical_answer": "nslookup google.com  (หรือ host google.com)",
+    "hint": "ใช้คำสั่ง nslookup google.com หรือ host google.com หรือ dig google.com",
+    "simulated_output": "Server:         1.1.1.1\nAddress:        1.1.1.1#53\n\nNon-authoritative answer:\nName:   google.com\nAddress: 142.250.190.46\nName:   google.com\nAddress: 2607:f8b0:4004:800::200e",
+    "patterns": [
+      "^nslookup\\s+google\\.com$",
+      "^host\\s+google\\.com$",
+      "^dig\\s+google\\.com$"
+    ],
+    "explanation": "nslookup หรือ host สอบถาม DNS Server เพื่อแปลง Domain Name google.com ไปเป็นเลข IP Address"
+  },
+  {
+    "id": 32,
+    "db_id": 238,
+    "section": "Quiz 5: Network Management",
+    "question": "Show MAC address of your computer.",
+    "canonical_answer": "ip link show  (หรือ ifconfig)",
+    "hint": "ใช้คำสั่ง ip link show หรือ ifconfig",
+    "simulated_output": "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT\n    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT\n    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff",
+    "patterns": [
+      "^ip\\s+link(\\s+show)?$",
+      "^ifconfig$",
+      "^ip\\s+l$"
+    ],
+    "explanation": "คำสั่ง ip link show จะแสดง Physical Address (MAC address) ตรงบรรทัดที่ระบุ link/ether xx:xx:xx:xx:xx:xx"
+  },
+  {
+    "id": 33,
+    "db_id": 239,
+    "section": "Quiz 5: Network Management",
+    "question": "Show connection speed / latency to google.com.",
+    "canonical_answer": "ping -c 4 google.com",
+    "hint": "ใช้คำสั่ง ping google.com พร้อมออปชัน -c 4",
+    "simulated_output": "PING google.com (142.250.190.46) 56(84) bytes of data.\n64 bytes from 142.250.190.46: icmp_seq=1 ttl=115 time=14.2 ms\n64 bytes from 142.250.190.46: icmp_seq=2 ttl=115 time=13.8 ms\n64 bytes from 142.250.190.46: icmp_seq=3 ttl=115 time=14.5 ms\n64 bytes from 142.250.190.46: icmp_seq=4 ttl=115 time=14.0 ms\n\n--- google.com ping statistics ---\n4 packets transmitted, 4 received, 0% packet loss, time 3004ms\nrtt min/avg/max/mdev = 13.812/14.125/14.510/0.252 ms",
+    "patterns": [
+      "^ping\\s+-c\\s*4\\s+google\\.com$",
+      "^ping\\s+google\\.com(\\s+-c\\s*4)?$"
+    ],
+    "explanation": "ping ส่ง ICMP Echo Request ไปยังปลายทางเพื่อวัด Round-Trip Time (RTT) และตรวจสอบ Packet loss (หรือใช้ mtr google.com)"
+  },
+  {
+    "id": 34,
+    "db_id": 240,
+    "section": "Quiz 5: Network Management",
+    "question": "Download a file (https://cache111.com/test.zip) at 1.00AM tomorrow.",
+    "canonical_answer": "echo \"wget https://cache111.com/test.zip\" | at 1:00 AM tomorrow",
+    "hint": "ใช้ echo สั่ง wget ผ่าน pipe ไปยัง at 1:00 AM tomorrow",
+    "simulated_output": "job 1 at Tue Nov 11 01:00:00 2026",
+    "patterns": [
+      "echo\\s+[\"']?wget\\s+https?:\\/\\/cache111\\.com\\/test\\.zip[\"']?\\s*\\|\\s*at\\s+1:?00?\\s*(am)?\\s*tomorrow",
+      "at\\s+1:?00?\\s*(am)?\\s*tomorrow"
+    ],
+    "explanation": "คำสั่ง at ใช้สำหรับตั้งเวลาทำงานของคำสั่งแบบ One-time Job ในเวลาที่กำหนด (เช่น 01:00 tomorrow)"
+  },
+  {
+    "id": 35,
+    "db_id": 241,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show the manual page of 'man' command.",
+    "canonical_answer": "man man",
+    "hint": "เปิด man page ของตัวคำสั่ง man เอง",
+    "simulated_output": "MAN(1)                        Manual pager utils                        MAN(1)\n\nNAME\n       man - an interface to the system reference manuals\n\nSYNOPSIS\n       man [man options] [[section] page ...] ...\n       man -k [apropos options] regexp ...\n\nDESCRIPTION\n       man is the system's manual pager. Each page argument given to man is\n       normally the name of a program, utility or function.",
+    "patterns": [
+      "^man\\s+man$"
+    ],
+    "explanation": "คำสั่ง man man เปิดคู่มือการใช้งานระบบ (Manual page) ของตัวคำสั่ง man เอง"
+  },
+  {
+    "id": 36,
+    "db_id": 242,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the first 10 lines of /etc/passwd.",
+    "canonical_answer": "head -n 10 /etc/passwd",
+    "hint": "ใช้คำสั่ง head พร้อมออปชัน -n 10 (หรือ -10) ตามด้วย /etc/passwd",
+    "simulated_output": "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin",
+    "patterns": [
+      "^head\\s+(-n\\s*10|-10)?\\s*\\/etc\\/passwd$",
+      "^head\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "คำสั่ง head -n 10 แสดงเฉพาะ 10 บรรทัดแรกของไฟล์"
+  },
+  {
+    "id": 37,
+    "db_id": 243,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the last 10 lines of /etc/passwd.",
+    "canonical_answer": "tail -n 10 /etc/passwd",
+    "hint": "ใช้คำสั่ง tail พร้อมออปชัน -n 10 (หรือ -10) ตามด้วย /etc/passwd",
+    "simulated_output": "systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin\nmessagebus:x:103:105::/nonexistent:/usr/sbin/nologin\nsyslog:x:104:107::/home/syslog:/usr/sbin/nologin\n_apt:x:105:65534::/nonexistent:/usr/sbin/nologin\nuuidd:x:106:108::/run/uuidd:/usr/sbin/nologin\ntcpdump:x:107:109::/nonexistent:/usr/sbin/nologin\nsshd:x:108:65534::/run/sshd:/usr/sbin/nologin\nlandscape:x:109:112::/var/lib/landscape:/usr/sbin/nologin\npollinate:x:110:1::/var/cache/pollinate:/bin/false\nstudent:x:1000:1000:Student User,,,:/home/student:/bin/bash",
+    "patterns": [
+      "^tail\\s+(-n\\s*10|-10)?\\s*\\/etc\\/passwd$",
+      "^tail\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "คำสั่ง tail -n 10 แสดงเฉพาะ 10 บรรทัดสุดท้ายของไฟล์"
+  },
+  {
+    "id": 38,
+    "db_id": 244,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show the first page of /usr/share/dict/american-english and scroll to the next.",
+    "canonical_answer": "more /usr/share/dict/american-english  (หรือ less)",
+    "hint": "ใช้คำสั่ง more หรือ less ตามด้วย /usr/share/dict/american-english",
+    "simulated_output": "A\nA's\nAA's\nAB's\nABM's\nAC's\nACTH's\nAI's\nAIDS's\nAM's\n--More--(0%)",
+    "patterns": [
+      "^(more|less)\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^(more|less)\\s+\\S*american-english$"
+    ],
+    "explanation": "คำสั่ง more หรือ less จะแสดงผลทีละหน้ากระดาษ และสามารถกดปุ่ม Spacebar เพื่อเลื่อนไปยังหน้าถัดไป หรือกด q เพื่อออก"
+  },
+  {
+    "id": 39,
+    "db_id": 245,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the line containing 'sys' in /etc/passwd.",
+    "canonical_answer": "grep \"sys\" /etc/passwd",
+    "hint": "ใช้คำสั่ง grep \"sys\" /etc/passwd",
+    "simulated_output": "sys:x:3:3:sys:/dev:/usr/sbin/nologin\nsyslog:x:104:107::/home/syslog:/usr/sbin/nologin",
+    "patterns": [
+      "^grep\\s+[\"']?sys[\"']?\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "grep ค้นหาและพิมพ์เฉพาะบรรทัดที่มีคำว่า 'sys' ปรากฏอยู่"
+  },
+  {
+    "id": 40,
+    "db_id": 246,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the line ending with 'land' in /usr/share/dict/american-english.",
+    "canonical_answer": "grep \"land$\" /usr/share/dict/american-english",
+    "hint": "ใช้ regular expression $ เพื่อระบุท้ายคำ: grep \"land$\" /usr/share/dict/american-english",
+    "simulated_output": "Auckland\nCleveland\nDisneyland\nEngland\nFinland\nGreenland\nHolland\nIceland\nIreland\nMaryland\nNewfoundland\nNew Zealand\nPoland\nQueensland\nScotland\nSwitzerland\nThailand",
+    "patterns": [
+      "^grep\\s+[\"']?land\\$[\"']?\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^grep\\s+[\"']?land\\$[\"']?\\s+\\S*american-english$"
+    ],
+    "explanation": "สัญลักษณ์ $ ใน Regular Expression ใช้แทนจุดสิ้นสุดของบรรทัด ดังนั้น 'land$' จะกรองเฉพาะคำที่ลงท้ายด้วยคำว่า 'land'"
+  },
+  {
+    "id": 41,
+    "db_id": 247,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Count the number of lines in /usr/share/dict/american-english.",
+    "canonical_answer": "wc -l /usr/share/dict/american-english",
+    "hint": "ใช้คำสั่ง wc พร้อม flag -l (line count)",
+    "simulated_output": "102401 /usr/share/dict/american-english",
+    "patterns": [
+      "^wc\\s+-l\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^wc\\s+-l\\s+\\S*american-english$"
+    ],
+    "explanation": "คำสั่ง wc -l (Word Count with lines flag) นับจำนวนบรรทัดทั้งหมดในไฟล์"
+  },
+  {
+    "id": 42,
+    "db_id": 248,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Open /usr/share/dict/american-english in a text editor, and search for 'microcomputer'.",
+    "canonical_answer": "nano /usr/share/dict/american-english  (กด Ctrl+W เพื่อค้นหา)",
+    "hint": "ใช้คำสั่ง nano /usr/share/dict/american-english (ในโปรแกรมกด Ctrl+W เพื่อค้นหา)",
+    "simulated_output": "[GNU nano 6.2: /usr/share/dict/american-english]\n...\nmicrometer\nmicrometer's\nmicrometers\n> microcomputer <\nmicrocomputer's\nmicrocomputers\n...\n^G Help  ^O WriteOut  ^W Where Is  ^K Cut  ^J Justify  ^C Cur Pos  ^X Exit",
+    "patterns": [
+      "^nano\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^nano\\s+\\S*american-english$",
+      "^vim?\\s+\\/usr\\/share\\/dict\\/american-english$"
+    ],
+    "explanation": "เปิดไฟล์ด้วย Text editor (nano/vim) แล้วใช้คีย์ลัดการค้นหาคำภายในไฟล์"
+  },
+  {
+    "id": 43,
+    "db_id": 249,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Make a text file, put your firstname, save and display each character sequentially in hex.",
+    "canonical_answer": "echo -n \"John\" > name.txt && hexdump -C name.txt",
+    "hint": "echo -n \"John\" > name.txt && hexdump -C name.txt (หรือ xxd name.txt)",
+    "simulated_output": "00000000  4a 6f 68 6e                                       |John|\n00000004",
+    "patterns": [
+      "echo.*name\\.txt\\s*(&&|;)\\s*hexdump\\s+-C\\s+name\\.txt",
+      "^hexdump\\s+-C\\s+name\\.txt$",
+      "^xxd\\s+name\\.txt$",
+      "hexdump\\s+-C"
+    ],
+    "explanation": "hexdump -C หรือ xxd แสดงเนื้อหาในไฟล์ทีละไบต์เป็นเลขฐานสิบหก (Hexadecimal) คู่กับตัวอักษร ASCII"
+  },
+  {
+    "id": 44,
+    "db_id": 250,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Make a text file, put your firstname, encrypt with password protection.",
+    "canonical_answer": "echo \"John\" > name.txt && gpg -c name.txt",
+    "hint": "ใช้คำสั่ง gpg -c name.txt เพื่อใส่รหัสผ่านและเข้ารหัส symmetric",
+    "simulated_output": "gpg: symmetric encryption of 'name.txt' succeeded.\nCreated: name.txt.gpg",
+    "patterns": [
+      "echo.*name\\.txt\\s*(&&|;)\\s*gpg\\s+-c\\s+name\\.txt",
+      "^gpg\\s+-c\\s+name\\.txt$",
+      "^gpg\\s+-c"
+    ],
+    "explanation": "gpg -c (GNU Privacy Guard) จะเข้ารหัสไฟล์ด้วยรหัสผ่าน (Passphrase) ป้องกันการเปิดอ่านโดยไม่ได้รับอนุญาต"
+  },
+  {
+    "id": 45,
+    "db_id": 251,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Write a hello-world program in C, compile, and execute.",
+    "canonical_answer": "echo '#include <stdio.h>...' > hello.c && gcc hello.c -o hello && ./hello",
+    "hint": "คอมไพล์โค้ดด้วย gcc hello.c -o hello แล้วรันด้วย ./hello",
+    "simulated_output": "gcc hello.c -o hello\n./hello\nHello, World!",
+    "patterns": [
+      "gcc\\s+hello\\.c\\s+-o\\s+hello\\s*(&&|;)\\s*\\.\\/hello",
+      "^gcc\\s+hello\\.c(\\s+-o\\s+hello)?$",
+      "^\\.\\/hello$",
+      "gcc.*&&.*\\.\\/hello"
+    ],
+    "explanation": "เขียนโค้ด C ลงไฟล์ hello.c, คอมไพล์ด้วยคำสั่ง gcc ได้ไบนารี hello, แล้วรันด้วยคำสั่ง ./hello"
+  },
+  {
+    "id": 46,
+    "db_id": 252,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Run a process that will continue after logout.",
+    "canonical_answer": "nohup ./myprogram &  (หรือ disown / tmux / screen)",
+    "hint": "ใช้คำสั่ง nohup ตามด้วยโปรแกรมและเครื่องหมาย & เช่น nohup ./myprogram &",
+    "simulated_output": "nohup: appending output to 'nohup.out'\n[1] 48210 (Process running independently of terminal session)",
+    "patterns": [
+      "^nohup\\s+\\S+(\\s+&)?$",
+      "^disown",
+      "^tmux",
+      "^screen"
+    ],
+    "explanation": "nohup (No Hang Up) ป้องกันไม่ให้โปรเซสถูกตัดสัญญาณ SIGHUP เมื่อผู้ใช้ปิดเทอร์มินัลหรือออกจากระบบ (Logout)"
+  },
+  {
+    "id": 47,
+    "db_id": 253,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Shutdown in the next 10 minutes.",
+    "canonical_answer": "sudo shutdown +10",
+    "hint": "ใช้ sudo shutdown +10 เพื่อตั้งเวลา 10 นาที",
+    "simulated_output": "Shutdown scheduled for Tue 2026-11-10 01:52:00 +07, use 'shutdown -c' to cancel.\nBroadcast message from root@os-lab (pts/0):\nThe system is going down for poweroff at Tue 2026-11-10 01:52:00 +07!",
+    "patterns": [
+      "^(sudo\\s+)?shutdown\\s+\\+10$"
+    ],
+    "explanation": "คำสั่ง shutdown +10 สั่งให้ระบบเริ่มนับถอยหลัง 10 นาทีเพื่อปิดเครื่อง พร้อมแจ้งเตือนผู้ใช้ทุกคนที่ล็อกอินอยู่"
+  },
+  {
+    "id": 48,
+    "db_id": 254,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Cancel the shutdown.",
+    "canonical_answer": "sudo shutdown -c",
+    "hint": "ใช้คำสั่ง sudo shutdown -c เพื่อยกเลิก (cancel)",
+    "simulated_output": "Broadcast message from root@os-lab (pts/0):\nThe system shutdown has been cancelled!",
+    "patterns": [
+      "^(sudo\\s+)?shutdown\\s+-c$"
+    ],
+    "explanation": "คำสั่ง shutdown -c (Cancel) ใช้ยกเลิกการตั้งเวลาปิดเครื่องที่กำลังนับถอยหลังอยู่"
+  },
+  {
+    "id": 49,
+    "db_id": 255,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Make a folder with a file inside and compress it to 'foldername.tar.gz'.",
+    "canonical_answer": "tar -czvf foldername.tar.gz foldername/",
+    "hint": "ใช้คำสั่ง tar -czvf foldername.tar.gz foldername/",
+    "simulated_output": "foldername/\nfoldername/file1.txt\nfoldername/notes.md\nCreated archive foldername.tar.gz (compressed with gzip)",
+    "patterns": [
+      "^tar\\s+-(czvf|cvzf|czf)\\s+foldername\\.tar\\.gz\\s+foldername\\/?$",
+      "^tar\\s+(czvf|cvzf|czf)\\s+foldername\\.tar\\.gz\\s+foldername\\/?$"
+    ],
+    "explanation": "tar -czvf รวมไฟล์และบีบอัดด้วย gzip (c=create, z=gzip, v=verbose, f=file name)"
+  },
+  {
+    "id": 50,
+    "db_id": 256,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Calculate the checksum of foldername.tar.gz.",
+    "canonical_answer": "sha256sum foldername.tar.gz  (หรือ md5sum)",
+    "hint": "ใช้คำสั่ง sha256sum foldername.tar.gz (หรือ md5sum)",
+    "simulated_output": "b8c4d2e5f1029384756a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcd  foldername.tar.gz",
+    "patterns": [
+      "^sha256sum\\s+foldername\\.tar\\.gz$",
+      "^md5sum\\s+foldername\\.tar\\.gz$",
+      "^shasum\\s+-a\\s*256\\s+foldername\\.tar\\.gz$"
+    ],
+    "explanation": "คำสั่ง sha256sum คำนวณค่าแฮชตรวจสอบความถูกต้องและความสมบูรณ์ของไฟล์"
+  },
+  {
+    "id": 51,
+    "db_id": 257,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Make a folder with a file inside and compress it to 'foldername.zip'.",
+    "canonical_answer": "zip -r foldername.zip foldername/",
+    "hint": "ใช้คำสั่ง zip -r foldername.zip foldername/",
+    "simulated_output": "  adding: foldername/ (stored 0%)\n  adding: foldername/file1.txt (deflated 62%)\n  adding: foldername/notes.md (deflated 45%)",
+    "patterns": [
+      "^zip\\s+-r\\s+foldername\\.zip\\s+foldername\\/?$"
+    ],
+    "explanation": "zip -r บีบอัดโฟลเดอร์แบบ Recursive เข้าสู่ไฟล์นามสกุล .zip"
+  },
+  {
+    "id": 52,
+    "db_id": 258,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Calculate the checksum of foldername.zip.",
+    "canonical_answer": "sha256sum foldername.zip  (หรือ md5sum)",
+    "hint": "ใช้คำสั่ง sha256sum foldername.zip (หรือ md5sum)",
+    "simulated_output": "4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a  foldername.zip",
+    "patterns": [
+      "^sha256sum\\s+foldername\\.zip$",
+      "^md5sum\\s+foldername\\.zip$"
+    ],
+    "explanation": "คำนวณค่า SHA256 cryptographic hash ของไฟล์ zip"
+  },
+  {
+    "id": 53,
+    "db_id": 259,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Create two files, concatenate them together using 'cat' '>' and '>>'.",
+    "canonical_answer": "cat file1.txt > combined.txt && cat file2.txt >> combined.txt",
+    "hint": "cat file1.txt > combined.txt && cat file2.txt >> combined.txt",
+    "simulated_output": "Combined contents written to combined.txt.\ncat combined.txt:\n[Content of file1.txt]\n[Content of file2.txt]",
+    "patterns": [
+      "cat\\s+\\S+\\s*>\\s*\\S+\\s*(&&|;)\\s*cat\\s+\\S+\\s*>>\\s*\\S+",
+      "^cat\\s+file1(\\.txt)?\\s+file2(\\.txt)?\\s*>\\s*combined(\\.txt)?$"
+    ],
+    "explanation": "เครื่องหมาย > จะสร้างไฟล์ใหม่หรือเขียนทับไฟล์เดิม ส่วน >> จะเป็นการเพิ่มข้อมูลต่อท้ายไฟล์เดิม (Append)"
+  },
+  {
+    "id": 54,
+    "db_id": 260,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Split /usr/share/dict/american-english into 10 files (x00, x01, x02, …, x09).",
+    "canonical_answer": "split -n 10 -d /usr/share/dict/american-english x",
+    "hint": "ใช้คำสั่ง split -n 10 -d /usr/share/dict/american-english x",
+    "simulated_output": "Split /usr/share/dict/american-english into 10 chunks:\nx00 (10241 lines)   x01 (10240 lines)   x02 (10240 lines)   x03 (10240 lines)\nx04 (10240 lines)   x05 (10240 lines)   x06 (10240 lines)   x07 (10240 lines)\nx08 (10240 lines)   x09 (10240 lines)",
+    "patterns": [
+      "^split\\s+(-n\\s*10|-d\\s+-n\\s*10|-n\\s*10\\s+-d|-d)\\s+(-d\\s+)?\\/usr\\/share\\/dict\\/american-english\\s+x$",
+      "^split\\s+-l\\s+\\d+\\s+-d\\s+\\/usr\\/share\\/dict\\/american-english\\s+x$",
+      "^split.*\\/usr\\/share\\/dict\\/american-english"
+    ],
+    "explanation": "คำสั่ง split -n 10 จะแบ่งไฟล์ออกเป็น 10 ไฟล์ย่อยเท่า ๆ กัน โดยใช้ -d เพื่อตั้งชื่อต่อท้ายด้วยตัวเลข (x00, x01, ..., x09)"
+  },
+  {
+    "id": 55,
+    "db_id": 261,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show only the first column in /etc/passwd.",
+    "canonical_answer": "cut -d: -f1 /etc/passwd  (หรือ awk -F: '{print $1}')",
+    "hint": "ใช้ cut -d: -f1 /etc/passwd หรือ awk -F: '{print $1}' /etc/passwd",
+    "simulated_output": "root\ndaemon\nbin\nsys\nsync\ngames\nman\nlp\nstudent",
+    "patterns": [
+      "^cut\\s+(-d\\s*[:'\"]*|--delimiter=[:'\"]*)\\s*(-f\\s*1|--fields=1)\\s+\\/etc\\/passwd$",
+      "^cut\\s+(-d\\s*['\"]?:['\"]?|-d\\s*:)\\s+-f\\s*1\\s+\\/etc\\/passwd$",
+      "^cut\\s+(-f\\s*1|--fields=1)\\s+(-d\\s*['\"]?:['\"]?|-d\\s*:)\\s+\\/etc\\/passwd$",
+      "^awk\\s+-F\\s*['\"]?:['\"]?\\s*['\"]\\{print\\s+\\$1\\}['\"]\\s+\\/etc\\/passwd$",
+      "^awk\\s+-F:\\s*['\"]\\{print\\s+\\$1\\}['\"]\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "cut -d: -f1 ใช้เครื่องหมายโคลอน (:) เป็นตัวคั่น และดึงเฉพาะฟิลด์ที่ 1 (Username) ออกมาแสดงผล"
+  },
+  {
+    "id": 56,
+    "db_id": 262,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show printer queue.",
+    "canonical_answer": "lpq  (หรือ lpstat -p)",
+    "hint": "ใช้คำสั่ง lpq (Line Printer Queue) หรือ lpstat -p",
+    "simulated_output": "Rank    Owner   Job     File(s)                         Total Size\nactive  student 104     lab_report.pdf                  412850 bytes\n1st     student 105     assignment_diagram.png          891200 bytes",
+    "patterns": [
+      "^lpq$",
+      "^lpstat(\\s+-p)?$"
+    ],
+    "explanation": "คำสั่ง lpq (Line Printer Queue) แสดงคิวงานพิมพ์และสถานะเครื่องพิมพ์ปัจจุบัน"
+  },
+  {
+    "id": 57,
+    "db_id": 263,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show current date & time.",
+    "canonical_answer": "date",
+    "hint": "คำสั่งสั้นๆ 4 ตัวอักษรคือ 'date'",
+    "simulated_output": "Tue Nov 10 01:42:30 +07 2026",
+    "patterns": [
+      "^date(\\s+.*)?$"
+    ],
+    "explanation": "คำสั่ง date แสดงวัน สัปดาห์ เดือน วันที่ เวลา และเขตเวลา (Timezone) ปัจจุบันของระบบ"
+  },
+  {
+    "id": 58,
+    "db_id": 264,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show calendar.",
+    "canonical_answer": "cal  (หรือ ncal)",
+    "hint": "คำสั่ง cal (หรือ ncal) เพื่อดูปฏิทินของเดือนปัจจุบัน",
+    "simulated_output": "    November 2026   \nSu Mo Tu We Th Fr Sa\n 1  2  3  4  5  6  7\n 8  9 10 11 12 13 14\n15 16 17 18 19 20 21\n22 23 24 25 26 27 28\n29 30",
+    "patterns": [
+      "^cal$",
+      "^ncal$"
+    ],
+    "explanation": "คำสั่ง cal หรือ ncal แสดงปฏิทินของเดือนปัจจุบันบนเทอร์มินัล"
+  }
+]

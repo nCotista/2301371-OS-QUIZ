@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🐧 Linux Commands Lab Quiz 1: Interactive Terminal Simulator (58 Questions)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Fira+Code:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Sarabun', 'system-ui', 'sans-serif'],
+            heading: ['Chakra Petch', 'sans-serif'],
+            mono: ['"Fira Code"', 'Ubuntu Mono', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --term-bg-outer: #1e0517;
+      --term-bg: #300a24;
+      --term-text: #ffffff;
+      --term-prompt-user: #4af626;
+      --term-prompt-host: #4af626;
+      --term-prompt-path: #729fcf;
+      --term-prompt-symbol: #ffffff;
+      --term-accent: #e95420;
+      --term-border: #5e2750;
+      --term-selection: rgba(233, 84, 32, 0.4);
+      --term-glow: transparent;
+    }
+
+    body.theme-matrix {
+      --term-bg-outer: #030804;
+      --term-bg: #051208;
+      --term-text: #22ff66;
+      --term-prompt-user: #00ff55;
+      --term-prompt-host: #00ff55;
+      --term-prompt-path: #00aa44;
+      --term-prompt-symbol: #22ff66;
+      --term-accent: #00ff55;
+      --term-border: #0d3818;
+      --term-selection: rgba(0, 255, 85, 0.3);
+      --term-glow: 0 0 10px rgba(0, 255, 85, 0.35);
+    }
+
+    body.theme-amber {
+      --term-bg-outer: #0d0800;
+      --term-bg: #160d00;
+      --term-text: #ffb300;
+      --term-prompt-user: #ffcc33;
+      --term-prompt-host: #ffcc33;
+      --term-prompt-path: #d48800;
+      --term-prompt-symbol: #ffb300;
+      --term-accent: #ff9900;
+      --term-border: #4d3000;
+      --term-selection: rgba(255, 179, 0, 0.3);
+      --term-glow: 0 0 10px rgba(255, 179, 0, 0.35);
+    }
+
+    body.theme-dracula {
+      --term-bg-outer: #191a21;
+      --term-bg: #282a36;
+      --term-text: #f8f8f2;
+      --term-prompt-user: #50fa7b;
+      --term-prompt-host: #8be9fd;
+      --term-prompt-path: #bd93f9;
+      --term-prompt-symbol: #ff79c6;
+      --term-accent: #bd93f9;
+      --term-border: #44475a;
+      --term-selection: rgba(189, 147, 249, 0.3);
+      --term-glow: transparent;
+    }
+
+    body.theme-nord {
+      --term-bg-outer: #242933;
+      --term-bg: #2e3440;
+      --term-text: #eceff4;
+      --term-prompt-user: #a3be8c;
+      --term-prompt-host: #88c0d0;
+      --term-prompt-path: #81a1c1;
+      --term-prompt-symbol: #d8dee9;
+      --term-accent: #88c0d0;
+      --term-border: #434c5e;
+      --term-selection: rgba(136, 192, 208, 0.3);
+      --term-glow: transparent;
+    }
+
+    body.theme-vscode {
+      --term-bg-outer: #141414;
+      --term-bg: #1e1e1e;
+      --term-text: #cccccc;
+      --term-prompt-user: #4ec9b0;
+      --term-prompt-host: #4ec9b0;
+      --term-prompt-path: #569cd6;
+      --term-prompt-symbol: #dcdcaa;
+      --term-accent: #007acc;
+      --term-border: #333333;
+      --term-selection: rgba(0, 122, 204, 0.35);
+      --term-glow: transparent;
+    }
+
+    body {
+      background-color: var(--term-bg-outer);
+      color: var(--term-text);
+      font-family: 'Sarabun', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+
+    .term-window {
+      background-color: var(--term-bg);
+      border-color: var(--term-border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 25px var(--term-glow);
+    }
+
+    .term-font {
+      font-family: 'Fira Code', 'Ubuntu Mono', Consolas, monospace;
+    }
+
+    /* Terminal scrollbar */
+    .term-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .term-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .term-scroll::-webkit-scrollbar-thumb {
+      background: var(--term-border);
+      border-radius: 4px;
+    }
+    .term-scroll::-webkit-scrollbar-thumb:hover {
+      background: var(--term-accent);
+    }
+
+    /* CRT scanlines effect */
+    .crt-effect {
+      position: relative;
+    }
+    .crt-effect::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 20;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    /* Terminal blinking caret */
+    @keyframes termBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .caret-blink {
+      animation: termBlink 1s infinite;
+    }
+
+    /* Pulsing success */
+    @keyframes greenPulse {
+      0% { box-shadow: 0 0 0 0 rgba(74, 246, 38, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(74, 246, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 246, 38, 0); }
+    }
+    .pulse-success {
+      animation: greenPulse 1.2s ease-out;
+    }
+
+    /* Custom selection */
+    ::selection {
+      background: var(--term-selection);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-orange-500/30 selection:text-white">
+
+  <!-- TOP APP BAR -->
+  <header class="border-b border-white/10 bg-black/40 backdrop-blur px-3 lg:px-6 py-2.5 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Brand & Back Link -->
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 transition shadow-sm" title="กลับไปหน้า Midterm MCQ Exam">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          <span>MCQ Exam</span>
+        </a>
+
+        <div class="h-4 w-px bg-white/20"></div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🐧</span>
+          <div>
+            <h1 class="font-heading font-bold text-sm md:text-base text-white tracking-wide flex items-center gap-2">
+              <span>Linux Commands Lab 1 Terminal</span>
+              <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                58 Questions
+              </span>
+            </h1>
+            <p class="text-[11px] text-slate-400 hidden sm:block">
+              Course 2301371 Operating Systems • Type real commands with authentic Linux output
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Stats & Tools -->
+      <div class="flex items-center flex-wrap gap-2 text-xs">
+        
+        <!-- Topic Selector Dropdown -->
+        <div class="relative">
+          <select id="topicSelect" class="bg-black/60 border border-white/20 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 pr-7 focus:outline-none focus:ring-1 focus:ring-orange-500 font-mono">
+            <option value="all">📂 All Topics (58 Questions)</option>
+            <option value="Quiz 1: Process Management">⚙️ 1. Process Management (11)</option>
+            <option value="Quiz 2: Memory Management">🧠 2. Memory Management (2)</option>
+            <option value="Quiz 3: Storage Management">💾 3. Storage Management (9)</option>
+            <option value="Quiz 4: User Management">👤 4. User Management (5)</option>
+            <option value="Quiz 5: Network Management">🌐 5. Network Management (7)</option>
+            <option value="Quiz 6: Utility Management (Part 1)">🛠️ 6. Utility Management Pt.1 (14)</option>
+            <option value="Quiz 7: Utility Management (Part 2)">📦 7. Utility Management Pt.2 (10)</option>
+          </select>
+        </div>
+
+        <!-- Question Grid Button -->
+        <button id="btnOpenGrid" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition font-mono">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+          <span>Q: <span id="statQIndex" class="text-white font-bold">1</span>/<span id="statQTotal">58</span></span>
+        </button>
+
+        <!-- Score Badge -->
+        <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 font-mono">
+          <span>⭐</span>
+          <span id="statScore">0</span>
+          <span class="text-[10px] text-emerald-400/70">XP</span>
+        </div>
+
+        <!-- Streak Badge -->
+        <div class="hidden sm:flex items-center gap-1 px-2 py-1.5 rounded-lg bg-orange-950/60 border border-orange-600/40 text-orange-300 font-mono">
+          <span>🔥</span>
+          <span id="statStreak">0</span>
+        </div>
+
+        <!-- Timer / Stopwatch -->
+        <div id="timerContainer" class="hidden md:flex items-center gap-1 px-2 py-1.5 rounded-lg bg-black/50 border border-white/15 text-slate-300 font-mono">
+          <span class="text-xs text-amber-400">⏱️</span>
+          <span id="timerDisplay">00:00</span>
+        </div>
+
+        <!-- Cheat Sheet Button -->
+        <button id="btnCheatSheet" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-indigo-950/70 hover:bg-indigo-900 border border-indigo-700/60 text-indigo-300 transition" title="เปิดสรุปคำสั่งแล็บ (Cheat Sheet)">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          <span class="hidden lg:inline">Cheat Sheet</span>
+        </button>
+
+        <!-- Theme Picker -->
+        <div class="relative">
+          <select id="themeSelect" class="bg-black/60 border border-white/20 text-slate-200 text-xs rounded-lg px-2 py-1.5 focus:outline-none font-mono" title="เลือกธีมเทอร์มินัล">
+            <option value="theme-ubuntu">🎨 Ubuntu</option>
+            <option value="theme-matrix">🟢 Matrix</option>
+            <option value="theme-amber">🟡 Amber CRT</option>
+            <option value="theme-dracula">🧛 Dracula</option>
+            <option value="theme-nord">❄️ Nord</option>
+            <option value="theme-vscode">💻 VS Code</option>
+          </select>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button id="btnSound" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition" title="เปิด/ปิดเสียงพิมพ์และแจ้งเตือน">
+          <span id="soundIcon">🔊</span>
+        </button>
+
+        <!-- CRT Toggle -->
+        <button id="btnCrt" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition font-mono text-[11px]" title="Toggle Retro CRT Scanlines">
+          📺 CRT
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN TERMINAL WRAPPER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4 lg:p-6 flex flex-col">
+
+    <!-- QUESTION HUD (Pinned above terminal) -->
+    <div id="questionHud" class="mb-3 rounded-xl border border-white/15 bg-black/40 backdrop-blur p-3.5 shadow-lg transition duration-200">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        
+        <div class="space-y-1 flex-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="hudBadgeTopic" class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              Quiz 1: Process Management
+            </span>
+            <span id="hudBadgeNum" class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              Question 1 of 58
+            </span>
+            <span id="hudStatusPill" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300">
+              ⚪ PENDING
+            </span>
+          </div>
+
+          <div class="flex items-start gap-2 pt-0.5">
+            <span class="text-amber-400 font-bold text-sm select-none">📌</span>
+            <h2 id="hudQuestionText" class="text-sm sm:text-base font-semibold text-white tracking-wide leading-relaxed">
+              Show Linux distro (distributor, description, release, codename).
+            </h2>
+          </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="flex items-center flex-wrap gap-1.5 self-end md:self-center">
+          <button id="btnHudHint" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs font-mono transition">
+            <span>💡</span>
+            <span>Hint</span>
+          </button>
+          
+          <button id="btnHudSolve" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-mono transition">
+            <span>👁️</span>
+            <span>Solution</span>
+          </button>
+
+          <div class="h-4 w-px bg-white/20 mx-0.5"></div>
+
+          <button id="btnHudPrev" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 text-xs font-mono transition" title="ข้อก่อนหน้า (Alt+Left)">
+            ⏮️ Prev
+          </button>
+
+          <button id="btnHudNext" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 text-xs font-mono transition" title="ข้อถัดไป (Alt+Right)">
+            Next ⏭️
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Expandable Hint Box -->
+      <div id="hudHintBox" class="mt-3 p-2.5 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-200 text-xs font-mono hidden">
+        <div class="flex items-center justify-between font-bold mb-1">
+          <span class="flex items-center gap-1">💡 HINT:</span>
+          <button id="btnCloseHint" class="text-amber-400/70 hover:text-amber-200 text-sm">✕</button>
+        </div>
+        <div id="hudHintContent"></div>
+      </div>
+
+      <!-- Expandable Solution Box -->
+      <div id="hudSolutionBox" class="mt-3 p-3 rounded-lg bg-slate-900/90 border border-rose-500/40 text-slate-200 text-xs font-mono hidden">
+        <div class="flex items-center justify-between font-bold text-rose-300 mb-1.5">
+          <span class="flex items-center gap-1">👁️ CANONICAL COMMAND:</span>
+          <button id="btnCloseSolution" class="text-rose-400/70 hover:text-rose-200 text-sm">✕</button>
+        </div>
+        <div id="hudSolutionCmd" class="p-2 rounded bg-black/60 text-emerald-400 font-bold text-sm tracking-wide mb-2 select-all"></div>
+        <div id="hudSolutionExp" class="text-slate-300 font-sans text-xs leading-relaxed"></div>
+      </div>
+    </div>
+
+    <!-- TERMINAL WINDOW -->
+    <div id="terminalWindow" class="term-window flex-1 rounded-xl border flex flex-col overflow-hidden relative min-h-[500px]">
+      
+      <!-- Terminal Window Titlebar (macOS / Ubuntu style) -->
+      <div class="bg-black/50 border-b border-white/10 px-4 py-2.5 flex items-center justify-between select-none">
+        
+        <!-- Window Traffic Light Buttons -->
+        <div class="flex items-center space-x-2">
+          <button id="winBtnClose" class="w-3 h-3 rounded-full bg-rose-500 hover:brightness-125 transition" title="Close Shell"></button>
+          <button id="winBtnMinimize" class="w-3 h-3 rounded-full bg-amber-500 hover:brightness-125 transition" title="Clear Screen"></button>
+          <button id="winBtnMaximize" class="w-3 h-3 rounded-full bg-emerald-500 hover:brightness-125 transition" title="Toggle Fullscreen"></button>
+          <span class="text-xs text-white/40 font-mono ml-2 hidden sm:inline">bash 5.2.15(1)-release</span>
+        </div>
+
+        <!-- Terminal Window Title -->
+        <div class="text-xs font-mono text-slate-300/90 font-medium tracking-wide flex items-center gap-1.5">
+          <span>student@os-lab:~</span>
+          <span class="text-white/30">•</span>
+          <span class="text-white/60">2301371 Lab Quiz 1</span>
+        </div>
+
+        <!-- Session Status -->
+        <div class="flex items-center space-x-2 text-[11px] font-mono text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="hidden sm:inline">tty1 (online)</span>
+        </div>
+      </div>
+
+      <!-- Terminal Output & Prompt Area -->
+      <div id="terminalBody" class="term-scroll flex-1 p-4 overflow-y-auto term-font text-xs sm:text-sm leading-relaxed cursor-text relative" onclick="focusTerminalInput()">
+        
+        <!-- Terminal Welcome Banner -->
+        <pre class="text-emerald-400/90 select-none text-[10px] sm:text-xs leading-none mb-3 font-mono">
+================================================================================
+  ___  ____    _     _                 _____                     _             _ 
+ / _ \/ ___|  | |   (_)_ __  _   ___  |_   _|__ _ __ _ __ ___  (_)_ __   __ _| |
+| | | \___ \  | |   | | &#39;_ \| | | \ \/ / | |/ _ \ &#39;__| &#39;_ &#39; _ \ | | &#39;_ \ / _&#39; | |
+| |_| |___) | | |___| | | | | |_| |&gt;  &lt;  | |  __/ |  | | | | | || | | | | (_| | |
+ \___/|____/  |_____|_|_| |_|\__,_/_/\_\ |_|\___|_|  |_| |_| |_||_|_| |_|\__,_|_|
+================================================================================
+🐧 2301371 OPERATING SYSTEMS — LINUX COMMANDS LAB QUIZ 1 SIMULATOR
+🎯 Scope: 58 Questions from Lab Exam 1 (Process, Memory, Storage, User, Network, Tools)
+💡 Type real Linux commands at the prompt below and press [Enter] to test your syntax!
+⌨️  Special commands: 'help', 'hint', 'solve', 'next', 'prev', 'clear', 'ls', 'score'
+================================================================================</pre>
+
+        <!-- Command History Stream Container -->
+        <div id="historyStream" class="space-y-2"></div>
+
+        <!-- Active Interactive Prompt Line -->
+        <div id="activePromptLine" class="flex items-center flex-wrap pt-2">
+          <span class="select-none font-bold mr-2">
+            <span style="color: var(--term-prompt-user)">student@os-lab</span><span style="color: var(--term-text)">:</span><span style="color: var(--term-prompt-path)">~</span><span style="color: var(--term-prompt-symbol)">$</span>
+          </span>
+          <div class="flex-1 relative min-w-[200px] flex items-center">
+            <input 
+              type="text" 
+              id="cmdInput" 
+              class="w-full bg-transparent border-0 outline-none text-white font-mono text-xs sm:text-sm p-0 m-0 caret-transparent"
+              autocomplete="off" 
+              autocorrect="off" 
+              autocapitalize="off" 
+              spellcheck="false"
+              placeholder=""
+              autofocus
+            />
+            <!-- Visual Caret Overlay -->
+            <div id="caretOverlay" class="absolute pointer-events-none left-0 top-0 bottom-0 flex items-center">
+              <span id="caretMirrorText" class="opacity-0 whitespace-pre"></span>
+              <span class="w-2 sm:w-2.5 h-4 sm:h-4.5 bg-emerald-400 caret-blink inline-block" style="background-color: var(--term-accent)"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile / Quick Terminal Helper Bar -->
+      <div class="border-t border-white/10 bg-black/40 px-3 py-1.5 flex items-center justify-between text-xs font-mono overflow-x-auto gap-1 select-none">
+        <div class="flex items-center gap-1">
+          <button onclick="simulateKey('Tab')" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 text-[11px] border border-white/10 active:scale-95 transition">
+            Tab ⇥
+          </button>
+          <button onclick="simulateInterrupt()" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 text-[11px] border border-white/10 active:scale-95 transition" title="Ctrl+C Interrupt">
+            ^C
+          </button>
+          <button onclick="navigateHistory(-1)" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 text-[11px] border border-white/10 active:scale-95 transition" title="Previous Command">
+            ↑ Hist
+          </button>
+          <button onclick="navigateHistory(1)" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 text-[11px] border border-white/10 active:scale-95 transition" title="Next Command">
+            ↓ Hist
+          </button>
+          <button onclick="executeQuickCommand('clear')" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-slate-300 text-[11px] border border-white/10 active:scale-95 transition">
+            clear
+          </button>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <button onclick="executeQuickCommand('hint')" class="px-2 py-1 rounded bg-amber-500/20 text-amber-300 text-[11px] border border-amber-500/30 active:scale-95 transition">
+            hint
+          </button>
+          <button onclick="executeQuickCommand('solution')" class="px-2 py-1 rounded bg-rose-500/20 text-rose-300 text-[11px] border border-rose-500/30 active:scale-95 transition">
+            solution
+          </button>
+          <button onclick="nextQuestion()" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 text-[11px] border border-emerald-500/30 active:scale-95 transition font-bold">
+            next ⏭
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- QUESTION GRID MODAL (All 58 Questions) -->
+  <div id="modalGrid" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="font-heading font-bold text-base text-white flex items-center gap-2">
+            <span>📋 Question Navigator</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono">
+              58 Questions
+            </span>
+          </h3>
+          <p class="text-xs text-slate-400">คลิกที่หมายเลขข้อเพื่อกระโดดไปยังคำถามนั้นทันที</p>
+        </div>
+        <button id="btnCloseGrid" class="text-slate-400 hover:text-white p-1 rounded-lg text-lg">✕</button>
+      </div>
+
+      <!-- Legend -->
+      <div class="px-4 py-2 bg-slate-950/60 border-b border-slate-800 flex flex-wrap items-center gap-4 text-xs font-mono">
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> <span>ถูกต้อง (Correct)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span> <span>ลองแล้ว/ผิด (Attempted)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500 inline-block"></span> <span>ดูเฉลย (Revealed)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-700 inline-block"></span> <span>ยังไม่ตอบ (Pending)</span></div>
+      </div>
+
+      <!-- Grid Buttons -->
+      <div id="gridButtonsContainer" class="p-4 overflow-y-auto flex-1 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 font-mono text-xs">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div class="p-3 bg-slate-950/80 border-t border-slate-800 flex items-center justify-between text-xs">
+        <span class="text-slate-400">ความก้าวหน้า: <span id="gridProgressText" class="text-white font-bold">0/58</span> ข้อ</span>
+        <button onclick="document.getElementById('modalGrid').classList.add('hidden')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+          ปิดหน้าต่าง
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHEAT SHEET MODAL (Searchable 58 Linux Commands) -->
+  <div id="modalCheatSheet" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="font-heading font-bold text-base text-white flex items-center gap-2">
+            <span>📖 Linux Commands Lab 1 Cheat Sheet</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
+              Full Reference
+            </span>
+          </h3>
+          <p class="text-xs text-slate-400">สรุปคำสั่งและไวยากรณ์ทั้ง 58 ข้อสำหรับการสอบ Lab Exam 1</p>
+        </div>
+        <button id="btnCloseCheatSheet" class="text-slate-400 hover:text-white p-1 rounded-lg text-lg">✕</button>
+      </div>
+
+      <!-- Search Box -->
+      <div class="p-3 bg-slate-950/60 border-b border-slate-800">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="cheatSearchInput" 
+            placeholder="🔍 พิมพ์เพื่อค้นหาคำสั่ง เช่น grep, passwd, tar, kill, memory..." 
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 font-mono"
+          />
+        </div>
+      </div>
+
+      <!-- Table of Commands -->
+      <div class="overflow-y-auto flex-1 p-4">
+        <table class="w-full text-left text-xs font-mono border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-slate-400">
+              <th class="py-2 px-2 w-12">#</th>
+              <th class="py-2 px-2 w-36">Topic</th>
+              <th class="py-2 px-2">Task Description</th>
+              <th class="py-2 px-2 w-48">Canonical Command</th>
+              <th class="py-2 px-2 w-16 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="cheatTableBody" class="divide-y divide-slate-800 text-slate-300">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-3 bg-slate-950/80 border-t border-slate-800 flex items-center justify-between text-xs">
+        <span class="text-slate-400">คลิก "Run" เพื่อโหลดคำสั่งและไปที่ข้อนั้นทันที</span>
+        <button onclick="document.getElementById('modalCheatSheet').classList.add('hidden')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+          ปิดหน้าต่าง
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONGRATULATIONS / COMPLETION MODAL -->
+  <div id="modalCompletion" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/50 rounded-2xl max-w-lg w-full p-6 text-center shadow-2xl space-y-4">
+      <div class="text-5xl animate-bounce">🎉</div>
+      <h3 class="font-heading font-bold text-2xl text-white">ยอดเยี่ยมมาก! สำเร็จครบทุกข้อ!</h3>
+      <p class="text-xs sm:text-sm text-slate-300">
+        คุณฝึกทำแล็บ Linux Commands Lab 1 ครบตามเป้าหมายเรียบร้อยแล้ว
+      </p>
+
+      <div class="grid grid-cols-3 gap-2 py-3 bg-black/40 rounded-xl border border-white/10 font-mono text-xs">
+        <div class="p-2">
+          <div class="text-slate-400">Total Score</div>
+          <div id="compScore" class="text-lg font-bold text-emerald-400">0</div>
+        </div>
+        <div class="p-2 border-x border-white/10">
+          <div class="text-slate-400">Accuracy</div>
+          <div id="compAccuracy" class="text-lg font-bold text-cyan-400">100%</div>
+        </div>
+        <div class="p-2">
+          <div class="text-slate-400">Time</div>
+          <div id="compTime" class="text-lg font-bold text-amber-400">00:00</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 pt-2">
+        <button onclick="restartQuiz()" class="flex-1 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition shadow-lg shadow-emerald-600/30">
+          🔄 เริ่มฝึกใหม่อีกรอบ
+        </button>
+        <a href="index.html" class="flex-1 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center">
+          ← กลับไปหน้า MCQ Exam
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMBEDDED QUIZ DATA & LOGIC -->
+  <script>
+    const QUIZ_QUESTIONS = [
+  {
+    "id": 1,
+    "db_id": 207,
+    "section": "Quiz 1: Process Management",
+    "question": "Show Linux distro (distributor, description, release, codename).",
+    "canonical_answer": "lsb_release -a",
+    "hint": "คำสั่งขึ้นต้นด้วย lsb_ หรือลองดูไฟล์ os-release ในไดเรกทอรี /etc",
+    "simulated_output": "No LSB modules are available.\nDistributor ID: Ubuntu\nDescription:    Ubuntu 22.04.3 LTS\nRelease:        22.04\nCodename:       jammy",
+    "patterns": [
+      "^lsb_release(\\s+-a)?$",
+      "^cat\\s+\\/etc\\/os-release$",
+      "^hostnamectl(\\s+status)?$"
+    ],
+    "explanation": "คำสั่ง lsb_release -a จะแสดงข้อมูล Distribution ทั้งหมด ได้แก่ Distributor ID, Description, Release number และ Codename (หรือใช้คำสั่ง: cat /etc/os-release)"
+  },
+  {
+    "id": 2,
+    "db_id": 208,
+    "section": "Quiz 1: Process Management",
+    "question": "Show kernel version.",
+    "canonical_answer": "uname -r",
+    "hint": "ใช้คำสั่ง uname พร้อม flag ที่ย่อมาจาก release (-r)",
+    "simulated_output": "5.15.0-89-generic",
+    "patterns": [
+      "^uname\\s+-r$",
+      "^uname\\s+-a$",
+      "^cat\\s+\\/proc\\/version$"
+    ],
+    "explanation": "uname -r แสดงเฉพาะหมายเลข Release/Version ของ Linux Kernel ปัจจุบัน (หรือใช้ uname -a เพื่อดูข้อมูลระบบทั้งหมด)"
+  },
+  {
+    "id": 3,
+    "db_id": 209,
+    "section": "Quiz 1: Process Management",
+    "question": "Show kernel (file) and its size.",
+    "canonical_answer": "ls -lh /boot/vmlinuz-$(uname -r)",
+    "hint": "ใช้คำสั่ง ls -lh ตรวจสอบไฟล์ในไดเรกทอรี /boot/vmlinuz-... โดยใช้ subshell $(uname -r)",
+    "simulated_output": "-rw------- 1 root root 11M Oct 18 14:22 /boot/vmlinuz-5.15.0-89-generic",
+    "patterns": [
+      "^ls\\s+-(lh|hl|l)\\s+\\/boot\\/vmlinuz(-|\\*)?(\\$\\(uname\\s+-r\\))?",
+      "^ls\\s+-lh\\s+\\/boot\\/vmlinuz",
+      "^ls\\s+-l\\s+\\/boot\\/vmlinuz",
+      "^du\\s+-h\\s+\\/boot\\/vmlinuz"
+    ],
+    "explanation": "ไฟล์ Kernel ของ Linux จะอยู่ในไดเรกทอรี /boot ขึ้นต้นด้วย vmlinuz- ตามด้วยเวอร์ชัน ใช้พารามิเตอร์ -lh เพื่อแสดงขนาดไฟล์ในหน่วยที่มนุษย์อ่านง่าย (เช่น MB)"
+  },
+  {
+    "id": 4,
+    "db_id": 210,
+    "section": "Quiz 1: Process Management",
+    "question": "Show CPU information.",
+    "canonical_answer": "lscpu",
+    "hint": "ใช้คำสั่ง lscpu หรืออ่าน virtual file จาก /proc/cpuinfo",
+    "simulated_output": "Architecture:                    x86_64\nCPU op-mode(s):                  32-bit, 64-bit\nAddress sizes:                   39 bits physical, 48 bits virtual\nByte Order:                      Little Endian\nCPU(s):                          8\nOn-line CPU(s) list:             0-7\nVendor ID:                       GenuineIntel\nModel name:                      12th Gen Intel(R) Core(TM) i7-12700H\nCPU family:                      6\nModel:                           154\nThread(s) per core:              2\nCore(s) per socket:              4\nSocket(s):                       1",
+    "patterns": [
+      "^lscpu$",
+      "^cat\\s+\\/proc\\/cpuinfo$",
+      "^less\\s+\\/proc\\/cpuinfo$"
+    ],
+    "explanation": "lscpu แสดงรายละเอียดสถาปัตยกรรม CPU, จำนวน Cores, Threads, Model name และ Cache (หรือใช้คำสั่ง: cat /proc/cpuinfo)"
+  },
+  {
+    "id": 5,
+    "db_id": 211,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process with lowest priority (least favorable). (สร้าง process โดยใช้คำสั่ง sleep n)",
+    "canonical_answer": "nice -n 19 sleep 100",
+    "hint": "ใช้คำสั่ง nice กำหนดค่าความสำคัญสูงสุดทางบวก (-n 19) แล้วตามด้วย sleep",
+    "simulated_output": "[1] 48123 (running with niceness 19: least favorable priority)",
+    "patterns": [
+      "^nice\\s+-n\\s*19\\s+sleep\\s+\\d+(\\s*&)?$",
+      "^nice\\s+-19\\s+sleep\\s+\\d+(\\s*&)?$",
+      "^nice\\s+--adjustment=19\\s+sleep\\s+\\d+(\\s*&)?$"
+    ],
+    "explanation": "ค่า nice value มีช่วงตั้งแต่ -20 ถึง 19 โดยค่า 19 คือความสำคัญต่ำสุด (least favorable / friendly to other processes)"
+  },
+  {
+    "id": 6,
+    "db_id": 212,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process (> 60 sec), pause, and resume.",
+    "canonical_answer": "sleep 100 -> Ctrl+Z -> bg",
+    "hint": "รัน sleep 100 กด Ctrl+Z เพื่อหยุดชั่วคราว แล้วพิมพ์ bg เพื่อรันต่อใน background",
+    "simulated_output": "sleep 100\n^Z\n[1]+  Stopped                 sleep 100\nstudent@os-lab:~$ bg\n[1]+ sleep 100 &",
+    "patterns": [
+      "sleep\\s+\\d+.*(ctrl\\+?z|\\^z).*bg",
+      "^sleep\\s+\\d+\\s*&$",
+      "^bg$",
+      "^sleep\\s+\\d+$",
+      "sleep.*->.*ctrl\\+?z.*->.*bg",
+      "sleep\\s+\\d+\\s*;\\s*bg"
+    ],
+    "explanation": "Ctrl+Z จะส่งสัญญาณ SIGTSTP เพื่อระงับโปรเซสไว้ชั่วคราว จากนั้นพิมพ์ bg หรือ fg เพื่อ resume ให้โปรเซสทำงานต่อ"
+  },
+  {
+    "id": 7,
+    "db_id": 213,
+    "section": "Quiz 1: Process Management",
+    "question": "Run a process (> 60 sec) in background, and terminate.",
+    "canonical_answer": "sleep 100 & -> kill %1",
+    "hint": "รัน sleep 100 & แล้วตามด้วยคำสั่ง kill %1 เพื่อยุติ job หมายเลข 1",
+    "simulated_output": "[1] 48135\nstudent@os-lab:~$ kill %1\n[1]+  Terminated              sleep 100",
+    "patterns": [
+      "sleep\\s+\\d+\\s*&.*kill\\s+%(1|sleep)",
+      "^kill\\s+%(1|sleep)$",
+      "^killall\\s+sleep$",
+      "sleep\\s+\\d+\\s*&.*kill"
+    ],
+    "explanation": "การใส่เครื่องหมาย & ท้ายคำสั่งจะรันโปรเซสใน background และใช้คำสั่ง kill %1 เพื่อส่งสัญญาณ SIGTERM ยุติโปรเซส job หมายเลข 1"
+  },
+  {
+    "id": 8,
+    "db_id": 214,
+    "section": "Quiz 1: Process Management",
+    "question": "Run three processes in background, and bring the second to the foreground.",
+    "canonical_answer": "sleep 101 & sleep 102 & sleep 103 & -> fg %2",
+    "hint": "รัน sleep 101 & sleep 102 & sleep 103 & แล้วใช้ fg %2 เพื่อดึง job 2 มา foreground",
+    "simulated_output": "[1] 48141\n[2] 48142\n[3] 48143\nstudent@os-lab:~$ fg %2\nsleep 102",
+    "patterns": [
+      "sleep.*&.*sleep.*&.*fg\\s+%2",
+      "^fg\\s+%2$",
+      "^fg\\s+2$"
+    ],
+    "explanation": "รันโปรเซสทั้ง 3 ตัวไว้ใน background แล้วใช้คำสั่ง fg %2 เพื่อนำ job ตัวที่ 2 กลับขึ้นมาทำงานที่ foreground"
+  },
+  {
+    "id": 9,
+    "db_id": 215,
+    "section": "Quiz 1: Process Management",
+    "question": "Run three processes in background, and terminate the first.",
+    "canonical_answer": "sleep 101 & sleep 102 & sleep 103 & -> kill %1",
+    "hint": "รัน 3 background jobs แล้วสั่ง kill %1 เพื่อ kill ตัวแรก",
+    "simulated_output": "[1] 48145\n[2] 48146\n[3] 48147\nstudent@os-lab:~$ kill %1\n[1]   Terminated              sleep 101",
+    "patterns": [
+      "sleep.*&.*sleep.*&.*kill\\s+%1",
+      "^kill\\s+%1$"
+    ],
+    "explanation": "รันโปรเซสทั้ง 3 ตัวไว้ใน background แล้วสั่ง kill %1 เพื่อยุติการทำงานของ job ตัวแรก"
+  },
+  {
+    "id": 10,
+    "db_id": 216,
+    "section": "Quiz 1: Process Management",
+    "question": "Run two processes and connect them using a pipe (เช่น ใช้คำสั่ง cat และ grep เพื่อ print ไฟล์ /etc/passwd โดยกรองเฉพาะบรรทัดที่มีคำว่า home).",
+    "canonical_answer": "cat /etc/passwd | grep home",
+    "hint": "ใช้ pipe (|) เชื่อม cat /etc/passwd เข้ากับ grep home",
+    "simulated_output": "student:x:1000:1000:Student User,,,:/home/student:/bin/bash",
+    "patterns": [
+      "^cat\\s+\\/etc\\/passwd\\s*\\|\\s*grep\\s+[\"']?home[\"']?$",
+      "^grep\\s+[\"']?home[\"']?\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "เครื่องหมาย Pipe (|) จะส่ง Standard Output ของคำสั่ง cat /etc/passwd ไปเป็น Standard Input ให้คำสั่ง grep กรองเฉพาะบรรทัดที่มีคำว่า 'home'"
+  },
+  {
+    "id": 11,
+    "db_id": 217,
+    "section": "Quiz 1: Process Management",
+    "question": "Show uptime (elapsed time since booting).",
+    "canonical_answer": "uptime -p",
+    "hint": "ใช้คำสั่ง uptime พร้อมออปชัน -p (pretty)",
+    "simulated_output": "up 3 hours, 42 minutes",
+    "patterns": [
+      "^uptime\\s+-p$",
+      "^uptime$"
+    ],
+    "explanation": "uptime -p แสดงระยะเวลาที่เครื่องเปิดทำงานอยู่ (pretty format เช่น 'up 2 hours, 15 minutes') หรือใช้คำสั่ง uptime แบบปกติ"
+  },
+  {
+    "id": 12,
+    "db_id": 218,
+    "section": "Quiz 2: Memory Management",
+    "question": "Show memory information.",
+    "canonical_answer": "cat /proc/meminfo",
+    "hint": "อ่านข้อมูลจาก virtual file ใน /proc ชื่อ meminfo ด้วยคำสั่ง cat",
+    "simulated_output": "MemTotal:       16315284 kB\nMemFree:         8342116 kB\nMemAvailable:   11245920 kB\nBuffers:          345120 kB\nCached:          3145892 kB\nSwapTotal:       2097148 kB\nSwapFree:        2097148 kB",
+    "patterns": [
+      "^cat\\s+\\/proc\\/meminfo$",
+      "^less\\s+\\/proc\\/meminfo$",
+      "^head(\\s+-[n\\d]+)?\\s+\\/proc\\/meminfo$"
+    ],
+    "explanation": "/proc/meminfo เป็น Virtual File ของ Kernel ที่เก็บรายละเอียดหน่วยความจำทั้งหมดอย่างลึกซึ้ง เช่น MemTotal, MemFree, Buffers, Cached"
+  },
+  {
+    "id": 13,
+    "db_id": 219,
+    "section": "Quiz 2: Memory Management",
+    "question": "Show amount of free and used memory in the system.",
+    "canonical_answer": "free -h",
+    "hint": "ใช้คำสั่ง free พร้อมออปชัน -h (human-readable)",
+    "simulated_output": "               total        used        free      shared  buff/cache   available\nMem:            15Gi       4.2Gi       8.0Gi       320Mi       3.4Gi        11Gi\nSwap:          2.0Gi          0B       2.0Gi",
+    "patterns": [
+      "^free\\s+-h$",
+      "^free\\s+-m$",
+      "^free$"
+    ],
+    "explanation": "คำสั่ง free -h แสดงตารางหน่วยความจำ RAM และ Swap ทั้งหมด (total, used, free, shared, buff/cache, available) ในรูปแบบ Human-readable (เช่น MB, GB)"
+  },
+  {
+    "id": 14,
+    "db_id": 220,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file, rename, and delete.",
+    "canonical_answer": "touch testfile.txt -> mv testfile.txt renamed.txt -> rm renamed.txt",
+    "hint": "ใช้ touch สร้างไฟล์, mv เปลี่ยนชื่อ, rm ลบไฟล์ (คั่นด้วย && หรือ ->)",
+    "simulated_output": "Created testfile.txt -> Renamed to renamed.txt -> Removed renamed.txt successfully.",
+    "patterns": [
+      "touch\\s+\\S+.*mv\\s+\\S+\\s+\\S+.*rm\\s+\\S+",
+      "^touch\\s+\\S+$",
+      "^rm\\s+\\S+$"
+    ],
+    "explanation": "touch ใช้สร้างไฟล์เปล่า, mv ใช้เปลี่ยนชื่อไฟล์, และ rm ใช้ลบไฟล์"
+  },
+  {
+    "id": 15,
+    "db_id": 221,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a folder, rename, and delete.",
+    "canonical_answer": "mkdir testdir -> mv testdir renameddir -> rmdir renameddir",
+    "hint": "ใช้ mkdir สร้างโฟลเดอร์, mv เปลี่ยนชื่อ, rmdir หรือ rm -r เพื่อลบโฟลเดอร์",
+    "simulated_output": "Created directory testdir/ -> Renamed to renameddir/ -> Removed renameddir/ successfully.",
+    "patterns": [
+      "mkdir\\s+\\S+.*mv\\s+\\S+\\s+\\S+.*rm(dir|\\s+-r)\\s+\\S+",
+      "^mkdir\\s+\\S+$",
+      "^rmdir\\s+\\S+$"
+    ],
+    "explanation": "mkdir ใช้สร้างโฟลเดอร์, mv ใช้เปลี่ยนชื่อโฟลเดอร์, และ rmdir ใช้ลบโฟลเดอร์เปล่า"
+  },
+  {
+    "id": 16,
+    "db_id": 222,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file and change permission so that only the owner can read.",
+    "canonical_answer": "touch secret.txt && chmod 400 secret.txt",
+    "hint": "ใช้ touch สร้างไฟล์ แล้วตามด้วย chmod 400 (owner read-only)",
+    "simulated_output": "-r-------- 1 student student 0 Nov 10 01:00 secret.txt (Permission: 400)",
+    "patterns": [
+      "(touch\\s+\\S+\\s*(&&|;)\\s*)?chmod\\s+400\\s+\\S+",
+      "^chmod\\s+400\\s+\\S+$",
+      "^chmod\\s+u=r,go=\\s+\\S+$"
+    ],
+    "explanation": "Permission 400 (r--------) กำหนดให้ Owner มีสิทธิ์อ่าน (r=4) เพียงผู้เดียว ส่วน Group และ Others ไม่มีสิทธิ์ใด ๆ"
+  },
+  {
+    "id": 17,
+    "db_id": 223,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a file and change both owner and group to 'root'.",
+    "canonical_answer": "sudo chown root:root rootfile.txt",
+    "hint": "ใช้คำสั่ง sudo chown root:root ชื่อไฟล์",
+    "simulated_output": "-rw-r--r-- 1 root root 0 Nov 10 01:00 rootfile.txt (Owner and group updated)",
+    "patterns": [
+      "^(sudo\\s+)?chown\\s+root:root\\s+\\S+$",
+      "^(sudo\\s+)?chown\\s+root\\.root\\s+\\S+$"
+    ],
+    "explanation": "คำสั่ง chown user:group เปลี่ยนทั้งเจ้าของและกลุ่มของไฟล์ไปเป็น root"
+  },
+  {
+    "id": 18,
+    "db_id": 224,
+    "section": "Quiz 3: Storage Management",
+    "question": "Create a folder and a symbolic link to the folder.",
+    "canonical_answer": "mkdir original_folder && ln -s original_folder symlink_folder",
+    "hint": "ใช้ mkdir สร้างโฟลเดอร์ แล้วตามด้วย ln -s original_folder symlink_folder",
+    "simulated_output": "lrwxrwxrwx 1 student student 15 Nov 10 01:00 symlink_folder -> original_folder",
+    "patterns": [
+      "(mkdir\\s+\\S+\\s*(&&|;)\\s*)?ln\\s+-s\\s+\\S+\\s+\\S+",
+      "^ln\\s+-s\\s+\\S+\\s+\\S+$"
+    ],
+    "explanation": "ln -s สร้าง Soft Link (Symbolic Link) ชี้ไปยังโฟลเดอร์เป้าหมาย"
+  },
+  {
+    "id": 19,
+    "db_id": 225,
+    "section": "Quiz 3: Storage Management",
+    "question": "Show disk space usage in human-readable format.",
+    "canonical_answer": "df -h",
+    "hint": "คำสั่ง df (disk free) พร้อมออปชัน -h",
+    "simulated_output": "Filesystem      Size  Used Avail Use% Mounted on\nudev            7.8G     0  7.8G   0% /dev\ntmpfs           1.6G  1.8M  1.6G   1% /run\n/dev/sda1        98G   24G   69G  26% /\ntmpfs           7.8G     0  7.8G   0% /dev/shm",
+    "patterns": [
+      "^df\\s+-h$",
+      "^df\\s+-H$",
+      "^df$"
+    ],
+    "explanation": "df -h (Disk Free) แสดงพื้นที่ว่างและการใช้งานของ Filesystem แต่ละ Partition ในหน่วย KB/MB/GB/TB"
+  },
+  {
+    "id": 20,
+    "db_id": 226,
+    "section": "Quiz 3: Storage Management",
+    "question": "Show file space (≠ size) usage of /usr/share/dict/american-english in human-readable format.",
+    "canonical_answer": "du -h /usr/share/dict/american-english",
+    "hint": "ใช้คำสั่ง du (disk usage) พร้อม flag -h ตามด้วย path ของไฟล์",
+    "simulated_output": "944K    /usr/share/dict/american-english",
+    "patterns": [
+      "^du\\s+-h\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^du\\s+-h\\s+\\S*american-english$",
+      "^du\\s+\\/usr\\/share\\/dict\\/american-english$"
+    ],
+    "explanation": "คำสั่ง du -h (Disk Usage) แสดงพื้นที่จริงที่ไฟล์กินพื้นที่บนดิสก์ (Disk blocks allocated) ซึ่งแตกต่างจากขนาดไฟล์ (File size)"
+  },
+  {
+    "id": 21,
+    "db_id": 227,
+    "section": "Quiz 3: Storage Management",
+    "question": "Check and repair file system on harddisk.",
+    "canonical_answer": "sudo fsck -f /dev/sda1",
+    "hint": "ใช้คำสั่ง sudo fsck พร้อม flag -f และระบุพาร์ติชันเช่น /dev/sda1",
+    "simulated_output": "e2fsck 1.46.5 (30-Dec-2021)\nPass 1: Checking inodes, blocks, and sizes\nPass 2: Checking directory structure\nPass 3: Checking directory connectivity\nPass 4: Checking reference counts\nPass 5: Checking group summary information\n/dev/sda1: 245120/6553600 files (0.2% non-contiguous), 3124500/26214400 blocks",
+    "patterns": [
+      "^(sudo\\s+)?fsck(\\s+-f)?\\s+\\/dev\\/sd[a-z]\\d*$",
+      "^(sudo\\s+)?fsck"
+    ],
+    "explanation": "fsck (File System Consistency Check) ใช้ตรวจสอบและซ่อมแซมความเสียหายของพาร์ติชันดิสก์ (ควรทำขณะ Unmounted)"
+  },
+  {
+    "id": 22,
+    "db_id": 228,
+    "section": "Quiz 3: Storage Management",
+    "question": "Search for a given filename.",
+    "canonical_answer": "find / -name \"filename.txt\"",
+    "hint": "ใช้คำสั่ง find ค้นหาจาก root (/) ด้วย -name \"filename.txt\"",
+    "simulated_output": "/home/student/documents/filename.txt\n/var/backup/filename.txt",
+    "patterns": [
+      "^find\\s+(\\/|\\.|\\S+)\\s+-name\\s+[\"']?filename(\\.txt)?[\"']?$",
+      "^find\\s+-name\\s+[\"']?filename(\\.txt)?[\"']?$",
+      "^locate\\s+filename"
+    ],
+    "explanation": "find เริ่มค้นหาจาก root directory (/) โดยระบุชื่อไฟล์ด้วยออปชัน -name (หรือใช้คำสั่ง: locate filename.txt)"
+  },
+  {
+    "id": 23,
+    "db_id": 229,
+    "section": "Quiz 4: User Management",
+    "question": "Change password.",
+    "canonical_answer": "passwd",
+    "hint": "พิมพ์คำสั่ง passwd สั้นๆ",
+    "simulated_output": "Changing password for student.\nCurrent password: \nNew password: \nRetype new password: \npasswd: password updated successfully",
+    "patterns": [
+      "^passwd$",
+      "^sudo\\s+passwd$"
+    ],
+    "explanation": "คำสั่ง passwd ใช้สำหรับเปลี่ยนรหัสผ่านของผู้ใช้ปัจจุบัน (หรือใช้: sudo passwd <username> เพื่อเปลี่ยนรหัสผ่านให้ผู้อื่น)"
+  },
+  {
+    "id": 24,
+    "db_id": 230,
+    "section": "Quiz 4: User Management",
+    "question": "Show on-line users.",
+    "canonical_answer": "users",
+    "hint": "คำสั่ง users เพื่อดูรายชื่อ user ที่กำลังล็อกอิน",
+    "simulated_output": "student root guest",
+    "patterns": [
+      "^users$",
+      "^who\\s+-q$"
+    ],
+    "explanation": "คำสั่ง users แสดงรายชื่อผู้ใช้ที่กำลังล็อกอินอยู่ในระบบขณะนี้ (หรือใช้คำสั่ง: who)"
+  },
+  {
+    "id": 25,
+    "db_id": 231,
+    "section": "Quiz 4: User Management",
+    "question": "Show current users on the system and what they are doing.",
+    "canonical_answer": "w",
+    "hint": "คำสั่งอักษรตัวเดียวคือ 'w' (หรือ who -u)",
+    "simulated_output": " 01:42:01 up  3:42,  3 users,  load average: 0.14, 0.08, 0.03\nUSER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT\nstudent  pts/0    192.168.1.10     00:15    0.00s  0.25s  0.01s w\nroot     pts/1    192.168.1.15     01:10    4:12   0.05s  0.05s bash",
+    "patterns": [
+      "^w$",
+      "^who\\s+-u$",
+      "^who$"
+    ],
+    "explanation": "คำสั่ง w แสดงข้อมูลว่าใครล็อกอินอยู่ กำลังรันคำสั่งอะไร (WHAT), เวลาที่ล็อกอิน (LOGIN@), และระยะเวลาที่ Idle"
+  },
+  {
+    "id": 26,
+    "db_id": 232,
+    "section": "Quiz 4: User Management",
+    "question": "Enable administrator (root or superuser) account.",
+    "canonical_answer": "sudo passwd root",
+    "hint": "ใช้ sudo passwd root เพื่อกำหนดรหัสผ่านและเปิดใช้งาน root",
+    "simulated_output": "New password: \nRetype new password: \npasswd: password updated successfully\nroot account is now enabled.",
+    "patterns": [
+      "^sudo\\s+passwd\\s+root$",
+      "^passwd\\s+root$"
+    ],
+    "explanation": "บน Ubuntu/Debian บัญชี root จะถูกปิดไว้ การตั้งรหัสผ่านด้วย sudo passwd root จะเปิดใช้งานบัญชี root ทันที (หรือสลับไปใช้งานด้วย: sudo -i)"
+  },
+  {
+    "id": 27,
+    "db_id": 233,
+    "section": "Quiz 4: User Management",
+    "question": "Add a new user and remove.",
+    "canonical_answer": "sudo adduser testuser && sudo deluser --remove-home testuser",
+    "hint": "ใช้ sudo adduser testuser && sudo deluser --remove-home testuser",
+    "simulated_output": "Adding user 'testuser' ...\nAdding new group 'testuser' (1001) ...\nCreating home directory '/home/testuser' ...\nRemoving user 'testuser' ...\nRemoving home directory '/home/testuser' ... Done.",
+    "patterns": [
+      "adduser\\s+\\S+.*deluser",
+      "useradd\\s+\\S+.*userdel",
+      "^sudo\\s+adduser\\s+\\S+$",
+      "^sudo\\s+useradd\\s+\\S+$"
+    ],
+    "explanation": "adduser ใช้สร้างผู้ใช้ใหม่พร้อมโฟลเดอร์ home และ deluser --remove-home ใช้ลบผู้ใช้พร้อมลบไดเรกทอรีประจำตัว"
+  },
+  {
+    "id": 28,
+    "db_id": 234,
+    "section": "Quiz 5: Network Management",
+    "question": "Remote login to Linux (ใช้คำสั่ง ssh หรือใช้โปรแกรมที่มี GUI เช่น PuTTY).",
+    "canonical_answer": "ssh username@hostname_or_ip",
+    "hint": "ใช้ ssh ตามด้วย username@hostname_or_ip",
+    "simulated_output": "The authenticity of host 'hostname_or_ip' can't be established.\nECDSA key fingerprint is SHA256:abcd1234efgh5678...\nConnected to remote Linux server via Secure Shell.",
+    "patterns": [
+      "^ssh\\s+\\S+@\\S+$",
+      "^ssh\\s+\\S+$"
+    ],
+    "explanation": "คำสั่ง ssh เชื่อมต่อไปยังเครื่องเซิร์ฟเวอร์ปลายทางผ่าน Secure Shell (หรือใช้: ssh -i key.pem user@ip สำหรับ Key authentication)"
+  },
+  {
+    "id": 29,
+    "db_id": 235,
+    "section": "Quiz 5: Network Management",
+    "question": "Transfer a file to Linux (ใช้คำสั่ง ftp/sftp หรือใช้โปรแกรมที่มี GUI เช่น FileZilla).",
+    "canonical_answer": "sftp username@hostname_or_ip",
+    "hint": "ใช้คำสั่ง sftp username@hostname_or_ip หรือ scp",
+    "simulated_output": "Connected to hostname_or_ip.\nsftp> put localfile.txt\nUploading localfile.txt to /home/username/localfile.txt\n100% 1024KB   4.2MB/s   00:00",
+    "patterns": [
+      "^sftp\\s+\\S+@\\S+$",
+      "^sftp\\s+\\S+$",
+      "^scp\\s+\\S+\\s+\\S+@\\S+:",
+      "^ftp\\s+\\S+"
+    ],
+    "explanation": "sftp (Secure File Transfer Protocol) ใช้ส่งและรับไฟล์ผ่านพอร์ต SSH ที่ปลอดภัย"
+  },
+  {
+    "id": 30,
+    "db_id": 236,
+    "section": "Quiz 5: Network Management",
+    "question": "Show IP address of your computer.",
+    "canonical_answer": "ip a  (หรือ ip addr show / hostname -I)",
+    "hint": "ใช้คำสั่ง ip a หรือ ip addr show หรือ hostname -I",
+    "simulated_output": "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN\n    inet 127.0.0.1/8 scope host lo\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP\n    inet 192.168.1.150/24 brd 192.168.1.255 scope global dynamic eth0",
+    "patterns": [
+      "^ip\\s+(a|addr|address)(\\s+show)?$",
+      "^hostname\\s+-I$",
+      "^ifconfig$"
+    ],
+    "explanation": "คำสั่ง ip a หรือ ip addr show แสดงรายการ Network interfaces และ IP addresses ทั้งหมดของเครื่อง"
+  },
+  {
+    "id": 31,
+    "db_id": 237,
+    "section": "Quiz 5: Network Management",
+    "question": "Show IP address of google.com.",
+    "canonical_answer": "nslookup google.com  (หรือ host google.com)",
+    "hint": "ใช้คำสั่ง nslookup google.com หรือ host google.com หรือ dig google.com",
+    "simulated_output": "Server:         1.1.1.1\nAddress:        1.1.1.1#53\n\nNon-authoritative answer:\nName:   google.com\nAddress: 142.250.190.46\nName:   google.com\nAddress: 2607:f8b0:4004:800::200e",
+    "patterns": [
+      "^nslookup\\s+google\\.com$",
+      "^host\\s+google\\.com$",
+      "^dig\\s+google\\.com$"
+    ],
+    "explanation": "nslookup หรือ host สอบถาม DNS Server เพื่อแปลง Domain Name google.com ไปเป็นเลข IP Address"
+  },
+  {
+    "id": 32,
+    "db_id": 238,
+    "section": "Quiz 5: Network Management",
+    "question": "Show MAC address of your computer.",
+    "canonical_answer": "ip link show  (หรือ ifconfig)",
+    "hint": "ใช้คำสั่ง ip link show หรือ ifconfig",
+    "simulated_output": "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT\n    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT\n    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff",
+    "patterns": [
+      "^ip\\s+link(\\s+show)?$",
+      "^ifconfig$",
+      "^ip\\s+l$"
+    ],
+    "explanation": "คำสั่ง ip link show จะแสดง Physical Address (MAC address) ตรงบรรทัดที่ระบุ link/ether xx:xx:xx:xx:xx:xx"
+  },
+  {
+    "id": 33,
+    "db_id": 239,
+    "section": "Quiz 5: Network Management",
+    "question": "Show connection speed / latency to google.com.",
+    "canonical_answer": "ping -c 4 google.com",
+    "hint": "ใช้คำสั่ง ping google.com พร้อมออปชัน -c 4",
+    "simulated_output": "PING google.com (142.250.190.46) 56(84) bytes of data.\n64 bytes from 142.250.190.46: icmp_seq=1 ttl=115 time=14.2 ms\n64 bytes from 142.250.190.46: icmp_seq=2 ttl=115 time=13.8 ms\n64 bytes from 142.250.190.46: icmp_seq=3 ttl=115 time=14.5 ms\n64 bytes from 142.250.190.46: icmp_seq=4 ttl=115 time=14.0 ms\n\n--- google.com ping statistics ---\n4 packets transmitted, 4 received, 0% packet loss, time 3004ms\nrtt min/avg/max/mdev = 13.812/14.125/14.510/0.252 ms",
+    "patterns": [
+      "^ping\\s+-c\\s*4\\s+google\\.com$",
+      "^ping\\s+google\\.com(\\s+-c\\s*4)?$"
+    ],
+    "explanation": "ping ส่ง ICMP Echo Request ไปยังปลายทางเพื่อวัด Round-Trip Time (RTT) และตรวจสอบ Packet loss (หรือใช้ mtr google.com)"
+  },
+  {
+    "id": 34,
+    "db_id": 240,
+    "section": "Quiz 5: Network Management",
+    "question": "Download a file (https://cache111.com/test.zip) at 1.00AM tomorrow.",
+    "canonical_answer": "echo \"wget https://cache111.com/test.zip\" | at 1:00 AM tomorrow",
+    "hint": "ใช้ echo สั่ง wget ผ่าน pipe ไปยัง at 1:00 AM tomorrow",
+    "simulated_output": "job 1 at Tue Nov 11 01:00:00 2026",
+    "patterns": [
+      "echo\\s+[\"']?wget\\s+https?:\\/\\/cache111\\.com\\/test\\.zip[\"']?\\s*\\|\\s*at\\s+1:?00?\\s*(am)?\\s*tomorrow",
+      "at\\s+1:?00?\\s*(am)?\\s*tomorrow"
+    ],
+    "explanation": "คำสั่ง at ใช้สำหรับตั้งเวลาทำงานของคำสั่งแบบ One-time Job ในเวลาที่กำหนด (เช่น 01:00 tomorrow)"
+  },
+  {
+    "id": 35,
+    "db_id": 241,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show the manual page of 'man' command.",
+    "canonical_answer": "man man",
+    "hint": "เปิด man page ของตัวคำสั่ง man เอง",
+    "simulated_output": "MAN(1)                        Manual pager utils                        MAN(1)\n\nNAME\n       man - an interface to the system reference manuals\n\nSYNOPSIS\n       man [man options] [[section] page ...] ...\n       man -k [apropos options] regexp ...\n\nDESCRIPTION\n       man is the system's manual pager. Each page argument given to man is\n       normally the name of a program, utility or function.",
+    "patterns": [
+      "^man\\s+man$"
+    ],
+    "explanation": "คำสั่ง man man เปิดคู่มือการใช้งานระบบ (Manual page) ของตัวคำสั่ง man เอง"
+  },
+  {
+    "id": 36,
+    "db_id": 242,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the first 10 lines of /etc/passwd.",
+    "canonical_answer": "head -n 10 /etc/passwd",
+    "hint": "ใช้คำสั่ง head พร้อมออปชัน -n 10 (หรือ -10) ตามด้วย /etc/passwd",
+    "simulated_output": "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin",
+    "patterns": [
+      "^head\\s+(-n\\s*10|-10)?\\s*\\/etc\\/passwd$",
+      "^head\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "คำสั่ง head -n 10 แสดงเฉพาะ 10 บรรทัดแรกของไฟล์"
+  },
+  {
+    "id": 37,
+    "db_id": 243,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the last 10 lines of /etc/passwd.",
+    "canonical_answer": "tail -n 10 /etc/passwd",
+    "hint": "ใช้คำสั่ง tail พร้อมออปชัน -n 10 (หรือ -10) ตามด้วย /etc/passwd",
+    "simulated_output": "systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin\nmessagebus:x:103:105::/nonexistent:/usr/sbin/nologin\nsyslog:x:104:107::/home/syslog:/usr/sbin/nologin\n_apt:x:105:65534::/nonexistent:/usr/sbin/nologin\nuuidd:x:106:108::/run/uuidd:/usr/sbin/nologin\ntcpdump:x:107:109::/nonexistent:/usr/sbin/nologin\nsshd:x:108:65534::/run/sshd:/usr/sbin/nologin\nlandscape:x:109:112::/var/lib/landscape:/usr/sbin/nologin\npollinate:x:110:1::/var/cache/pollinate:/bin/false\nstudent:x:1000:1000:Student User,,,:/home/student:/bin/bash",
+    "patterns": [
+      "^tail\\s+(-n\\s*10|-10)?\\s*\\/etc\\/passwd$",
+      "^tail\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "คำสั่ง tail -n 10 แสดงเฉพาะ 10 บรรทัดสุดท้ายของไฟล์"
+  },
+  {
+    "id": 38,
+    "db_id": 244,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show the first page of /usr/share/dict/american-english and scroll to the next.",
+    "canonical_answer": "more /usr/share/dict/american-english  (หรือ less)",
+    "hint": "ใช้คำสั่ง more หรือ less ตามด้วย /usr/share/dict/american-english",
+    "simulated_output": "A\nA's\nAA's\nAB's\nABM's\nAC's\nACTH's\nAI's\nAIDS's\nAM's\n--More--(0%)",
+    "patterns": [
+      "^(more|less)\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^(more|less)\\s+\\S*american-english$"
+    ],
+    "explanation": "คำสั่ง more หรือ less จะแสดงผลทีละหน้ากระดาษ และสามารถกดปุ่ม Spacebar เพื่อเลื่อนไปยังหน้าถัดไป หรือกด q เพื่อออก"
+  },
+  {
+    "id": 39,
+    "db_id": 245,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the line containing 'sys' in /etc/passwd.",
+    "canonical_answer": "grep \"sys\" /etc/passwd",
+    "hint": "ใช้คำสั่ง grep \"sys\" /etc/passwd",
+    "simulated_output": "sys:x:3:3:sys:/dev:/usr/sbin/nologin\nsyslog:x:104:107::/home/syslog:/usr/sbin/nologin",
+    "patterns": [
+      "^grep\\s+[\"']?sys[\"']?\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "grep ค้นหาและพิมพ์เฉพาะบรรทัดที่มีคำว่า 'sys' ปรากฏอยู่"
+  },
+  {
+    "id": 40,
+    "db_id": 246,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Show only the line ending with 'land' in /usr/share/dict/american-english.",
+    "canonical_answer": "grep \"land$\" /usr/share/dict/american-english",
+    "hint": "ใช้ regular expression $ เพื่อระบุท้ายคำ: grep \"land$\" /usr/share/dict/american-english",
+    "simulated_output": "Auckland\nCleveland\nDisneyland\nEngland\nFinland\nGreenland\nHolland\nIceland\nIreland\nMaryland\nNewfoundland\nNew Zealand\nPoland\nQueensland\nScotland\nSwitzerland\nThailand",
+    "patterns": [
+      "^grep\\s+[\"']?land\\$[\"']?\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^grep\\s+[\"']?land\\$[\"']?\\s+\\S*american-english$"
+    ],
+    "explanation": "สัญลักษณ์ $ ใน Regular Expression ใช้แทนจุดสิ้นสุดของบรรทัด ดังนั้น 'land$' จะกรองเฉพาะคำที่ลงท้ายด้วยคำว่า 'land'"
+  },
+  {
+    "id": 41,
+    "db_id": 247,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Count the number of lines in /usr/share/dict/american-english.",
+    "canonical_answer": "wc -l /usr/share/dict/american-english",
+    "hint": "ใช้คำสั่ง wc พร้อม flag -l (line count)",
+    "simulated_output": "102401 /usr/share/dict/american-english",
+    "patterns": [
+      "^wc\\s+-l\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^wc\\s+-l\\s+\\S*american-english$"
+    ],
+    "explanation": "คำสั่ง wc -l (Word Count with lines flag) นับจำนวนบรรทัดทั้งหมดในไฟล์"
+  },
+  {
+    "id": 42,
+    "db_id": 248,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Open /usr/share/dict/american-english in a text editor, and search for 'microcomputer'.",
+    "canonical_answer": "nano /usr/share/dict/american-english  (กด Ctrl+W เพื่อค้นหา)",
+    "hint": "ใช้คำสั่ง nano /usr/share/dict/american-english (ในโปรแกรมกด Ctrl+W เพื่อค้นหา)",
+    "simulated_output": "[GNU nano 6.2: /usr/share/dict/american-english]\n...\nmicrometer\nmicrometer's\nmicrometers\n> microcomputer <\nmicrocomputer's\nmicrocomputers\n...\n^G Help  ^O WriteOut  ^W Where Is  ^K Cut  ^J Justify  ^C Cur Pos  ^X Exit",
+    "patterns": [
+      "^nano\\s+\\/usr\\/share\\/dict\\/american-english$",
+      "^nano\\s+\\S*american-english$",
+      "^vim?\\s+\\/usr\\/share\\/dict\\/american-english$"
+    ],
+    "explanation": "เปิดไฟล์ด้วย Text editor (nano/vim) แล้วใช้คีย์ลัดการค้นหาคำภายในไฟล์"
+  },
+  {
+    "id": 43,
+    "db_id": 249,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Make a text file, put your firstname, save and display each character sequentially in hex.",
+    "canonical_answer": "echo -n \"John\" > name.txt && hexdump -C name.txt",
+    "hint": "echo -n \"John\" > name.txt && hexdump -C name.txt (หรือ xxd name.txt)",
+    "simulated_output": "00000000  4a 6f 68 6e                                       |John|\n00000004",
+    "patterns": [
+      "echo.*name\\.txt\\s*(&&|;)\\s*hexdump\\s+-C\\s+name\\.txt",
+      "^hexdump\\s+-C\\s+name\\.txt$",
+      "^xxd\\s+name\\.txt$",
+      "hexdump\\s+-C"
+    ],
+    "explanation": "hexdump -C หรือ xxd แสดงเนื้อหาในไฟล์ทีละไบต์เป็นเลขฐานสิบหก (Hexadecimal) คู่กับตัวอักษร ASCII"
+  },
+  {
+    "id": 44,
+    "db_id": 250,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Make a text file, put your firstname, encrypt with password protection.",
+    "canonical_answer": "echo \"John\" > name.txt && gpg -c name.txt",
+    "hint": "ใช้คำสั่ง gpg -c name.txt เพื่อใส่รหัสผ่านและเข้ารหัส symmetric",
+    "simulated_output": "gpg: symmetric encryption of 'name.txt' succeeded.\nCreated: name.txt.gpg",
+    "patterns": [
+      "echo.*name\\.txt\\s*(&&|;)\\s*gpg\\s+-c\\s+name\\.txt",
+      "^gpg\\s+-c\\s+name\\.txt$",
+      "^gpg\\s+-c"
+    ],
+    "explanation": "gpg -c (GNU Privacy Guard) จะเข้ารหัสไฟล์ด้วยรหัสผ่าน (Passphrase) ป้องกันการเปิดอ่านโดยไม่ได้รับอนุญาต"
+  },
+  {
+    "id": 45,
+    "db_id": 251,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Write a hello-world program in C, compile, and execute.",
+    "canonical_answer": "echo '#include <stdio.h>...' > hello.c && gcc hello.c -o hello && ./hello",
+    "hint": "คอมไพล์โค้ดด้วย gcc hello.c -o hello แล้วรันด้วย ./hello",
+    "simulated_output": "gcc hello.c -o hello\n./hello\nHello, World!",
+    "patterns": [
+      "gcc\\s+hello\\.c\\s+-o\\s+hello\\s*(&&|;)\\s*\\.\\/hello",
+      "^gcc\\s+hello\\.c(\\s+-o\\s+hello)?$",
+      "^\\.\\/hello$",
+      "gcc.*&&.*\\.\\/hello"
+    ],
+    "explanation": "เขียนโค้ด C ลงไฟล์ hello.c, คอมไพล์ด้วยคำสั่ง gcc ได้ไบนารี hello, แล้วรันด้วยคำสั่ง ./hello"
+  },
+  {
+    "id": 46,
+    "db_id": 252,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Run a process that will continue after logout.",
+    "canonical_answer": "nohup ./myprogram &  (หรือ disown / tmux / screen)",
+    "hint": "ใช้คำสั่ง nohup ตามด้วยโปรแกรมและเครื่องหมาย & เช่น nohup ./myprogram &",
+    "simulated_output": "nohup: appending output to 'nohup.out'\n[1] 48210 (Process running independently of terminal session)",
+    "patterns": [
+      "^nohup\\s+\\S+(\\s+&)?$",
+      "^disown",
+      "^tmux",
+      "^screen"
+    ],
+    "explanation": "nohup (No Hang Up) ป้องกันไม่ให้โปรเซสถูกตัดสัญญาณ SIGHUP เมื่อผู้ใช้ปิดเทอร์มินัลหรือออกจากระบบ (Logout)"
+  },
+  {
+    "id": 47,
+    "db_id": 253,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Shutdown in the next 10 minutes.",
+    "canonical_answer": "sudo shutdown +10",
+    "hint": "ใช้ sudo shutdown +10 เพื่อตั้งเวลา 10 นาที",
+    "simulated_output": "Shutdown scheduled for Tue 2026-11-10 01:52:00 +07, use 'shutdown -c' to cancel.\nBroadcast message from root@os-lab (pts/0):\nThe system is going down for poweroff at Tue 2026-11-10 01:52:00 +07!",
+    "patterns": [
+      "^(sudo\\s+)?shutdown\\s+\\+10$"
+    ],
+    "explanation": "คำสั่ง shutdown +10 สั่งให้ระบบเริ่มนับถอยหลัง 10 นาทีเพื่อปิดเครื่อง พร้อมแจ้งเตือนผู้ใช้ทุกคนที่ล็อกอินอยู่"
+  },
+  {
+    "id": 48,
+    "db_id": 254,
+    "section": "Quiz 6: Utility Management (Part 1)",
+    "question": "Cancel the shutdown.",
+    "canonical_answer": "sudo shutdown -c",
+    "hint": "ใช้คำสั่ง sudo shutdown -c เพื่อยกเลิก (cancel)",
+    "simulated_output": "Broadcast message from root@os-lab (pts/0):\nThe system shutdown has been cancelled!",
+    "patterns": [
+      "^(sudo\\s+)?shutdown\\s+-c$"
+    ],
+    "explanation": "คำสั่ง shutdown -c (Cancel) ใช้ยกเลิกการตั้งเวลาปิดเครื่องที่กำลังนับถอยหลังอยู่"
+  },
+  {
+    "id": 49,
+    "db_id": 255,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Make a folder with a file inside and compress it to 'foldername.tar.gz'.",
+    "canonical_answer": "tar -czvf foldername.tar.gz foldername/",
+    "hint": "ใช้คำสั่ง tar -czvf foldername.tar.gz foldername/",
+    "simulated_output": "foldername/\nfoldername/file1.txt\nfoldername/notes.md\nCreated archive foldername.tar.gz (compressed with gzip)",
+    "patterns": [
+      "^tar\\s+-(czvf|cvzf|czf)\\s+foldername\\.tar\\.gz\\s+foldername\\/?$",
+      "^tar\\s+(czvf|cvzf|czf)\\s+foldername\\.tar\\.gz\\s+foldername\\/?$"
+    ],
+    "explanation": "tar -czvf รวมไฟล์และบีบอัดด้วย gzip (c=create, z=gzip, v=verbose, f=file name)"
+  },
+  {
+    "id": 50,
+    "db_id": 256,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Calculate the checksum of foldername.tar.gz.",
+    "canonical_answer": "sha256sum foldername.tar.gz  (หรือ md5sum)",
+    "hint": "ใช้คำสั่ง sha256sum foldername.tar.gz (หรือ md5sum)",
+    "simulated_output": "b8c4d2e5f1029384756a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcd  foldername.tar.gz",
+    "patterns": [
+      "^sha256sum\\s+foldername\\.tar\\.gz$",
+      "^md5sum\\s+foldername\\.tar\\.gz$",
+      "^shasum\\s+-a\\s*256\\s+foldername\\.tar\\.gz$"
+    ],
+    "explanation": "คำสั่ง sha256sum คำนวณค่าแฮชตรวจสอบความถูกต้องและความสมบูรณ์ของไฟล์"
+  },
+  {
+    "id": 51,
+    "db_id": 257,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Make a folder with a file inside and compress it to 'foldername.zip'.",
+    "canonical_answer": "zip -r foldername.zip foldername/",
+    "hint": "ใช้คำสั่ง zip -r foldername.zip foldername/",
+    "simulated_output": "  adding: foldername/ (stored 0%)\n  adding: foldername/file1.txt (deflated 62%)\n  adding: foldername/notes.md (deflated 45%)",
+    "patterns": [
+      "^zip\\s+-r\\s+foldername\\.zip\\s+foldername\\/?$"
+    ],
+    "explanation": "zip -r บีบอัดโฟลเดอร์แบบ Recursive เข้าสู่ไฟล์นามสกุล .zip"
+  },
+  {
+    "id": 52,
+    "db_id": 258,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Calculate the checksum of foldername.zip.",
+    "canonical_answer": "sha256sum foldername.zip  (หรือ md5sum)",
+    "hint": "ใช้คำสั่ง sha256sum foldername.zip (หรือ md5sum)",
+    "simulated_output": "4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a  foldername.zip",
+    "patterns": [
+      "^sha256sum\\s+foldername\\.zip$",
+      "^md5sum\\s+foldername\\.zip$"
+    ],
+    "explanation": "คำนวณค่า SHA256 cryptographic hash ของไฟล์ zip"
+  },
+  {
+    "id": 53,
+    "db_id": 259,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Create two files, concatenate them together using 'cat' '>' and '>>'.",
+    "canonical_answer": "cat file1.txt > combined.txt && cat file2.txt >> combined.txt",
+    "hint": "cat file1.txt > combined.txt && cat file2.txt >> combined.txt",
+    "simulated_output": "Combined contents written to combined.txt.\ncat combined.txt:\n[Content of file1.txt]\n[Content of file2.txt]",
+    "patterns": [
+      "cat\\s+\\S+\\s*>\\s*\\S+\\s*(&&|;)\\s*cat\\s+\\S+\\s*>>\\s*\\S+",
+      "^cat\\s+file1(\\.txt)?\\s+file2(\\.txt)?\\s*>\\s*combined(\\.txt)?$"
+    ],
+    "explanation": "เครื่องหมาย > จะสร้างไฟล์ใหม่หรือเขียนทับไฟล์เดิม ส่วน >> จะเป็นการเพิ่มข้อมูลต่อท้ายไฟล์เดิม (Append)"
+  },
+  {
+    "id": 54,
+    "db_id": 260,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Split /usr/share/dict/american-english into 10 files (x00, x01, x02, …, x09).",
+    "canonical_answer": "split -n 10 -d /usr/share/dict/american-english x",
+    "hint": "ใช้คำสั่ง split -n 10 -d /usr/share/dict/american-english x",
+    "simulated_output": "Split /usr/share/dict/american-english into 10 chunks:\nx00 (10241 lines)   x01 (10240 lines)   x02 (10240 lines)   x03 (10240 lines)\nx04 (10240 lines)   x05 (10240 lines)   x06 (10240 lines)   x07 (10240 lines)\nx08 (10240 lines)   x09 (10240 lines)",
+    "patterns": [
+      "^split\\s+(-n\\s*10|-d\\s+-n\\s*10|-n\\s*10\\s+-d|-d)\\s+(-d\\s+)?\\/usr\\/share\\/dict\\/american-english\\s+x$",
+      "^split\\s+-l\\s+\\d+\\s+-d\\s+\\/usr\\/share\\/dict\\/american-english\\s+x$",
+      "^split.*\\/usr\\/share\\/dict\\/american-english"
+    ],
+    "explanation": "คำสั่ง split -n 10 จะแบ่งไฟล์ออกเป็น 10 ไฟล์ย่อยเท่า ๆ กัน โดยใช้ -d เพื่อตั้งชื่อต่อท้ายด้วยตัวเลข (x00, x01, ..., x09)"
+  },
+  {
+    "id": 55,
+    "db_id": 261,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show only the first column in /etc/passwd.",
+    "canonical_answer": "cut -d: -f1 /etc/passwd  (หรือ awk -F: '{print $1}')",
+    "hint": "ใช้ cut -d: -f1 /etc/passwd หรือ awk -F: '{print $1}' /etc/passwd",
+    "simulated_output": "root\ndaemon\nbin\nsys\nsync\ngames\nman\nlp\nstudent",
+    "patterns": [
+      "^cut\\s+(-d\\s*[:'\"]*|--delimiter=[:'\"]*)\\s*(-f\\s*1|--fields=1)\\s+\\/etc\\/passwd$",
+      "^cut\\s+(-d\\s*['\"]?:['\"]?|-d\\s*:)\\s+-f\\s*1\\s+\\/etc\\/passwd$",
+      "^cut\\s+(-f\\s*1|--fields=1)\\s+(-d\\s*['\"]?:['\"]?|-d\\s*:)\\s+\\/etc\\/passwd$",
+      "^awk\\s+-F\\s*['\"]?:['\"]?\\s*['\"]\\{print\\s+\\$1\\}['\"]\\s+\\/etc\\/passwd$",
+      "^awk\\s+-F:\\s*['\"]\\{print\\s+\\$1\\}['\"]\\s+\\/etc\\/passwd$"
+    ],
+    "explanation": "cut -d: -f1 ใช้เครื่องหมายโคลอน (:) เป็นตัวคั่น และดึงเฉพาะฟิลด์ที่ 1 (Username) ออกมาแสดงผล"
+  },
+  {
+    "id": 56,
+    "db_id": 262,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show printer queue.",
+    "canonical_answer": "lpq  (หรือ lpstat -p)",
+    "hint": "ใช้คำสั่ง lpq (Line Printer Queue) หรือ lpstat -p",
+    "simulated_output": "Rank    Owner   Job     File(s)                         Total Size\nactive  student 104     lab_report.pdf                  412850 bytes\n1st     student 105     assignment_diagram.png          891200 bytes",
+    "patterns": [
+      "^lpq$",
+      "^lpstat(\\s+-p)?$"
+    ],
+    "explanation": "คำสั่ง lpq (Line Printer Queue) แสดงคิวงานพิมพ์และสถานะเครื่องพิมพ์ปัจจุบัน"
+  },
+  {
+    "id": 57,
+    "db_id": 263,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show current date & time.",
+    "canonical_answer": "date",
+    "hint": "คำสั่งสั้นๆ 4 ตัวอักษรคือ 'date'",
+    "simulated_output": "Tue Nov 10 01:42:30 +07 2026",
+    "patterns": [
+      "^date(\\s+.*)?$"
+    ],
+    "explanation": "คำสั่ง date แสดงวัน สัปดาห์ เดือน วันที่ เวลา และเขตเวลา (Timezone) ปัจจุบันของระบบ"
+  },
+  {
+    "id": 58,
+    "db_id": 264,
+    "section": "Quiz 7: Utility Management (Part 2)",
+    "question": "Show calendar.",
+    "canonical_answer": "cal  (หรือ ncal)",
+    "hint": "คำสั่ง cal (หรือ ncal) เพื่อดูปฏิทินของเดือนปัจจุบัน",
+    "simulated_output": "    November 2026   \nSu Mo Tu We Th Fr Sa\n 1  2  3  4  5  6  7\n 8  9 10 11 12 13 14\n15 16 17 18 19 20 21\n22 23 24 25 26 27 28\n29 30",
+    "patterns": [
+      "^cal$",
+      "^ncal$"
+    ],
+    "explanation": "คำสั่ง cal หรือ ncal แสดงปฏิทินของเดือนปัจจุบันบนเทอร์มินัล"
+  }
+];
+
+    // State Variables
+    let currentFilterTopic = 'all';
+    let filteredQuestions = [...QUIZ_QUESTIONS];
+    let currentIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let questionStates = {}; // id -> { status: 'pending'|'correct'|'attempted'|'revealed', attempts: 0, lastTyped: '' }
+    let commandHistory = [];
+    let historyCursor = -1;
+    let soundEnabled = true;
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    // Simulated local file tree for realistic ls commands
+    const SIMULATED_FILES = [
+      'testfile.txt', 'secret.txt', 'rootfile.txt', 'foldername', 
+      'hello.c', 'name.txt', 'combined.txt', 'backup.tar.gz'
+    ];
+
+    // Audio Synthesizer (Web Audio API)
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playKeySound() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(450 + Math.random() * 80, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch (e) {}
+    }
+
+    function playSuccessSound() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        freqs.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.05, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.25);
+        });
+      } catch (e) {}
+    }
+
+    function playErrorSound() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(90, now + 0.15);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } catch (e) {}
+    }
+
+    // Initialize Question States
+    function initQuestionStates() {
+      QUIZ_QUESTIONS.forEach(q => {
+        questionStates[q.id] = {
+          status: 'pending',
+          attempts: 0,
+          lastTyped: ''
+        };
+      });
+    }
+
+    // Start Timer
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+        const secs = String(timerSeconds % 60).padStart(2, '0');
+        document.getElementById('timerDisplay').textContent = mins + ':' + secs;
+      }, 1000);
+    }
+
+    // Filter Questions by Topic
+    function applyTopicFilter(topic) {
+      currentFilterTopic = topic;
+      if (topic === 'all') {
+        filteredQuestions = [...QUIZ_QUESTIONS];
+      } else {
+        filteredQuestions = QUIZ_QUESTIONS.filter(q => q.section === topic);
+      }
+      currentIndex = 0;
+      loadCurrentQuestion();
+      renderGridButtons();
+    }
+
+    // Load Question at currentIndex
+    function loadCurrentQuestion() {
+      if (filteredQuestions.length === 0) return;
+      if (currentIndex >= filteredQuestions.length) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = filteredQuestions.length - 1;
+
+      const q = filteredQuestions[currentIndex];
+      const state = questionStates[q.id] || { status: 'pending', attempts: 0 };
+
+      // Update HUD elements
+      document.getElementById('hudBadgeTopic').textContent = q.section;
+      document.getElementById('hudBadgeNum').textContent = 'Question ' + (currentIndex + 1) + ' of ' + filteredQuestions.length + ' (ID: #' + q.id + ')';
+      document.getElementById('hudQuestionText').textContent = q.question;
+      document.getElementById('statQIndex').textContent = currentIndex + 1;
+      document.getElementById('statQTotal').textContent = filteredQuestions.length;
+
+      // Status pill
+      const statusPill = document.getElementById('hudStatusPill');
+      if (state.status === 'correct') {
+        statusPill.textContent = '✔ SOLVED';
+        statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      } else if (state.status === 'revealed') {
+        statusPill.textContent = '👁️ REVEALED';
+        statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      } else if (state.status === 'attempted') {
+        statusPill.textContent = '✖ ATTEMPTED (' + state.attempts + ')';
+        statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      } else {
+        statusPill.textContent = '⚪ PENDING';
+        statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300';
+      }
+
+      // Hide hint & solution boxes when switching
+      document.getElementById('hudHintBox').classList.add('hidden');
+      document.getElementById('hudSolutionBox').classList.add('hidden');
+
+      // Populate hint & solution contents
+      document.getElementById('hudHintContent').textContent = q.hint;
+      document.getElementById('hudSolutionCmd').textContent = q.canonical_answer;
+      document.getElementById('hudSolutionExp').textContent = q.explanation;
+
+      // Update Grid Buttons
+      renderGridButtons();
+
+      // Print announcement in terminal
+      appendTerminalNotice(
+        '<div class="my-2 p-2 rounded bg-white/5 border border-white/10">' +
+        '<div class="text-[11px] text-amber-400 font-bold">📌 [QUESTION ' + (currentIndex + 1) + '/' + filteredQuestions.length + '] ' + escapeHtml(q.section) + '</div>' +
+        '<div class="text-xs sm:text-sm text-white font-medium">' + escapeHtml(q.question) + '</div>' +
+        '<div class="text-[10px] text-slate-400 mt-1">💡 Hint: type \'hint\' | Solution: type \'solution\' | Next: type \'next\'</div>' +
+        '</div>'
+      );
+
+      focusTerminalInput();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < filteredQuestions.length - 1) {
+        currentIndex++;
+        loadCurrentQuestion();
+      } else {
+        checkCompletion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadCurrentQuestion();
+      }
+    }
+
+    function jumpToQuestion(globalId) {
+      const idx = filteredQuestions.findIndex(q => q.id === globalId);
+      if (idx !== -1) {
+        currentIndex = idx;
+        loadCurrentQuestion();
+        document.getElementById('modalGrid').classList.add('hidden');
+      } else {
+        // If topic filter is active, reset topic filter to All
+        document.getElementById('topicSelect').value = 'all';
+        applyTopicFilter('all');
+        const newIdx = filteredQuestions.findIndex(q => q.id === globalId);
+        if (newIdx !== -1) {
+          currentIndex = newIdx;
+          loadCurrentQuestion();
+          document.getElementById('modalGrid').classList.add('hidden');
+        }
+      }
+    }
+
+    // Command Validation Engine
+    function validateCommand(userCmd, question) {
+      const trimmed = userCmd.trim();
+      if (!trimmed) return false;
+
+      // Compile regex patterns
+      const regexes = question.patterns.map(p => new RegExp(p, 'i'));
+
+      // Check against all patterns
+      for (const rgx of regexes) {
+        if (rgx.test(trimmed)) {
+          return true;
+        }
+      }
+
+      // Check normalized canonical answer
+      const canonicalClean = question.canonical_answer
+        .replace(/\s*\(.*?\)/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const userClean = trimmed.replace(/\s+/g, ' ');
+      if (userClean.toLowerCase() === canonicalClean.toLowerCase()) {
+        return true;
+      }
+
+      // Check if user provided multi-command chained via -> or &&
+      const normalizedArrow = trimmed.replace(/\s*->\s*/g, ' && ');
+      for (const rgx of regexes) {
+        if (rgx.test(normalizedArrow)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    // Execute Terminal Input
+    function handleCommandSubmit() {
+      const inputEl = document.getElementById('cmdInput');
+      const rawCmd = inputEl.value;
+      const cmd = rawCmd.trim();
+      inputEl.value = '';
+      updateCaretMirror();
+
+      if (!cmd) {
+        // Just print prompt line
+        appendTerminalLine('<span class="select-none font-bold mr-2"><span style="color: var(--term-prompt-user)">student@os-lab</span>:<span style="color: var(--term-prompt-path)">~</span>$</span>');
+        return;
+      }
+
+      // Add to bash command history
+      commandHistory.push(cmd);
+      historyCursor = commandHistory.length;
+
+      // Echo command line in terminal
+      appendTerminalLine(
+        '<span class="select-none font-bold mr-2"><span style="color: var(--term-prompt-user)">student@os-lab</span>:<span style="color: var(--term-prompt-path)">~</span>$</span> ' +
+        '<span class="text-white font-mono font-semibold">' + escapeHtml(rawCmd) + '</span>'
+      );
+
+      // Handle Built-in Shell & Quiz Utilities
+      const lowerCmd = cmd.toLowerCase();
+
+      if (lowerCmd === 'clear' || lowerCmd === 'cls') {
+        clearTerminal();
+        return;
+      }
+
+      if (lowerCmd === 'help') {
+        printHelp();
+        return;
+      }
+
+      if (lowerCmd === 'hint') {
+        showHint();
+        return;
+      }
+
+      if (lowerCmd === 'solution' || lowerCmd === 'solve' || lowerCmd === 'ans' || lowerCmd === 'answer') {
+        revealSolution();
+        return;
+      }
+
+      if (lowerCmd === 'next' || lowerCmd === 'skip') {
+        nextQuestion();
+        return;
+      }
+
+      if (lowerCmd === 'prev') {
+        prevQuestion();
+        return;
+      }
+
+      if (lowerCmd === 'ls' || lowerCmd === 'dir') {
+        appendTerminalLine('<div class="text-blue-400 font-bold">' + SIMULATED_FILES.join('  ') + '</div>');
+        return;
+      }
+
+      if (lowerCmd === 'pwd') {
+        appendTerminalLine('<div>/home/student</div>');
+        return;
+      }
+
+      if (lowerCmd === 'whoami') {
+        appendTerminalLine('<div>student</div>');
+        return;
+      }
+
+      if (lowerCmd === 'date') {
+        appendTerminalLine('<div>' + new Date().toString() + '</div>');
+        // If question 57 asks for date, check it!
+      }
+
+      if (lowerCmd === 'history') {
+        let histHtml = '';
+        commandHistory.forEach((h, i) => {
+          histHtml += '<div> ' + (i + 1).toString().padStart(4, ' ') + '  ' + escapeHtml(h) + '</div>';
+        });
+        appendTerminalLine(histHtml);
+        return;
+      }
+
+      if (lowerCmd.startsWith('goto ')) {
+        const targetNum = parseInt(lowerCmd.split(' ')[1]);
+        if (!isNaN(targetNum) && targetNum >= 1 && targetNum <= QUIZ_QUESTIONS.length) {
+          jumpToQuestion(targetNum);
+          return;
+        } else {
+          appendTerminalLine('<div class="text-rose-400">bash: goto: invalid question number (1-58)</div>');
+          return;
+        }
+      }
+
+      if (lowerCmd === 'score' || lowerCmd === 'stats') {
+        appendTerminalLine(
+          '<div class="p-2 rounded bg-black/40 border border-white/10 text-xs font-mono">' +
+          '<div>⭐ Current Score: <span class="text-emerald-400 font-bold">' + score + ' XP</span></div>' +
+          '<div>🔥 Current Streak: <span class="text-orange-400 font-bold">' + streak + '</span> (Max: ' + maxStreak + ')</div>' +
+          '<div>⏱️ Elapsed Time: <span class="text-amber-400 font-bold">' + document.getElementById('timerDisplay').textContent + '</span></div>' +
+          '</div>'
+        );
+        return;
+      }
+
+      // Process Quiz Question Verification
+      const currentQ = filteredQuestions[currentIndex];
+      const qState = questionStates[currentQ.id];
+      qState.attempts++;
+      qState.lastTyped = cmd;
+
+      const isCorrect = validateCommand(cmd, currentQ);
+
+      if (isCorrect) {
+        // Correct command!
+        playSuccessSound();
+        const firstTry = (qState.status === 'pending');
+        qState.status = 'correct';
+
+        if (firstTry) {
+          score += 100;
+          streak++;
+          if (streak > maxStreak) maxStreak = streak;
+        } else if (qState.status !== 'revealed') {
+          score += 50;
+        }
+
+        updateStatsDisplay();
+
+        // Print realistic simulated output
+        appendTerminalLine(
+          '<div class="text-slate-300 font-mono whitespace-pre-wrap">' + escapeHtml(currentQ.simulated_output) + '</div>'
+        );
+
+        // Print success banner
+        appendTerminalLine(
+          '<div class="mt-2 p-2.5 rounded bg-emerald-950/70 border border-emerald-500/50 text-emerald-300 text-xs font-mono">' +
+          '<div class="font-bold flex items-center gap-1.5 text-emerald-400">✔ [SUCCESS] Correct Command Syntax! (+' + (firstTry ? 100 : 50) + ' XP)</div>' +
+          '<div class="text-slate-300 mt-1 font-sans">' + escapeHtml(currentQ.explanation) + '</div>' +
+          '<div class="text-[11px] text-emerald-400/80 mt-1.5 font-mono">👉 Type \'next\' or press [Enter] to continue to the next question.</div>' +
+          '</div>'
+        );
+
+        // Update HUD
+        loadCurrentQuestion();
+
+      } else {
+        // Incorrect command!
+        playErrorSound();
+        streak = 0;
+        updateStatsDisplay();
+        if (qState.status === 'pending') {
+          qState.status = 'attempted';
+        }
+
+        // Print realistic bash error
+        const cmdName = cmd.split(' ')[0];
+        let errorMsg = 'bash: ' + escapeHtml(cmdName) + ': command syntax does not match question requirements';
+        if (['lsb_release', 'uname', 'free', 'df', 'top', 'ps', 'grep'].includes(cmdName)) {
+          errorMsg = 'bash: ' + escapeHtml(cmd) + ': incorrect flags or arguments for this task.';
+        }
+
+        appendTerminalLine(
+          '<div class="text-rose-400 font-mono">' + errorMsg + '</div>' +
+          '<div class="mt-1 p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 text-xs font-mono">' +
+          '<div class="font-bold">✖ [INCORRECT] ลองใหม่อีกครั้ง หรือพิมพ์ \'hint\' เพื่อดูคำใบ้</div>' +
+          '<div class="text-[11px] text-slate-300 mt-0.5">💡 Hint: ' + escapeHtml(currentQ.hint) + '</div>' +
+          '</div>'
+        );
+
+        loadCurrentQuestion();
+      }
+
+      scrollTerminalToBottom();
+    }
+
+    // Terminal Output Append Helper
+    function appendTerminalLine(htmlContent) {
+      const stream = document.getElementById('historyStream');
+      const line = document.createElement('div');
+      line.className = 'term-line';
+      line.innerHTML = htmlContent;
+      stream.appendChild(line);
+      scrollTerminalToBottom();
+    }
+
+    function appendTerminalNotice(htmlContent) {
+      appendTerminalLine(htmlContent);
+    }
+
+    function clearTerminal() {
+      document.getElementById('historyStream').innerHTML = '';
+      scrollTerminalToBottom();
+    }
+
+    function scrollTerminalToBottom() {
+      const body = document.getElementById('terminalBody');
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function focusTerminalInput() {
+      const input = document.getElementById('cmdInput');
+      input.focus();
+    }
+
+    // Caret Mirror Sync
+    function updateCaretMirror() {
+      const input = document.getElementById('cmdInput');
+      const mirror = document.getElementById('caretMirrorText');
+      mirror.textContent = input.value;
+    }
+
+    // Keyboard & Terminal Controls
+    document.getElementById('cmdInput').addEventListener('input', () => {
+      playKeySound();
+      updateCaretMirror();
+    });
+
+    document.getElementById('cmdInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleCommandSubmit();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateHistory(-1);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        navigateHistory(1);
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        handleTabAutocomplete();
+      } else if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        simulateInterrupt();
+      } else if (e.ctrlKey && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        clearTerminal();
+      }
+    });
+
+    function navigateHistory(direction) {
+      if (commandHistory.length === 0) return;
+      historyCursor += direction;
+      if (historyCursor < 0) historyCursor = 0;
+      if (historyCursor >= commandHistory.length) {
+        historyCursor = commandHistory.length;
+        document.getElementById('cmdInput').value = '';
+      } else {
+        document.getElementById('cmdInput').value = commandHistory[historyCursor];
+      }
+      updateCaretMirror();
+    }
+
+    function simulateInterrupt() {
+      const input = document.getElementById('cmdInput');
+      const typed = input.value;
+      input.value = '';
+      updateCaretMirror();
+      appendTerminalLine(
+        '<span class="select-none font-bold mr-2"><span style="color: var(--term-prompt-user)">student@os-lab</span>:<span style="color: var(--term-prompt-path)">~</span>$</span> ' +
+        escapeHtml(typed) + '^C'
+      );
+      scrollTerminalToBottom();
+      focusTerminalInput();
+    }
+
+    function simulateKey(key) {
+      if (key === 'Tab') {
+        handleTabAutocomplete();
+      }
+    }
+
+    function executeQuickCommand(cmd) {
+      document.getElementById('cmdInput').value = cmd;
+      handleCommandSubmit();
+    }
+
+    // Tab Autocompletion Engine
+    const AUTOCOMPLETE_LIST = [
+      'lsb_release -a', 'uname -r', 'uname -a', 'lscpu', 'nice -n 19 sleep 100',
+      'sleep 100 &', 'kill %1', 'fg %2', 'cat /etc/passwd | grep home',
+      'uptime -p', 'cat /proc/meminfo', 'free -h', 'touch testfile.txt',
+      'mkdir testdir', 'chmod 400 secret.txt', 'sudo chown root:root rootfile.txt',
+      'ln -s original_folder symlink_folder', 'df -h', 'du -h /usr/share/dict/american-english',
+      'sudo fsck -f /dev/sda1', 'find / -name "filename.txt"', 'passwd', 'users', 'w',
+      'sudo passwd root', 'sudo adduser testuser', 'ssh username@hostname',
+      'sftp username@hostname', 'ip a', 'nslookup google.com', 'ip link show',
+      'ping -c 4 google.com', 'man man', 'head -n 10 /etc/passwd', 'tail -n 10 /etc/passwd',
+      'more /usr/share/dict/american-english', 'grep "sys" /etc/passwd',
+      'grep "land$" /usr/share/dict/american-english', 'wc -l /usr/share/dict/american-english',
+      'nano /usr/share/dict/american-english', 'hexdump -C name.txt', 'gpg -c name.txt',
+      'gcc hello.c -o hello && ./hello', 'nohup ./myprogram &', 'sudo shutdown +10',
+      'sudo shutdown -c', 'tar -czvf foldername.tar.gz foldername/',
+      'sha256sum foldername.tar.gz', 'zip -r foldername.zip foldername/',
+      'cut -d: -f1 /etc/passwd', 'lpq', 'date', 'cal',
+      '/etc/passwd', '/etc/os-release', '/proc/version', '/proc/cpuinfo', '/proc/meminfo',
+      '/usr/share/dict/american-english', 'help', 'hint', 'solution', 'clear', 'history', 'next', 'prev'
+    ];
+
+    function handleTabAutocomplete() {
+      const input = document.getElementById('cmdInput');
+      const val = input.value.trimStart();
+      if (!val) return;
+
+      const matches = AUTOCOMPLETE_LIST.filter(item => item.toLowerCase().startsWith(val.toLowerCase()));
+      if (matches.length === 1) {
+        input.value = matches[0];
+        updateCaretMirror();
+        playKeySound();
+      } else if (matches.length > 1) {
+        appendTerminalLine('<div class="text-slate-400 text-xs font-mono my-1">' + matches.join('   ') + '</div>');
+        // Find longest common prefix
+        let prefix = matches[0];
+        for (let i = 1; i < matches.length; i++) {
+          while (!matches[i].toLowerCase().startsWith(prefix.toLowerCase())) {
+            prefix = prefix.substring(0, prefix.length - 1);
+          }
+        }
+        if (prefix.length > val.length) {
+          input.value = prefix;
+          updateCaretMirror();
+        }
+      }
+    }
+
+    // Hint & Solution Helpers
+    function showHint() {
+      const q = filteredQuestions[currentIndex];
+      const box = document.getElementById('hudHintBox');
+      box.classList.remove('hidden');
+      document.getElementById('hudHintContent').textContent = q.hint;
+      appendTerminalNotice(
+        '<div class="my-1 p-2 rounded bg-amber-950/60 border border-amber-500/40 text-amber-300 text-xs font-mono">' +
+        '💡 [HINT] ' + escapeHtml(q.hint) +
+        '</div>'
+      );
+    }
+
+    function revealSolution() {
+      const q = filteredQuestions[currentIndex];
+      const qState = questionStates[q.id];
+      qState.status = 'revealed';
+
+      const box = document.getElementById('hudSolutionBox');
+      box.classList.remove('hidden');
+      document.getElementById('hudSolutionCmd').textContent = q.canonical_answer;
+      document.getElementById('hudSolutionExp').textContent = q.explanation;
+
+      appendTerminalNotice(
+        '<div class="my-1.5 p-2.5 rounded bg-slate-900 border border-rose-500/40 text-slate-200 text-xs font-mono">' +
+        '<div class="text-rose-400 font-bold">👁️ [CANONICAL ANSWER]</div>' +
+        '<div class="text-emerald-400 font-bold my-1 text-sm select-all">' + escapeHtml(q.canonical_answer) + '</div>' +
+        '<div class="text-slate-300 text-xs font-sans">' + escapeHtml(q.explanation) + '</div>' +
+        '</div>'
+      );
+
+      loadCurrentQuestion();
+    }
+
+    function printHelp() {
+      appendTerminalNotice(
+        '<div class="p-3 my-2 rounded bg-black/60 border border-white/10 text-xs font-mono space-y-1.5">' +
+        '<div class="text-emerald-400 font-bold text-sm">🐧 LINUX TERMINAL QUIZ HELP & COMMANDS</div>' +
+        '<div><span class="text-amber-400 font-bold">hint</span> : แสดงคำใบ้ของโจทย์ข้อปัจจุบัน</div>' +
+        '<div><span class="text-amber-400 font-bold">solution</span> / <span class="text-amber-400 font-bold">solve</span> : แสดงเฉลยคำสั่งที่ถูกต้องและคำอธิบายภาษาไทย</div>' +
+        '<div><span class="text-amber-400 font-bold">next</span> / <span class="text-amber-400 font-bold">prev</span> : ข้ามไปข้อถัดไป หรือย้อนกลับข้อก่อนหน้า</div>' +
+        '<div><span class="text-amber-400 font-bold">goto &lt;num&gt;</span> : กระโดดไปยังข้อที่ระบุ (1-58) เช่น goto 15</div>' +
+        '<div><span class="text-amber-400 font-bold">score</span> : ดูคะแนน, ความแม่นยำ และ streak ล่าสุด</div>' +
+        '<div><span class="text-amber-400 font-bold">clear</span> : ล้างหน้าจอเทอร์มินัล (หรือกด Ctrl+L)</div>' +
+        '<div><span class="text-amber-400 font-bold">ls / pwd / whoami</span> : คำสั่งพื้นฐานจำลองของ Linux</div>' +
+        '<div class="text-slate-400 pt-1">⌨️ Shortcuts: [Tab] Autocomplete, [↑/↓] Command History, [Ctrl+C] Cancel line</div>' +
+        '</div>'
+      );
+    }
+
+    // Stats Display
+    function updateStatsDisplay() {
+      document.getElementById('statScore').textContent = score;
+      document.getElementById('statStreak').textContent = streak;
+    }
+
+    // Check Completion
+    function checkCompletion() {
+      const solvedCount = Object.values(questionStates).filter(s => s.status === 'correct').length;
+      if (solvedCount === filteredQuestions.length) {
+        document.getElementById('compScore').textContent = score;
+        const accuracy = Math.round((solvedCount / Math.max(1, solvedCount + Object.values(questionStates).filter(s => s.status === 'attempted').length)) * 100);
+        document.getElementById('compAccuracy').textContent = accuracy + '%';
+        document.getElementById('compTime').textContent = document.getElementById('timerDisplay').textContent;
+        document.getElementById('modalCompletion').classList.remove('hidden');
+      }
+    }
+
+    function restartQuiz() {
+      initQuestionStates();
+      score = 0;
+      streak = 0;
+      maxStreak = 0;
+      timerSeconds = 0;
+      updateStatsDisplay();
+      currentIndex = 0;
+      document.getElementById('modalCompletion').classList.add('hidden');
+      clearTerminal();
+      loadCurrentQuestion();
+    }
+
+    // Grid Modal Rendering
+    function renderGridButtons() {
+      const container = document.getElementById('gridButtonsContainer');
+      container.innerHTML = '';
+      let solved = 0;
+
+      filteredQuestions.forEach((q, idx) => {
+        const state = questionStates[q.id] || { status: 'pending' };
+        if (state.status === 'correct') solved++;
+
+        const btn = document.createElement('button');
+        btn.textContent = (idx + 1).toString();
+        btn.className = 'h-9 rounded-lg font-bold flex items-center justify-center transition border ';
+
+        if (idx === currentIndex) {
+          btn.className += 'ring-2 ring-white scale-105 ';
+        }
+
+        if (state.status === 'correct') {
+          btn.className += 'bg-emerald-600/80 hover:bg-emerald-500 text-white border-emerald-500 ';
+        } else if (state.status === 'revealed') {
+          btn.className += 'bg-amber-600/80 hover:bg-amber-500 text-white border-amber-500 ';
+        } else if (state.status === 'attempted') {
+          btn.className += 'bg-rose-600/80 hover:bg-rose-500 text-white border-rose-500 ';
+        } else {
+          btn.className += 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700 ';
+        }
+
+        btn.onclick = () => {
+          currentIndex = idx;
+          loadCurrentQuestion();
+          document.getElementById('modalGrid').classList.add('hidden');
+        };
+
+        container.appendChild(btn);
+      });
+
+      document.getElementById('gridProgressText').textContent = solved + '/' + filteredQuestions.length;
+    }
+
+    // Cheat Sheet Modal Rendering
+    function renderCheatSheet(filterTerm = '') {
+      const tbody = document.getElementById('cheatTableBody');
+      tbody.innerHTML = '';
+      const lowerFilter = filterTerm.toLowerCase();
+
+      QUIZ_QUESTIONS.forEach(q => {
+        if (lowerFilter && !q.question.toLowerCase().includes(lowerFilter) && !q.canonical_answer.toLowerCase().includes(lowerFilter) && !q.section.toLowerCase().includes(lowerFilter)) {
+          return;
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/5 transition';
+        tr.innerHTML = 
+          '<td class="py-2.5 px-2 text-slate-400 font-bold">' + q.id + '</td>' +
+          '<td class="py-2.5 px-2 text-[11px] text-blue-300">' + escapeHtml(q.section.replace('Quiz ', '')) + '</td>' +
+          '<td class="py-2.5 px-2 text-white">' + escapeHtml(q.question) + '</td>' +
+          '<td class="py-2.5 px-2 text-emerald-400 font-bold select-all">' + escapeHtml(q.canonical_answer) + '</td>' +
+          '<td class="py-2.5 px-2 text-center">' +
+          '<button onclick="jumpToAndFill(' + q.id + ', \'' + escapeAttr(q.canonical_answer) + '\')" class="px-2 py-1 rounded bg-indigo-600/60 hover:bg-indigo-500 text-white text-[10px] transition">' +
+          'Run' +
+          '</button>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function jumpToAndFill(globalId, commandText) {
+      document.getElementById('modalCheatSheet').classList.add('hidden');
+      jumpToQuestion(globalId);
+      const cleanCmd = commandText.replace(/\s*\(.*?\)/g, '').trim();
+      document.getElementById('cmdInput').value = cleanCmd;
+      updateCaretMirror();
+      focusTerminalInput();
+    }
+
+    // HTML Escape Helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/'/g, "\\'");
+    }
+
+    // Global Event Listeners
+    document.getElementById('topicSelect').addEventListener('change', (e) => {
+      applyTopicFilter(e.target.value);
+    });
+
+    document.getElementById('themeSelect').addEventListener('change', (e) => {
+      document.body.className = e.target.value + ' min-h-screen flex flex-col';
+    });
+
+    document.getElementById('btnSound').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+    });
+
+    document.getElementById('btnCrt').addEventListener('click', () => {
+      document.getElementById('terminalWindow').classList.toggle('crt-effect');
+    });
+
+    document.getElementById('btnOpenGrid').addEventListener('click', () => {
+      renderGridButtons();
+      document.getElementById('modalGrid').classList.remove('hidden');
+    });
+
+    document.getElementById('btnCloseGrid').addEventListener('click', () => {
+      document.getElementById('modalGrid').classList.add('hidden');
+    });
+
+    document.getElementById('btnCheatSheet').addEventListener('click', () => {
+      renderCheatSheet();
+      document.getElementById('modalCheatSheet').classList.remove('hidden');
+    });
+
+    document.getElementById('btnCloseCheatSheet').addEventListener('click', () => {
+      document.getElementById('modalCheatSheet').classList.add('hidden');
+    });
+
+    document.getElementById('cheatSearchInput').addEventListener('input', (e) => {
+      renderCheatSheet(e.target.value);
+    });
+
+    // Window controls
+    document.getElementById('winBtnClose').addEventListener('click', () => {
+      if (confirm('ต้องการกลับไปยังหน้าหลัก MCQ Exam หรือไม่?')) {
+        window.location.href = 'index.html';
+      }
+    });
+
+    document.getElementById('winBtnMinimize').addEventListener('click', () => {
+      clearTerminal();
+    });
+
+    document.getElementById('winBtnMaximize').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // HUD Button Handlers
+    document.getElementById('btnHudHint').addEventListener('click', showHint);
+    document.getElementById('btnCloseHint').addEventListener('click', () => {
+      document.getElementById('hudHintBox').classList.add('hidden');
+    });
+
+    document.getElementById('btnHudSolve').addEventListener('click', revealSolution);
+    document.getElementById('btnCloseSolution').addEventListener('click', () => {
+      document.getElementById('hudSolutionBox').classList.add('hidden');
+    });
+
+    document.getElementById('btnHudPrev').addEventListener('click', prevQuestion);
+    document.getElementById('btnHudNext').addEventListener('click', nextQuestion);
+
+    // Keyboard Shortcuts (Alt+Left/Right for nav)
+    window.addEventListener('keydown', (e) => {
+      if (e.altKey && e.key === 'ArrowRight') {
+        nextQuestion();
+      } else if (e.altKey && e.key === 'ArrowLeft') {
+        prevQuestion();
+      }
+    });
+
+    // Initialize on Page Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initQuestionStates();
+      applyTopicFilter('all');
+      startTimer();
+      focusTerminalInput();
+      updateCaretMirror();
+    });
+  </script>
+
+</body>
+</html>

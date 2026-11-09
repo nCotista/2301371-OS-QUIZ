@@ -31,12 +31,20 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 
 ### 🐧 Linux Commands Lab Quizzes (138 Questions)
 - **🐧 Linux Commands Lab Quiz 1** (58 questions across 7 topics: Process, Memory, Storage, Permissions, Network, Utilities)
+  - 🖥️ **Interactive Terminal Simulator (`terminal.html`)**: Type actual Linux commands with real syntax, tab autocompletion, authentic bash output, hints, and cheat sheets!
 - **🐧 Linux Commands Lab Quiz 2** (80 questions across 4 topics: Linux Commands Review, OS Concepts Review, Essential Commands, System & File Utilities)
 
 ---
 
 ## ✨ Features
-- **Zero Dependencies / Standalone**: Built entirely into a single, self-contained `index.html` file. No backend or build step required.
+- **🐧 Real Linux Terminal Simulator (`terminal.html`)**:
+  - **Live Command Typing**: Type authentic Linux commands (Ubuntu / Bash syntax) directly into an interactive terminal prompt.
+  - **Realistic Terminal Aesthetics**: Ubuntu Aubergine, Matrix Green CRT, Cyberpunk Amber, Dracula, Nord, and VS Code themes with CRT scanline simulation.
+  - **Syntax Validation & Authentic Output**: Accepts canonical commands, flexible flags, quotes, and valid alternatives with real bash output.
+  - **Rich Terminal Features**: Command history (`↑`/`↓`), `[Tab]` autocompletion, `[Ctrl+C]` interrupt, `clear`, `ls`, `help`, progressive hints, and Thai explanations.
+  - **58 Lab Questions Grid & Searchable Cheat Sheet**: Quick navigator and complete command reference.
+  - **Synthetic Audio Effects**: Mechanical keyboard clatter, success chimes, and Linux terminal bell (pure Web Audio API, zero external assets).
+- **Zero Dependencies / Standalone**: Built entirely into self-contained HTML files (`index.html` and `terminal.html`). No backend or build step required.
 - **Chapter & Section Selectors**: Interactive button bars allow you to filter questions by specific chapter and section (e.g. Textbook Concepts, Exam Review, or specific Linux command sets).
 - **Course Explorer**: Quick overview modal showing question counts and topic breakdowns.
 - **Instant Feedback**: Immediate color-coded feedback (green for correct, red for incorrect) with detailed explanations and textbook citations.

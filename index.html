@@ -88,6 +88,13 @@
 
       <!-- Quick Action Controls -->
       <div class="flex items-center space-x-2">
+        <!-- Linux Terminal Simulator Button -->
+        <a href="terminal.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-600/60 transition shadow-sm" title="ฝึกพิมพ์คำสั่ง Linux บนเทอร์มินัลจริง (58 ข้อ)">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="font-mono text-xs">$_</span>
+          <span class="hidden sm:inline">Terminal Quiz</span> (58 ข้อ)
+        </a>
+
         <!-- Explorer Modal Button -->
         <button id="btnOpenExplorer" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-950/60 hover:bg-indigo-900/80 text-indigo-300 border border-indigo-700/60 transition shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -826,11 +833,23 @@
 
         let totalCh = Object.values(ch.sections).reduce((a, b) => a + b, 0);
 
+        let terminalLinkHtml = '';
+        if (ch.id === 9 || String(ch.title).includes('Linux Commands Quiz')) {
+          terminalLinkHtml = `
+            <a href="terminal.html" 
+              class="px-3 py-1 rounded-lg text-xs font-heading font-medium bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/50 transition inline-flex items-center gap-1.5 shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>🐧 เปิดใน Interactive Terminal (พิมพ์คำสั่งจริง 58 ข้อ)</span>
+            </a>
+          `;
+        }
+
         let secButtonsHtml = `
           <button onclick="selectChapter('${ch.id}'); document.getElementById('explorerModal').classList.add('hidden');" 
             class="px-3 py-1 rounded-lg text-xs font-heading font-medium bg-blue-600/20 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 transition">
             ทำทั้งหมดในบทนี้ (${totalCh} ข้อ)
           </button>
+          ${terminalLinkHtml}
         `;
 
         Object.keys(ch.sections).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).forEach(secName => {
