@@ -8,31 +8,23 @@ An interactive, responsive single-page web application for practicing Midterm Mu
 
 ---
 
-## 📚 Scope & Content (454 Total Questions)
-### 📘 Midterm Exam Review (Set 1 - 206 Questions)
-- **Chapter 1: Introduction** (41 questions)
-- **Chapter 2: Operating-System Structures** (53 questions)
-- **Chapter 3: Processes** (21 questions)
-- **Chapter 4: Threads & Concurrency** (35 questions)
-- **Chapter 5: CPU Scheduling** (20 questions)
-- **Chapter 6: Synchronization Tools** (15 questions)
-- **Chapter 7: Synchronization Examples** (6 questions)
-- **Chapter 8: Deadlocks** (15 questions)
+## 📚 Scope & Content (542 Total Questions)
+### 📘 Big Section 1: Midterm Exam & Linux Labs (454 Questions)
+- **Midterm Exam Review (Set 1 - 206 Questions)**: Chapters 1–8
+- **Midterm Exam Practice (Set 2 & 3 - 110 Questions)**: Chapters 1–6, 8
+- **🐧 Linux Commands Lab Quizzes (138 Questions)**:
+  - **🐧 Linux Commands Lab Quiz 1** (58 questions across 7 topics) — plus 🖥️ **Interactive Terminal Simulator (`terminal.html`)**
+  - **🐧 Linux Commands Lab Quiz 2** (80 questions across 4 topics)
 
-### ⚡ Midterm Exam Practice (Set 2 & 3 - 110 Questions)
-- **Chapter 1: Introduction 2** (15 questions)
-- **Chapter 1: Introduction 3** (20 questions)
-- **Chapter 2: Operating-System Structures 2** (15 questions)
-- **Chapter 3: Processes 2** (15 questions)
-- **Chapter 4: Threads & Concurrency 2** (10 questions)
-- **Chapter 5: CPU Scheduling 2** (10 questions)
-- **Chapter 6: Synchronization 2** (15 questions)
-- **Chapter 8: Deadlocks 2** (10 questions)
-
-### 🐧 Linux Commands Lab Quizzes (138 Questions)
-- **🐧 Linux Commands Lab Quiz 1** (58 questions across 7 topics: Process, Memory, Storage, Permissions, Network, Utilities)
-  - 🖥️ **Interactive Terminal Simulator (`terminal.html`)**: Type actual Linux commands with real syntax, tab autocompletion, authentic bash output, hints, and cheat sheets!
-- **🐧 Linux Commands Lab Quiz 2** (80 questions across 4 topics: Linux Commands Review, OS Concepts Review, Essential Commands, System & File Utilities)
+### 🎓 Big Section 2: Final Exam (88 Questions — Split by Chapter)
+- **Chapter 8: Main Memory** (20 questions)
+- **Chapter 9: Virtual Memory** (20 questions)
+- **Chapter 10: Mass-Storage Structure** (10 questions)
+- **Chapter 11: File-System Interface** (9 questions)
+- **Chapter 12: File-System Implementation** (10 questions)
+- **Chapter 13: I/O Systems** (9 questions)
+- **Chapter 14: Protection** (5 questions)
+- **Chapter 15: Security** (5 questions)
 
 ---
 
