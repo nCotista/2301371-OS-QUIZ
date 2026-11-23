@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>🐧 Linux Commands Lab Quiz 1: Interactive Terminal Simulator (58 Questions)</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1579,23 +1578,20 @@
       renderGridButtons();
     }
 
-    // Load Question at currentIndex
-    function loadCurrentQuestion() {
-      if (filteredQuestions.length === 0) return;
-      if (currentIndex >= filteredQuestions.length) currentIndex = 0;
-      if (currentIndex < 0) currentIndex = filteredQuestions.length - 1;
+    let readyForNextOnEnter = false;
 
+    // Update HUD badges & grid without clearing hint/solution boxes or re-printing terminal banner
+    function updateQuestionHud() {
+      if (filteredQuestions.length === 0) return;
       const q = filteredQuestions[currentIndex];
       const state = questionStates[q.id] || { status: 'pending', attempts: 0 };
 
-      // Update HUD elements
       document.getElementById('hudBadgeTopic').textContent = q.section;
       document.getElementById('hudBadgeNum').textContent = 'Question ' + (currentIndex + 1) + ' of ' + filteredQuestions.length + ' (ID: #' + q.id + ')';
       document.getElementById('hudQuestionText').textContent = q.question;
       document.getElementById('statQIndex').textContent = currentIndex + 1;
       document.getElementById('statQTotal').textContent = filteredQuestions.length;
 
-      // Status pill
       const statusPill = document.getElementById('hudStatusPill');
       if (state.status === 'correct') {
         statusPill.textContent = '✔ SOLVED';
@@ -1611,17 +1607,27 @@
         statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300';
       }
 
-      // Hide hint & solution boxes when switching
-      document.getElementById('hudHintBox').classList.add('hidden');
-      document.getElementById('hudSolutionBox').classList.add('hidden');
-
-      // Populate hint & solution contents
       document.getElementById('hudHintContent').textContent = q.hint;
       document.getElementById('hudSolutionCmd').textContent = q.canonical_answer;
       document.getElementById('hudSolutionExp').textContent = q.explanation;
 
-      // Update Grid Buttons
       renderGridButtons();
+    }
+
+    // Load Question at currentIndex
+    function loadCurrentQuestion() {
+      if (filteredQuestions.length === 0) return;
+      if (currentIndex >= filteredQuestions.length) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = filteredQuestions.length - 1;
+
+      readyForNextOnEnter = false;
+      const q = filteredQuestions[currentIndex];
+
+      // Hide hint & solution boxes when switching to a question
+      document.getElementById('hudHintBox').classList.add('hidden');
+      document.getElementById('hudSolutionBox').classList.add('hidden');
+
+      updateQuestionHud();
 
       // Print announcement in terminal
       appendTerminalNotice(
@@ -1716,6 +1722,10 @@
       updateCaretMirror();
 
       if (!cmd) {
+        if (readyForNextOnEnter) {
+          nextQuestion();
+          return;
+        }
         // Just print prompt line
         appendTerminalLine('<span class="select-none font-bold mr-2"><span style="color: var(--term-prompt-user)">student@os-lab</span>:<span style="color: var(--term-prompt-path)">~</span>$</span>');
         return;
@@ -1779,9 +1789,11 @@
         return;
       }
 
-      if (lowerCmd === 'date') {
-        appendTerminalLine('<div>' + new Date().toString() + '</div>');
-        // If question 57 asks for date, check it!
+      const currentQ = filteredQuestions[currentIndex];
+
+      if (lowerCmd === 'date' && (!currentQ || currentQ.id !== 57)) {
+        appendTerminalLine('<div>' + escapeHtml(new Date().toString()) + '</div>');
+        return;
       }
 
       if (lowerCmd === 'history') {
@@ -1816,7 +1828,7 @@
       }
 
       // Process Quiz Question Verification
-      const currentQ = filteredQuestions[currentIndex];
+      if (!currentQ) return;
       const qState = questionStates[currentQ.id];
       qState.attempts++;
       qState.lastTyped = cmd;
@@ -1826,40 +1838,48 @@
       if (isCorrect) {
         // Correct command!
         playSuccessSound();
-        const firstTry = (qState.status === 'pending');
+        const prevStatus = qState.status;
         qState.status = 'correct';
 
-        if (firstTry) {
+        let gainedXp = 0;
+        if (prevStatus === 'pending') {
+          gainedXp = 100;
           score += 100;
           streak++;
           if (streak > maxStreak) maxStreak = streak;
-        } else if (qState.status !== 'revealed') {
+        } else if (prevStatus === 'attempted') {
+          gainedXp = 50;
           score += 50;
         }
 
+        readyForNextOnEnter = true;
         updateStatsDisplay();
 
-        // Print realistic simulated output
+        // Print realistic simulated output (live date for Q57)
+        const simOut = (currentQ.id === 57) ? new Date().toString() : currentQ.simulated_output;
         appendTerminalLine(
-          '<div class="text-slate-300 font-mono whitespace-pre-wrap">' + escapeHtml(currentQ.simulated_output) + '</div>'
+          '<div class="text-slate-300 font-mono whitespace-pre-wrap">' + escapeHtml(simOut) + '</div>'
         );
 
         // Print success banner
+        const xpBadge = gainedXp > 0 ? ' (+' + gainedXp + ' XP)' : ' (Already solved / revealed)';
         appendTerminalLine(
           '<div class="mt-2 p-2.5 rounded bg-emerald-950/70 border border-emerald-500/50 text-emerald-300 text-xs font-mono">' +
-          '<div class="font-bold flex items-center gap-1.5 text-emerald-400">✔ [SUCCESS] Correct Command Syntax! (+' + (firstTry ? 100 : 50) + ' XP)</div>' +
+          '<div class="font-bold flex items-center gap-1.5 text-emerald-400">✔ [SUCCESS] Correct Command Syntax!' + xpBadge + '</div>' +
           '<div class="text-slate-300 mt-1 font-sans">' + escapeHtml(currentQ.explanation) + '</div>' +
           '<div class="text-[11px] text-emerald-400/80 mt-1.5 font-mono">👉 Type \'next\' or press [Enter] to continue to the next question.</div>' +
           '</div>'
         );
 
-        // Update HUD
-        loadCurrentQuestion();
+        // Update HUD cleanly without reprinting banner or hiding boxes
+        updateQuestionHud();
+        checkCompletion();
 
       } else {
         // Incorrect command!
         playErrorSound();
         streak = 0;
+        readyForNextOnEnter = false;
         updateStatsDisplay();
         if (qState.status === 'pending') {
           qState.status = 'attempted';
@@ -1880,7 +1900,7 @@
           '</div>'
         );
 
-        loadCurrentQuestion();
+        updateQuestionHud();
       }
 
       scrollTerminalToBottom();
@@ -1915,20 +1935,25 @@
       input.focus();
     }
 
-    // Caret Mirror Sync
+    // Caret Mirror Sync (tracks real selectionStart position)
     function updateCaretMirror() {
       const input = document.getElementById('cmdInput');
       const mirror = document.getElementById('caretMirrorText');
-      mirror.textContent = input.value;
+      const pos = (typeof input.selectionStart === 'number') ? input.selectionStart : input.value.length;
+      mirror.textContent = input.value.slice(0, pos);
     }
 
     // Keyboard & Terminal Controls
-    document.getElementById('cmdInput').addEventListener('input', () => {
+    const cmdInputEl = document.getElementById('cmdInput');
+    cmdInputEl.addEventListener('input', () => {
       playKeySound();
       updateCaretMirror();
     });
+    cmdInputEl.addEventListener('keyup', updateCaretMirror);
+    cmdInputEl.addEventListener('click', updateCaretMirror);
+    cmdInputEl.addEventListener('select', updateCaretMirror);
 
-    document.getElementById('cmdInput').addEventListener('keydown', (e) => {
+    cmdInputEl.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         handleCommandSubmit();
@@ -2050,8 +2075,11 @@
 
     function revealSolution() {
       const q = filteredQuestions[currentIndex];
+      if (!q) return;
       const qState = questionStates[q.id];
-      qState.status = 'revealed';
+      if (qState.status !== 'correct') {
+        qState.status = 'revealed';
+      }
 
       const box = document.getElementById('hudSolutionBox');
       box.classList.remove('hidden');
@@ -2066,7 +2094,7 @@
         '</div>'
       );
 
-      loadCurrentQuestion();
+      updateQuestionHud();
     }
 
     function printHelp() {
@@ -2091,13 +2119,15 @@
       document.getElementById('statStreak').textContent = streak;
     }
 
-    // Check Completion
+    // Check Completion (scoped to current topic filter)
     function checkCompletion() {
-      const solvedCount = Object.values(questionStates).filter(s => s.status === 'correct').length;
+      if (filteredQuestions.length === 0) return;
+      const solvedCount = filteredQuestions.filter(q => questionStates[q.id]?.status === 'correct').length;
       if (solvedCount === filteredQuestions.length) {
+        const totalAttempts = filteredQuestions.reduce((acc, q) => acc + (questionStates[q.id]?.attempts || 0), 0);
         document.getElementById('compScore').textContent = score;
-        const accuracy = Math.round((solvedCount / Math.max(1, solvedCount + Object.values(questionStates).filter(s => s.status === 'attempted').length)) * 100);
-        document.getElementById('compAccuracy').textContent = accuracy + '%';
+        const accuracy = Math.round((solvedCount / Math.max(1, totalAttempts)) * 100);
+        document.getElementById('compAccuracy').textContent = Math.min(100, accuracy) + '%';
         document.getElementById('compTime').textContent = document.getElementById('timerDisplay').textContent;
         document.getElementById('modalCompletion').classList.remove('hidden');
       }
@@ -2175,7 +2205,7 @@
           '<td class="py-2.5 px-2 text-white">' + escapeHtml(q.question) + '</td>' +
           '<td class="py-2.5 px-2 text-emerald-400 font-bold select-all">' + escapeHtml(q.canonical_answer) + '</td>' +
           '<td class="py-2.5 px-2 text-center">' +
-          '<button onclick="jumpToAndFill(' + q.id + ', \'' + escapeAttr(q.canonical_answer) + '\')" class="px-2 py-1 rounded bg-indigo-600/60 hover:bg-indigo-500 text-white text-[10px] transition">' +
+          '<button onclick="jumpToAndFill(' + q.id + ')" class="px-2 py-1 rounded bg-indigo-600/60 hover:bg-indigo-500 text-white text-[10px] transition">' +
           'Run' +
           '</button>' +
           '</td>';
@@ -2183,11 +2213,14 @@
       });
     }
 
-    function jumpToAndFill(globalId, commandText) {
+    function jumpToAndFill(globalId) {
+      const q = QUIZ_QUESTIONS.find(item => item.id === globalId);
+      if (!q) return;
       document.getElementById('modalCheatSheet').classList.add('hidden');
       jumpToQuestion(globalId);
-      const cleanCmd = commandText.replace(/\s*\(.*?\)/g, '').trim();
-      document.getElementById('cmdInput').value = cleanCmd;
+      const cleanCmd = q.canonical_answer.replace(/\s*\(.*?\)/g, '').trim();
+      const inputEl = document.getElementById('cmdInput');
+      inputEl.value = cleanCmd;
       updateCaretMirror();
       focusTerminalInput();
     }
@@ -2233,6 +2266,13 @@
 
     document.getElementById('btnCloseGrid').addEventListener('click', () => {
       document.getElementById('modalGrid').classList.add('hidden');
+      focusTerminalInput();
+    });
+    document.getElementById('modalGrid').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.classList.add('hidden');
+        focusTerminalInput();
+      }
     });
 
     document.getElementById('btnCheatSheet').addEventListener('click', () => {
@@ -2242,6 +2282,13 @@
 
     document.getElementById('btnCloseCheatSheet').addEventListener('click', () => {
       document.getElementById('modalCheatSheet').classList.add('hidden');
+      focusTerminalInput();
+    });
+    document.getElementById('modalCheatSheet').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.classList.add('hidden');
+        focusTerminalInput();
+      }
     });
 
     document.getElementById('cheatSearchInput').addEventListener('input', (e) => {
@@ -2281,8 +2328,15 @@
     document.getElementById('btnHudPrev').addEventListener('click', prevQuestion);
     document.getElementById('btnHudNext').addEventListener('click', nextQuestion);
 
-    // Keyboard Shortcuts (Alt+Left/Right for nav)
+    // Keyboard Shortcuts (Escape to close modals, Alt+Left/Right for nav)
     window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('modalGrid').classList.add('hidden');
+        document.getElementById('modalCheatSheet').classList.add('hidden');
+        document.getElementById('modalCompletion').classList.add('hidden');
+        focusTerminalInput();
+        return;
+      }
       if (e.altKey && e.key === 'ArrowRight') {
         nextQuestion();
       } else if (e.altKey && e.key === 'ArrowLeft') {
